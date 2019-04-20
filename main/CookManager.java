@@ -21,7 +21,8 @@ import javax.swing.KeyStroke;
 @SuppressWarnings("serial")
 public class CookManager extends JFrame {
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	public JPanel gui;
+	
+	public JPanel guiMain, guiList;
 	
 	public CookManager() {
 		super("CookFood");
@@ -32,8 +33,10 @@ public class CookManager extends JFrame {
 
 		setFocusTraversalKeysEnabled(false);
 
-		gui = new PnlMain();
-		add(gui, BorderLayout.CENTER);
+		guiMain = new PnlMain();
+		guiList = new PnlRecipeList();
+		add(guiMain, BorderLayout.WEST);
+		add(guiList, BorderLayout.EAST);
 		
 		createMenuBar();
 		setVisible(true);
@@ -60,7 +63,7 @@ public class CookManager extends JFrame {
 		});
 		
 		JMenuItem save = createMenuItem("Save As...", KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK),	
-				"Saves the Current Recipe", Icons.FLOPPY_DISK);
+				"Saves the Current Recipe", Icons.SAVE);
 		save.addActionListener((ActionEvent event) -> {
 			//Do stuff here
 		});

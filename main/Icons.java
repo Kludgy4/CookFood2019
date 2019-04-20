@@ -6,10 +6,10 @@ import javax.imageio.ImageIO;
 
 public enum Icons {
 	FILE("file"),
-	FLOPPY_DISK("floppy_disk"),
 	EXPORT("export"),
 	EXIT("exit"),
 	OPEN("open"),
+	SAVE("save"),
 	TEMP("404");
 	
 
