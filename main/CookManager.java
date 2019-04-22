@@ -1,11 +1,16 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -21,34 +26,48 @@ import javax.swing.KeyStroke;
 @SuppressWarnings("serial")
 public class CookManager extends JFrame {
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+	public static Dimension frameSize = new Dimension();
 	
 	public JPanel guiMain, guiList;
 	
 	public CookManager() {
 		super("CookFood");
-		setBounds(0, 0, screenSize.width / 2, screenSize.height / 2);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+		//Sets and tracks the size of the Frame during program use
+		addComponentListener(new ComponentAdapter() {  
+	        public void componentResized(ComponentEvent e) {
+	            Component c = (Component)e.getSource();
+	            frameSize.setSize(c.getWidth(), c.getHeight());
+	            redraw();
+	        }
+        });
+		addWindowStateListener(new WindowStateListener() {
+			public void windowStateChanged(WindowEvent e) {
+				Component c = (Component)e.getSource();
+	            frameSize.setSize(c.getWidth(), c.getHeight());
+	            redraw();
+			}
+		});
 
+		//Other miscellaneous setup tasks
 		getContentPane().setBackground(CookSettings.colRed);
-
-		setFocusTraversalKeysEnabled(false);
-
+		
+		//Constructs the frame for displaying
 		guiMain = new PnlMain();
 		guiList = new PnlRecipeList();
 		add(guiMain, BorderLayout.WEST);
 		add(guiList, BorderLayout.EAST);
-		
 		createMenuBar();
+		
+		//Displays the frame to the user
+		setBounds(10, 10, screenSize.width / 2, screenSize.height /2);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
+		frameSize = screenSize;
+		redraw();
+		
 	}
 
-	protected void processWindowEvent(final WindowEvent e) {
-		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-			System.out.println("Terminating Program");
-			this.dispose();
-		}
-	}
-	
 	public void createMenuBar() {
 		JMenuBar menubar = new JMenuBar();
 
@@ -110,5 +129,19 @@ public class CookManager extends JFrame {
 		if (keyboardShortcut != null) item.setAccelerator(keyboardShortcut);
 		item.setToolTipText(tip);
 		return item;
+	}
+	
+	public void redraw() {
+        guiMain.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.6), (int)(CookManager.frameSize.getHeight())));
+        guiMain.repaint();
+        guiList.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.4), (int)(CookManager.frameSize.getHeight())));
+        guiList.repaint();
+	}
+	
+	protected void processWindowEvent(final WindowEvent e) {
+		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+			System.out.println("Terminating Program");
+			this.dispose();
+		}
 	}
 }
