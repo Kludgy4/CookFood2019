@@ -4,7 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -46,7 +51,7 @@ public class PnlMain extends JPanel {
 	    
 	    
 	    if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
-	       saveDirectory = chooser.getSelectedFile().toString() + fileExtension;
+	       saveDirectory = chooser.getSelectedFile().toString() + "." + fileExtension;
 	    } else {
 	    	
 	    }
@@ -92,6 +97,24 @@ public class PnlMain extends JPanel {
 	}
 
 	public void saveList(File saveLocation, ArrayList<Ingredient> arrangedIngredients) {
-		
+		try {
+			FileWriter writer = new FileWriter(saveLocation);
+			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+			Date dateobj = new Date();
+			writer.append("----------------------------------------" + "\n");
+			writer.append("Shopping List Generated " + df.format(dateobj) + "\n");
+			writer.append("----------------------------------------" + "\n");
+			for (Ingredient i : arrangedIngredients) {
+				if (i.quantity > 1) {
+					writer.append(i.quantity + " " + i.quantityType.getMultipleType() + " of " + i.name + "\n");
+				} else {
+					writer.append(i.quantity + " " + i.quantityType.getSingularType() + " of " + i.name + "\n");
+				}
+			}
+			writer.append("----------------------------------------");
+			
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {e.printStackTrace();}
 	}
 }

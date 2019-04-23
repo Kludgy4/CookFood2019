@@ -1,7 +1,5 @@
 package main;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.UIManager;
@@ -23,13 +21,7 @@ public class CookMain {
 		}
 
 		//app = new CookManager();
-		PnlRecipe test = new PnlRecipe();
-		for (Recipe r : test.retrieveRecipes()) {
-			System.out.println(r.ingredients.get(0).quantityType.getType());
-		}
-	}
-	
-	public void testingCode() {
+		
 		ArrayList<Recipe> test = new ArrayList<>();
 		Recipe test1 = new Recipe();
 		Ingredient test11 = new Ingredient();
@@ -43,7 +35,7 @@ public class CookMain {
 		Ingredient test13 = new Ingredient();
 		test13.name = "Thyme";
 		test13.quantity = 3;
-		test13.quantityType = QuantityType.GRAMS;
+		test13.quantityType = QuantityType.KILOGRAMS;
 		test1.ingredients.add(test11);
 		test1.ingredients.add(test12);
 		test1.ingredients.add(test13);
@@ -51,16 +43,16 @@ public class CookMain {
 		Recipe test2 = new Recipe();
 		Ingredient test21 = new Ingredient();
 		test21.name = "Carrot";
-		test21.quantity = 100;
+		test21.quantity = 42;
 		test21.quantityType = QuantityType.SMIDGENS;
 		Ingredient test22 = new Ingredient();
 		test22.name = "Meat";
-		test22.quantity = 1;
-		test22.quantityType = QuantityType.KILOGRAMS;
+		test22.quantity = 35;
+		test22.quantityType = QuantityType.DRAMS;
 		Ingredient test23 = new Ingredient();
-		test23.name = "iuiuoh";
-		test23.quantity = 0;
-		test23.quantityType = QuantityType.TABLESPOONS;
+		test23.name = "Shrimp";
+		test23.quantity = 4;
+		test23.quantityType = QuantityType.LITRES;
 		test2.ingredients.add(test21);
 		test2.ingredients.add(test22);
 		test2.ingredients.add(test23);
@@ -73,10 +65,8 @@ public class CookMain {
 		test.add(test1);
 		test.add(test2);
 		
-		/*for (Ingredient i : PnlMain.arrangeIngredients(test)) {
-			System.out.print(i.name + ", ");
-		}*/
-		PnlRecipe test3 = new PnlRecipe(test1);
-		test3 = new PnlRecipe(test2);
+		PnlMain foo = new PnlMain();
+		foo.generateShoppingList(test);
 	}
+	
 }

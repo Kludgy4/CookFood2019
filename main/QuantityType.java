@@ -2,25 +2,32 @@ package main;
 
 public enum QuantityType {
 	//Mass
-	GRAMS("Grams"), KILOGRAMS("Kilograms"), OUNCES("Ounces"), POUNDS("Pounds"), 
+	GRAMS("Gram", "Grams"), KILOGRAMS("Kilogram", "Kilograms"), OUNCES("Ounce", "Ounces"), POUNDS("Pound", "Pounds"), 
 	
 	//Volume
-	MILLILITRES("Millilitres"), LITRES("Litres"), PINTS("Pints"), GALLONS("Gallons"),
-	DROPS("Drops"), SMIDGENS("Smidgens"), PINCHES("Pinches"), DASHES("Dashes"), SALTSPOONS("Saltspoons"), SCRUPLES("Scruples"), COFFEESPOONS("Coffeespoons"), 
-	DRAMS("Drams"), TEASPOONS("Teaspoons"), DESSERTSPOONS("Dessertspoons"), TABLESPOONS("Tablespoons"), FLUIDOUNCES("Fluidounces"), 
-	WINEGLASSES("Wineglasses"), TEACUPS("Teacups"), GILLS("Gills"), CUPS("Cups"), QUARTS("Quarts"), POTTLES("Pottles"),
+	MILLILITRES("Millilitre", "Millilitres"), LITRES("Litre", "Litres"), PINTS("Pint", "Pints"), GALLONS("Gallon", "Gallons"),
+	DROPS("Drop", "Drops"), SMIDGENS("Smidgen", "Smidgens"), PINCHES("Pinch", "Pinches"), DASHES("Dash", "Dashes"), 
+	SALTSPOONS("Saltspoon", "Saltspoons"), SCRUPLES("Scruple", "Scruples"), COFFEESPOONS("Coffeespoon", "Coffeespoons"), 
+	DRAMS("Dram", "Drams"), TEASPOONS("Teaspoon", "Teaspoons"), DESSERTSPOONS("Dessertspoon", "Dessertspoons"), 
+	TABLESPOONS("Tablespoon", "Tablespoons"), FLUIDOUNCES("Fluidounce", "Fluidounces"), WINEGLASSES("Wineglass", "Wineglasses"), 
+	TEACUPS("Teacup", "Teacups"), GILLS("Gill", "Gills"), CUPS("Cup", "Cups"), QUARTS("Quart", "Quarts"), POTTLES("Pottle", "Pottles"),
 	
 	//Quantity
-	WHOLE("Whole"), OTHER("Other");
+	WHOLE("Whole", "Whole"), OTHER("Other", "Other");
 	
-	private String name = "";
+	private String singularName = "", multiName = "";
 	
-	private QuantityType(String name) {
-		this.name = name;
+	private QuantityType(String singularName, String multiName) {
+		this.singularName = singularName;
+		this.multiName = multiName;
+	}
+	
+	public String getSingularType() {
+		return singularName;
 	}
 
-	public String getType() {
-		return name;
+	public String getMultipleType() {
+		return multiName;
 	}
 	
 }

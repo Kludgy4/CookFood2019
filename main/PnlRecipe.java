@@ -33,7 +33,7 @@ public class PnlRecipe extends JPanel {
 			writer.append(recipeInfo.title + "," + recipeInfo.cookbook + "\n");
 			for (Ingredient i : recipeInfo.ingredients) {
 				System.out.println(i.quantity);
-				writer.append(i.name + "," + i.quantity + "," + i.quantityType.getType() + "\n");
+				writer.append(i.name + "," + i.quantity + "," + i.quantityType.getMultipleType() + "\n");
 			}
 			writer.flush();
 			writer.close();
@@ -43,7 +43,7 @@ public class PnlRecipe extends JPanel {
 	
 	public ArrayList<Recipe> retrieveRecipes() {
 		BufferedReader reader = null;
-		ArrayList<File> recipeFiles = getFolderFiles(new File((getClass().getResource("../") + "CookFoodRecipes").substring(6)));
+		ArrayList<File> recipeFiles = getFolderFiles();
 		ArrayList<Recipe> recipes = new ArrayList<>();
 		for (File f : recipeFiles) {
 			try {
@@ -66,14 +66,37 @@ public class PnlRecipe extends JPanel {
 		return recipes;
 	}
 	
-	public static ArrayList<File> getFolderFiles(File folder) {
+	public ArrayList<File> getFolderFiles() {
 		ArrayList<File> files = new ArrayList<>();
-		for (File fileEntry : folder.listFiles()) {
+		for (File fileEntry : (new File((getClass().getResource("../") + "CookFoodRecipes").substring(6))).listFiles()) {
 	        if (!fileEntry.isDirectory()) {
 	        	files.add(fileEntry.getAbsoluteFile());
 	        }
 	    }
 		return files;
+	}
+	
+	public boolean deleteRecipe(String title) {
+		ArrayList<File> files = getFolderFiles();
+		int i = 0;
+		boolean foundIt = false;
+		
+		//Search for the given string until none left or found		
+		while (!foundIt && i < files.size()) {
+			if (files.get(i).getName() == title) {
+				foundIt = true;
+			} else {
+				i++;
+			}
+		}
+		
+		//If the file was found, then delete it from the system
+		if (foundIt) {
+			files.get(i).delete();
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 }
