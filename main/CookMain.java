@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,6 +23,13 @@ public class CookMain {
 		}
 
 		//app = new CookManager();
+		PnlRecipe test = new PnlRecipe();
+		for (Recipe r : test.retrieveRecipes()) {
+			System.out.println(r.ingredients.get(0).quantityType.getType());
+		}
+	}
+	
+	public void testingCode() {
 		ArrayList<Recipe> test = new ArrayList<>();
 		Recipe test1 = new Recipe();
 		Ingredient test11 = new Ingredient();
@@ -30,12 +38,12 @@ public class CookMain {
 		test11.quantityType = QuantityType.POUNDS;
 		Ingredient test12 = new Ingredient();
 		test12.name = "Tomatoes";
-		test11.quantity = 5;
-		test11.quantityType = QuantityType.WHOLE;
+		test12.quantity = 5;
+		test12.quantityType = QuantityType.WHOLE;
 		Ingredient test13 = new Ingredient();
 		test13.name = "Thyme";
-		test11.quantity = 3;
-		test11.quantityType = QuantityType.GRAMS;
+		test13.quantity = 3;
+		test13.quantityType = QuantityType.GRAMS;
 		test1.ingredients.add(test11);
 		test1.ingredients.add(test12);
 		test1.ingredients.add(test13);
@@ -68,7 +76,7 @@ public class CookMain {
 		/*for (Ingredient i : PnlMain.arrangeIngredients(test)) {
 			System.out.print(i.name + ", ");
 		}*/
-		PnlRecipe test3 = new PnlRecipe(test2);
-		
+		PnlRecipe test3 = new PnlRecipe(test1);
+		test3 = new PnlRecipe(test2);
 	}
 }

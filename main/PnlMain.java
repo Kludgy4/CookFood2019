@@ -92,6 +92,6 @@ public class PnlMain extends JPanel {
 	}
 
 	public void saveList(File saveLocation, ArrayList<Ingredient> arrangedIngredients) {
-				
+		
 	}
 }
