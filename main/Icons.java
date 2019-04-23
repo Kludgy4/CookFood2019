@@ -5,13 +5,12 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public enum Icons {
-	FILE("file"),
-	EXPORT("export"),
 	EXIT("exit"),
+	FILE("file"),
+	GENERATE("generate"),
 	OPEN("open"),
 	SAVE("save"),
 	TEMP("404");
-	
 
 	private final String location;
 
@@ -20,21 +19,19 @@ public enum Icons {
 	}
 	
 	/**
-	 * 
-	 * @return an Image
-	 * The methods tries different possible variations of the file before resulting to a default image.
-	 * This should always be used when attempting to get an image
+	 * The method tries to open an image, and if it can't, it defaults to a 404
+	 *  @return The relevant image to the selected enum
 	 */
 	public BufferedImage getImage() {
 		try {
 			return ImageIO.read(getClass().getResource("../res/" + location + ".png"));
-		}
-		catch(Exception e1) {
+		} catch(Exception e) {
+			System.out.println(location + " picture not found");
 			try {
 				return ImageIO.read(getClass().getResource("../res/404.png"));
-			}
-			catch(Exception e2) {
-				e2.printStackTrace();
+			} catch(Exception e1) {
+				System.out.println("There was an error loading the 404 picture...");
+				e1.printStackTrace();
 				return null;
 			}
 		}

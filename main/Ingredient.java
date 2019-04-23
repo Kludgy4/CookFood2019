@@ -1,7 +1,8 @@
 package main;
 
-//import static main.QuantityType.*;
-
+/**
+ * Holds the Ingredient Information in a helpful structure
+ */
 public class Ingredient {
 	
 	String name;
@@ -34,7 +35,7 @@ public class Ingredient {
 	 * @return A boolean representative of this ingredient's validity
 	 */
 	public boolean isValid() {
-		if (!name.equals("") && quantity != 0 && quantityType != null) {
+		if (!name.equals("") && quantity > 0 && quantityType != null) {
 			return true;
 		}
 		return false;

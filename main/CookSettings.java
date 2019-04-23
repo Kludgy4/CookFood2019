@@ -1,6 +1,5 @@
 package main;
 
-
 import java.awt.Color;
 
 public class CookSettings {

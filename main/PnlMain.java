@@ -1,8 +1,6 @@
 package main;
 
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,7 +15,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.Highlighter;
 
 @SuppressWarnings("serial")
 public class PnlMain extends JPanel {
@@ -26,40 +23,27 @@ public class PnlMain extends JPanel {
 	
 	ArrayList<Ingredient> arrayRecipes = new ArrayList<>();
 	
-	//FileWriter writer = new FileWriter(getFileSave("Comma-Separated-Values File", "csv"));
-
 	public PnlMain() {
 		setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
 	}
 	
 	/**
-	 * Gets the location of a file that the user enters via a prompt
-	 * @param fileExtensionDescription A description of the file extension that the file will be saved using
-	 * @param fileExtension The file extension that the file will be saved using
-	 * @return A File object representative of the save location
+	 * Generates and saves a shopping list (populated with ingredients in alphabetical order) in an input location
+	 * @param recipeArray The recipes whose ingredients should be used in the shopping list
 	 */
-	public static File getSaveLocation(String fileExtensionDescription, String fileExtension) {
-		JFileChooser chooser;
-		String saveDirectory = "";
-	    chooser = new JFileChooser();
-	    chooser.transferFocus();
-	    
-	    FileFilter filter = new FileNameExtensionFilter(fileExtensionDescription, fileExtension);
-	    chooser.setDialogTitle("Save " + fileExtension);
-	    chooser.setAcceptAllFileFilterUsed(false);
-	    chooser.setFileFilter(filter);
-	    
-	    
-	    if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
-	       saveDirectory = chooser.getSelectedFile().toString() + "." + fileExtension;
-	    } else {
-	    	
-	    }
-		
-		return new File(saveDirectory);
+	public void generateShoppingList(ArrayList<Recipe> recipeArray) {
+		ArrayList<Ingredient> arrangedIngredients  = arrangeIngredients(recipeArray);
+		File saveLocation = getSaveLocation("Text File", "txt");
+		saveList(saveLocation, arrangedIngredients);
 	}
 	
-	public static ArrayList<Ingredient> arrangeIngredients(ArrayList<Recipe> recipeArray) {
+	/**
+	 * This method extracts all of the ingredients from input recipes and places them into an unsorted array.
+	 * It then sorts all of these ingredients into alphabetical order by name, and then returns the sorted ingredient array
+	 * @param recipeArray The array of recipes whose ingredients need to be ordered
+	 * @return An array of input recipe ingredients, alphabetically arranged
+	 */
+	public ArrayList<Ingredient> arrangeIngredients(ArrayList<Recipe> recipeArray) {
 		ArrayList<Ingredient> ingredientArray = new ArrayList<>();
 		
 		//Loads all of the recipe ingredients into an unsorted array
@@ -90,20 +74,52 @@ public class PnlMain extends JPanel {
 		return ingredientArray;
 	}
 	
-	public void generateShoppingList(ArrayList<Recipe> recipeArray) {
-		ArrayList<Ingredient> arrangedIngredients  = arrangeIngredients(recipeArray);
-		File saveLocation = getSaveLocation("Text File", "txt");
-		saveList(saveLocation, arrangedIngredients);
+	/**
+	 * Gets the location of a file that the user enters via a prompt
+	 * @param fileExtensionDescription A description of the file extension that the file will be saved using
+	 * @param fileExtension The file extension that the file will be saved using
+	 * @return A File object representative of the save location
+	 */
+	public File getSaveLocation(String fileExtensionDescription, String fileExtension) {
+		
+		//Adjusts the settings of the file save location selector
+		JFileChooser chooser = new JFileChooser();
+		String saveDirectory = "";
+	    chooser.transferFocus();
+	    chooser.setDialogTitle("Save " + fileExtension);
+	    
+	    //Ensures the correct file extension is used
+	    FileFilter filter = new FileNameExtensionFilter(fileExtensionDescription, fileExtension);
+	    chooser.setAcceptAllFileFilterUsed(false);
+	    chooser.setFileFilter(filter);
+	    
+	    //Determines the final determined save location
+	    if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
+	    	saveDirectory = chooser.getSelectedFile().toString() + "." + fileExtension;
+	    } else {
+	    	saveDirectory = (getClass().getResource("../") + "CookFoodRecipes").substring(6);
+	    	System.out.println("Defaulting list output location to recipe save folder: " + saveDirectory);
+	    }
+		
+		return new File(saveDirectory);
 	}
-
+	
+	/**
+	 * Saves an array of ingredients into a text file (in a given location) as a "Shopping List"
+	 * @param saveLocation
+	 * @param arrangedIngredients
+	 */
 	public void saveList(File saveLocation, ArrayList<Ingredient> arrangedIngredients) {
 		try {
+			//Writes the shopping list header (Date and Title) to the provided file location
 			FileWriter writer = new FileWriter(saveLocation);
 			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 			Date dateobj = new Date();
 			writer.append("----------------------------------------" + "\n");
 			writer.append("Shopping List Generated " + df.format(dateobj) + "\n");
 			writer.append("----------------------------------------" + "\n");
+			
+			//Writes the given ingredients to the shopping list in a syntactically correct manner
 			for (Ingredient i : arrangedIngredients) {
 				if (i.quantity > 1) {
 					writer.append(i.quantity + " " + i.quantityType.getMultipleType() + " of " + i.name + "\n");
@@ -115,6 +131,9 @@ public class PnlMain extends JPanel {
 			
 			writer.flush();
 			writer.close();
-		} catch (IOException e) {e.printStackTrace();}
+		} catch (IOException e) {
+			System.out.println("There was an error saving your shopping list");
+			e.printStackTrace();
+		}
 	}
 }

@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -14,30 +13,33 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class PnlRecipe extends JPanel {
 
-	public PnlRecipe(Recipe recipeInfo) {
-		saveRecipe(recipeInfo);
-	}
-	
 	public PnlRecipe() {
 		
 	}
+	
+	public PnlRecipe(Recipe recipeInfo) {
+		
+	}
 
-	public void saveRecipe(Recipe recipeInfo) {
-		//Reserves the relevant directory and file for recipe output
+	public void saveRecipe(Recipe recipe) {
+		//Reserves/Creates the relevant directory and file for recipe output
 		File file = new File((getClass().getResource("../") + "CookFoodRecipes").substring(6));
-		System.out.println("Exporting to " + file);
 		file.mkdirs();
-		file = new File((getClass().getResource("../") + "CookFoodRecipes/" + recipeInfo.title + ".ckf").substring(6));
+		file = new File((getClass().getResource("../") + "CookFoodRecipes/" + recipe.title + ".ckf").substring(6));
+		
+		//Writes recipe information to the given file
 		try {
 			FileWriter writer = new FileWriter(file);
-			writer.append(recipeInfo.title + "," + recipeInfo.cookbook + "\n");
-			for (Ingredient i : recipeInfo.ingredients) {
-				System.out.println(i.quantity);
+			writer.append(recipe.title + "," + recipe.cookbook + "\n");
+			for (Ingredient i : recipe.ingredients) {
 				writer.append(i.name + "," + i.quantity + "," + i.quantityType.getMultipleType() + "\n");
 			}
 			writer.flush();
 			writer.close();
-		} catch (IOException e) {e.printStackTrace();}
+		} catch (IOException e) {
+			System.out.println("There was an error saving your recipe");
+			e.printStackTrace();
+		}
 		
 	}
 	

@@ -22,10 +22,18 @@ public enum QuantityType {
 		this.multiName = multiName;
 	}
 	
+	/**
+	 * Retrieves the singular form of the quantity type
+	 * @return Singular form of the quantity type
+	 */
 	public String getSingularType() {
 		return singularName;
 	}
 
+	/**
+	 * Retrieves the plural form of the quantity type
+	 * @return Plural form of the quantity type
+	 */
 	public String getMultipleType() {
 		return multiName;
 	}

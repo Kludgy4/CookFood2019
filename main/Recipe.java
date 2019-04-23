@@ -29,4 +29,14 @@ public class Recipe {
 		this.ingredients = ingredients;
 	}
 	
+	/**
+	 * Verifies whether input recipe data is sufficient
+	 * @return A boolean representative of this recipe's validity
+	 */
+	public boolean isValid() {
+		if (!title.equals("") && !cookbook.equals("") && ingredients.size() > 0) {
+			return true;
+		}
+		return false;
+	}
 }
