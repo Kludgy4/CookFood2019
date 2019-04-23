@@ -19,10 +19,7 @@ public class PnlMain extends JPanel {
 	
 	ArrayList<JButton> buttons = new ArrayList<>();
 	
-	ArrayList<Ingredient> arrangedIngredients = new ArrayList<>();
 	ArrayList<Ingredient> arrayRecipes = new ArrayList<>();
-	
-	String saveLocation;
 	
 	//FileWriter writer = new FileWriter(getFileSave("Comma-Separated-Values File", "csv"));
 
@@ -36,20 +33,20 @@ public class PnlMain extends JPanel {
 	 * @param fileExtension The file extension that the file will be saved using
 	 * @return A File object representative of the save location
 	 */
-	public static File getFileSave(String fileExtensionDescription, String fileExtension) {
+	public static File getSaveLocation(String fileExtensionDescription, String fileExtension) {
 		JFileChooser chooser;
 		String saveDirectory = "";
 	    chooser = new JFileChooser();
 	    chooser.transferFocus();
 	    
 	    FileFilter filter = new FileNameExtensionFilter(fileExtensionDescription, fileExtension);
-	    chooser.setDialogTitle("Save CSV");
+	    chooser.setDialogTitle("Save " + fileExtension);
 	    chooser.setAcceptAllFileFilterUsed(false);
 	    chooser.setFileFilter(filter);
 	    
 	    
 	    if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
-	       saveDirectory = chooser.getSelectedFile().toString() + ".csv";
+	       saveDirectory = chooser.getSelectedFile().toString() + fileExtension;
 	    } else {
 	    	
 	    }
@@ -86,5 +83,15 @@ public class PnlMain extends JPanel {
 		}
 		
 		return ingredientArray;
+	}
+	
+	public void generateShoppingList(ArrayList<Recipe> recipeArray) {
+		ArrayList<Ingredient> arrangedIngredients  = arrangeIngredients(recipeArray);
+		File saveLocation = getSaveLocation("Text File", "txt");
+		saveList(saveLocation, arrangedIngredients);
+	}
+
+	public void saveList(File saveLocation, ArrayList<Ingredient> arrangedIngredients) {
+				
 	}
 }
