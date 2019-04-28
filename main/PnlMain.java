@@ -1,6 +1,13 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics2D;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,21 +17,87 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import static main.CookManager.*; 
 
 @SuppressWarnings("serial")
 public class PnlMain extends JPanel {
 	
-	ArrayList<JButton> buttons = new ArrayList<>();
+	ArrayList<CookButton> buttons = new ArrayList<>();
 	
 	ArrayList<Ingredient> arrayRecipes = new ArrayList<>();
+	JPanel pnlBtn = new JPanel();
+	EmptyBorder pnlBorder;
+	GridLayout pnlLayout;
+	Font f;
 	
 	public PnlMain() {
 		setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
+		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		addButtons();
+		
+		resizeElements(screenSize);
+		repaint();
+	}
+	
+	public void addButtons() {
+		CookButton addButton = new CookButton(Icon.ADD);
+		addButton.setText("Add Recipe");
+		addButton.setIcon(new ImageIcon(Icon.ADD.getImage()));
+		buttons.add(addButton);
+		
+		CookButton removeButton = new CookButton(Icon.REMOVE);
+		removeButton.setText("Remove Recipe(s)");
+		removeButton.setIcon(new ImageIcon(Icon.REMOVE.getImage()));
+		buttons.add(removeButton);
+		
+		CookButton editButton = new CookButton(Icon.EDIT);
+		editButton.setText("Edit Recipe");
+		editButton.setIcon(new ImageIcon(Icon.EDIT.getImage()));
+		buttons.add(editButton);
+		
+		CookButton generateButton = new CookButton(Icon.GENERATE);
+		generateButton.setText("Generate List");
+		generateButton.setIcon(new ImageIcon(Icon.GENERATE.getImage()));
+		buttons.add(generateButton);
+		
+		float x = 0f;
+		for (CookButton b : buttons) {
+			b.setAlignmentX(x);
+			b.setHorizontalAlignment(SwingConstants.LEFT);
+			pnlBtn.add(b);
+		}
+		
+		add(pnlBtn);
+	}
+	
+	public void resizeElements (Dimension dimension) {
+		
+		//Resizes the button font and buttonIcon sizes
+		f = new Font("Arial", Font.BOLD, (int)(dimension.getHeight()*0.04));
+		for (CookButton b : buttons) {
+			b.setFont(f);
+		}
+		
+		//Resizes the border spacing around the buttons
+		pnlBorder = new EmptyBorder((int)(dimension.getHeight()*0.06), (int)(dimension.getWidth()*0.08),
+				(int)(dimension.getHeight()*0.06), (int)(dimension.getWidth()*0.2));
+		pnlBtn.setBorder(pnlBorder);
+		
+		//Resizes the spacing between the buttons
+		pnlBtn.setLayout(new GridLayout(4, 1, 0, (int)(dimension.getHeight()*0.02)));
+		
+		//Resizes the button icons
+		
 	}
 	
 	/**
@@ -136,4 +209,6 @@ public class PnlMain extends JPanel {
 			e.printStackTrace();
 		}
 	}
+	
+	
 }

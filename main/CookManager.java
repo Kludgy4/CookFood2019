@@ -1,5 +1,7 @@
 package main;
 
+import static main.CookManager.screenSize;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -17,6 +19,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.border.EmptyBorder;
 
 /**
  * The Frame in which the application Panels are drawn
@@ -27,7 +30,8 @@ public class CookManager extends JFrame {
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static Dimension frameSize = new Dimension();
 	
-	public JPanel guiMain, guiList;
+	public PnlMain guiMain;
+	public JPanel guiList;
 	
 	/**
 	 * Constructs a new window in which the CookFood program is run
@@ -63,6 +67,7 @@ public class CookManager extends JFrame {
 		
 		//Displays the frame to the user
 		setBounds(10, 10, screenSize.width / 2, screenSize.height /2);
+		setMinimumSize(new Dimension(1024, 512));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 		frameSize = screenSize;
@@ -82,25 +87,25 @@ public class CookManager extends JFrame {
 		
 		//Adds event handling to each menubar button
 		JMenuItem add = createMenuItem("New", KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK),	
-				"Opens the Recipe Creation panel", Icons.FILE);
+				"Opens the Recipe Creation panel", null);
 		add.addActionListener((ActionEvent event) -> {
 			//Do stuff here
 		});
 		
 		JMenuItem save = createMenuItem("Save As...", KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK),	
-				"Saves the Current Recipe", Icons.SAVE);
+				"Saves the Current Recipe", null);
 		save.addActionListener((ActionEvent event) -> {
 			//Do stuff here
 		});
 		
 		JMenuItem generate = createMenuItem("Generate...", KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK), 
-				"Generates a Shopping List from selected recipes", Icons.GENERATE);
+				"Generates a Shopping List from selected recipes", null);
 		generate.addActionListener((ActionEvent event) -> {
 			//Do stuff here
 		});
 		
 		JMenuItem exit = createMenuItem("Exit", KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK), 
-				"Exits the application", Icons.EXIT);
+				"Exits the application", null);
 		exit.addActionListener((ActionEvent event) -> {
 			this.dispose();
 		});
@@ -126,10 +131,10 @@ public class CookManager extends JFrame {
 	 * @param text The label for the menu.
 	 * @param keyboardShortcut The shortcut to activate button. Use null if there isn't one.
 	 * @param tip String provides information to user about the button.
-	 * @param imagePath the path to the image used for the icon. Use null if there isn't a image.
+	 * @param imagePath the path to the buttonIcon used for the buttonIcon. Use null if there isn't a buttonIcon.
 	 * @return The JMenuItem from the specified parameters.
 	 */
-	public JMenuItem createMenuItem(String text, KeyStroke keyboardShortcut, String tip, Icons icon) {
+	public JMenuItem createMenuItem(String text, KeyStroke keyboardShortcut, String tip, Icon icon) {
 		JMenuItem item;
 		
 		if (icon == null) item = new JMenuItem(text);
@@ -145,6 +150,7 @@ public class CookManager extends JFrame {
 	 */
 	public void redraw() {
         guiMain.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.6), (int)(CookManager.frameSize.getHeight())));
+        guiMain.resizeElements(frameSize);
         guiMain.repaint();
         guiList.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.4), (int)(CookManager.frameSize.getHeight())));
         guiList.repaint();

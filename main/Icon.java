@@ -4,23 +4,23 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public enum Icons {
-	EXIT("exit"),
-	FILE("file"),
+public enum Icon {
+	ADD("add"),
+	EDIT("edit"),
 	GENERATE("generate"),
-	OPEN("open"),
-	SAVE("save"),
+	REMOVE("remove"),
+	SUBMIT("generate"),
 	TEMP("404");
 
 	private final String location;
 
-	private Icons(String location) {
+	private Icon(String location) {
 		this.location = location;
 	}
 	
 	/**
-	 * The method tries to open an image, and if it can't, it defaults to a 404
-	 *  @return The relevant image to the selected enum
+	 * The method tries to open an buttonIcon, and if it can't, it defaults to a 404
+	 *  @return The relevant buttonIcon to the selected enum
 	 */
 	public BufferedImage getImage() {
 		try {
