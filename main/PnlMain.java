@@ -1,13 +1,12 @@
 package main;
 
+import static main.CookManager.frameSize;
+import static main.CookManager.screenSize;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,15 +18,12 @@ import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import static main.CookManager.*; 
+import javax.swing.filechooser.FileNameExtensionFilter; 
 
 @SuppressWarnings("serial")
 public class PnlMain extends JPanel {
@@ -45,7 +41,7 @@ public class PnlMain extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		addButtons();
 		
-		resizeElements(frameSize, screenSize, false);
+		resizeElements(frameSize, screenSize);
 		repaint();
 	}
 	
@@ -80,7 +76,7 @@ public class PnlMain extends JPanel {
 		add(pnlBtn);
 	}
 	
-	public void resizeElements (Dimension frameSize, Dimension screenSize, boolean scaleWidth) {
+	public void resizeElements (Dimension frameSize, Dimension screenSize) {
 		
 		//Resizes the button font and buttonIcon sizes
 		f = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
@@ -98,7 +94,7 @@ public class PnlMain extends JPanel {
 		
 		//Resizes the button icons
 		for (CookButton b : buttons) {
-			b.resizeIcon(frameSize, screenSize, scaleWidth, 1);
+			b.resizeIcon(frameSize, screenSize, 1);
 		}
 	}
 	

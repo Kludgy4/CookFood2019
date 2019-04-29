@@ -1,7 +1,5 @@
 package main;
 
-import static main.CookManager.screenSize;
-
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -19,7 +17,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.border.EmptyBorder;
 
 /**
  * The Frame in which the application Panels are drawn
@@ -148,12 +145,8 @@ public class CookManager extends JFrame {
 	 * Updates the positioning and sizing of all on-screen components
 	 */
 	public void redraw() {
-		boolean scaleWidth = true;
-		
-		if (frameSize.getWidth()/frameSize.getHeight() < 1) scaleWidth = false;
-		
         guiMain.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.6), (int)(CookManager.frameSize.getHeight())));
-        guiMain.resizeElements(frameSize, screenSize, scaleWidth);
+        guiMain.resizeElements(frameSize, screenSize);
         guiMain.repaint();
         guiList.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.4), (int)(CookManager.frameSize.getHeight())));
         guiList.repaint();

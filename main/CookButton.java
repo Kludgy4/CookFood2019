@@ -17,19 +17,14 @@ public class CookButton extends JButton  {
 		this.buttonIcon = icon.getImage();
 	}
 	
-	public void resizeIcon(Dimension frameSize, Dimension screenSize, boolean scaleWidth, double scalePercentage){
+	public void resizeIcon(Dimension frameSize, Dimension screenSize, double scalePercentage){
 
 		int newWidth, newHeight;
 		double imageAspect = buttonIcon.getWidth()/buttonIcon.getHeight();
 		
 		//Determines the new button icon dimensions
-		if (scaleWidth) {
-			newHeight = (int)(buttonIcon.getHeight()*(frameSize.getHeight()/screenSize.getHeight())*scalePercentage);
-		    newWidth = (int) (newHeight*(1/imageAspect));
-		} else {
-			newWidth = (int)(buttonIcon.getWidth()*(frameSize.getWidth()/screenSize.getWidth())*scalePercentage);
-		    newHeight = (int) (newWidth*(1/imageAspect));
-		}
+		newHeight = (int)(buttonIcon.getHeight()*(frameSize.getHeight()/screenSize.getHeight())*scalePercentage);
+	    newWidth = (int) (newHeight*(1/imageAspect));
 		
 	    //Create a new resized image in the "resizedImg" variable
 	    if (newWidth > 0 && newHeight > 0) {
