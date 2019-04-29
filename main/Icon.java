@@ -24,7 +24,7 @@ public enum Icon {
 	 */
 	public BufferedImage getImage() {
 		try {
-			return ImageIO.read(getClass().getResource("../res/" + location + ".png"));
+			return ImageIO.read(getClass().getResource("/res/" + location + ".png"));
 		} catch(Exception e) {
 			System.out.println(location + " picture not found");
 			try {

@@ -16,6 +16,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -28,7 +29,7 @@ public class CookManager extends JFrame {
 	public static Dimension frameSize = new Dimension();
 	
 	public PnlMain guiMain;
-	public JPanel guiList;
+	public PnlRecipeList guiList;
 	
 	/**
 	 * Constructs a new window in which the CookFood program is run
@@ -58,6 +59,7 @@ public class CookManager extends JFrame {
 		//Constructs the frame for displaying
 		guiMain = new PnlMain();
 		guiList = new PnlRecipeList();
+		
 		add(guiMain, BorderLayout.WEST);
 		add(guiList, BorderLayout.EAST);
 		createMenuBar();
@@ -149,6 +151,7 @@ public class CookManager extends JFrame {
         guiMain.resizeElements(frameSize, screenSize);
         guiMain.repaint();
         guiList.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.4), (int)(CookManager.frameSize.getHeight())));
+        guiList.resizeElements(frameSize, screenSize);
         guiList.repaint();
 	}
 	

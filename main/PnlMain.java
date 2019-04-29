@@ -37,7 +37,7 @@ public class PnlMain extends JPanel {
 	Font f;
 	
 	public PnlMain() {
-		setBorder(BorderFactory.createLineBorder(Color.GREEN, 10));
+		//setBorder(BorderFactory.createMatteBorder(0, 0, 0, 5, Color.BLACK));
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		addButtons();
 		
