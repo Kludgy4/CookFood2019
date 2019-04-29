@@ -17,19 +17,31 @@ public class CookButton extends JButton  {
 		this.buttonIcon = icon.getImage();
 	}
 	
-	public void resizeIcon(Dimension dimension, double widthPercentage, double heightPercentage){
-	    //Calculates the desired width of the button
-		int newWidth = (int)(buttonIcon.getWidth()*widthPercentage);
-	    int newHeight = (int)(buttonIcon.getHeight()*heightPercentage);
+	public void resizeIcon(Dimension frameSize, Dimension screenSize, boolean scaleWidth, double scalePercentage){
+
+		int newWidth, newHeight;
+		double imageAspect = buttonIcon.getWidth()/buttonIcon.getHeight();
+		
+		//Determines the new button icon dimensions
+		if (scaleWidth) {
+			newHeight = (int)(buttonIcon.getHeight()*(frameSize.getHeight()/screenSize.getHeight())*scalePercentage);
+		    newWidth = (int) (newHeight*(1/imageAspect));
+		} else {
+			newWidth = (int)(buttonIcon.getWidth()*(frameSize.getWidth()/screenSize.getWidth())*scalePercentage);
+		    newHeight = (int) (newWidth*(1/imageAspect));
+		}
 		
 	    //Create a new resized image in the "resizedImg" variable
-	    BufferedImage resizedImg = new BufferedImage(newWidth, newHeight, BufferedImage.TRANSLUCENT);
-	    Graphics2D g2 = resizedImg.createGraphics();
-	    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-	    g2.drawImage(buttonIcon, 0, 0, newWidth, newHeight, null);
-	    g2.dispose();
-	    
-	    //Sets the new icon image to be the resized image
-	    setIcon(new ImageIcon(resizedImg));
+	    if (newWidth > 0 && newHeight > 0) {
+	    	BufferedImage resizedImg = new BufferedImage(newWidth, newHeight, BufferedImage.TRANSLUCENT);
+		    Graphics2D g2 = resizedImg.createGraphics();
+		    g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+		    g2.drawImage(buttonIcon, 0, 0, newWidth, newHeight, null);
+		    g2.dispose();
+		    //Sets the new icon image to be the resized image
+		    setIcon(new ImageIcon(resizedImg));
+	    } else {
+	    	setIcon(new ImageIcon(buttonIcon));
+	    }
 	}
 }

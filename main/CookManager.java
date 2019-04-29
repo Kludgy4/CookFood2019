@@ -70,7 +70,6 @@ public class CookManager extends JFrame {
 		setMinimumSize(new Dimension(1024, 512));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
-		frameSize = screenSize;
 		redraw();
 	}
 
@@ -149,8 +148,12 @@ public class CookManager extends JFrame {
 	 * Updates the positioning and sizing of all on-screen components
 	 */
 	public void redraw() {
+		boolean scaleWidth = true;
+		
+		if (frameSize.getWidth()/frameSize.getHeight() < 1) scaleWidth = false;
+		
         guiMain.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.6), (int)(CookManager.frameSize.getHeight())));
-        guiMain.resizeElements(frameSize);
+        guiMain.resizeElements(frameSize, screenSize, scaleWidth);
         guiMain.repaint();
         guiList.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.4), (int)(CookManager.frameSize.getHeight())));
         guiList.repaint();

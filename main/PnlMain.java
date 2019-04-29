@@ -45,7 +45,7 @@ public class PnlMain extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		addButtons();
 		
-		resizeElements(screenSize);
+		resizeElements(frameSize, screenSize, false);
 		repaint();
 	}
 	
@@ -80,24 +80,26 @@ public class PnlMain extends JPanel {
 		add(pnlBtn);
 	}
 	
-	public void resizeElements (Dimension dimension) {
+	public void resizeElements (Dimension frameSize, Dimension screenSize, boolean scaleWidth) {
 		
 		//Resizes the button font and buttonIcon sizes
-		f = new Font("Arial", Font.BOLD, (int)(dimension.getHeight()*0.04));
+		f = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
 		for (CookButton b : buttons) {
 			b.setFont(f);
 		}
 		
 		//Resizes the border spacing around the buttons
-		pnlBorder = new EmptyBorder((int)(dimension.getHeight()*0.06), (int)(dimension.getWidth()*0.08),
-				(int)(dimension.getHeight()*0.06), (int)(dimension.getWidth()*0.2));
+		pnlBorder = new EmptyBorder((int)(frameSize.getHeight()*0.06), (int)(frameSize.getWidth()*0.08),
+				(int)(frameSize.getHeight()*0.06), (int)(frameSize.getWidth()*0.2));
 		pnlBtn.setBorder(pnlBorder);
 		
 		//Resizes the spacing between the buttons
-		pnlBtn.setLayout(new GridLayout(4, 1, 0, (int)(dimension.getHeight()*0.02)));
+		pnlBtn.setLayout(new GridLayout(4, 1, 0, (int)(frameSize.getHeight()*0.02)));
 		
 		//Resizes the button icons
-		
+		for (CookButton b : buttons) {
+			b.resizeIcon(frameSize, screenSize, scaleWidth, 1);
+		}
 	}
 	
 	/**
