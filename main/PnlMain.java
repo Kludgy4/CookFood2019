@@ -1,8 +1,5 @@
 package main;
 
-import static main.CookManager.frameSize;
-import static main.CookManager.screenSize;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,10 +14,8 @@ import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter; 
@@ -34,55 +29,43 @@ public class PnlMain extends JPanel {
 	JPanel pnlBtn = new JPanel();
 	EmptyBorder pnlBorder;
 	GridLayout pnlLayout;
-	Font f;
 	
+	/**
+	 * Constructs a new main panel
+	 */
 	public PnlMain() {
-		//setBorder(BorderFactory.createMatteBorder(0, 0, 0, 5, Color.BLACK));
+		setBorder(BorderFactory.createMatteBorder(0, 0, 0, 12, Color.BLACK));
+		
+		//Constructs onscreen elements
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		addButtons();
-		
-		resizeElements(frameSize, screenSize);
-		repaint();
 	}
 	
+	/**
+	 * Creates and adds specified buttons to the panel
+	 */
 	public void addButtons() {
-		CookButton addButton = new CookButton(Icon.ADD);
-		addButton.setText("Add Recipe");
-		addButton.setIcon(new ImageIcon(Icon.ADD.getImage()));
-		buttons.add(addButton);
+		//Creates the relevant CookButtons to add to the JPanel
+		buttons.add(CookIcon.ADD.getCookButton("Add Recipe"));
+		buttons.add(CookIcon.REMOVE.getCookButton("Remove Recipe(s)"));
+		buttons.add(CookIcon.EDIT.getCookButton("Edit Recipe"));
+		buttons.add(CookIcon.GENERATE.getCookButton("Generate List"));
 		
-		CookButton removeButton = new CookButton(Icon.REMOVE);
-		removeButton.setText("Remove Recipe(s)");
-		removeButton.setIcon(new ImageIcon(Icon.REMOVE.getImage()));
-		buttons.add(removeButton);
-		
-		CookButton editButton = new CookButton(Icon.EDIT);
-		editButton.setText("Edit Recipe");
-		editButton.setIcon(new ImageIcon(Icon.EDIT.getImage()));
-		buttons.add(editButton);
-		
-		CookButton generateButton = new CookButton(Icon.GENERATE);
-		generateButton.setText("Generate List");
-		generateButton.setIcon(new ImageIcon(Icon.GENERATE.getImage()));
-		buttons.add(generateButton);
-		
-		float x = 0f;
-		for (CookButton b : buttons) {
-			b.setAlignmentX(x);
-			b.setHorizontalAlignment(SwingConstants.LEFT);
-			pnlBtn.add(b);
-		}
-		
+		//Adds the buttons to the panel (contained within another panel with whitespace (blank borders) around it)
+		for (CookButton button : buttons) pnlBtn.add(button);
 		add(pnlBtn);
 	}
 	
+	/**
+	 * Resizes all of the Components contained within this panel
+	 * @param frameSize The size of the entire frame
+	 * @param screenSize The size of the entire screen
+	 */
 	public void resizeElements (Dimension frameSize, Dimension screenSize) {
 		
 		//Resizes the button font and buttonIcon sizes
-		f = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
-		for (CookButton b : buttons) {
-			b.setFont(f);
-		}
+		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
+		for (CookButton button : buttons) button.setFont(newFont);
 		
 		//Resizes the border spacing around the buttons
 		pnlBorder = new EmptyBorder((int)(frameSize.getHeight()*0.06), (int)(frameSize.getWidth()*0.08),
@@ -93,9 +76,7 @@ public class PnlMain extends JPanel {
 		pnlBtn.setLayout(new GridLayout(4, 1, 0, (int)(frameSize.getHeight()*0.02)));
 		
 		//Resizes the button icons
-		for (CookButton b : buttons) {
-			b.resizeIcon(frameSize, screenSize, 1);
-		}
+		for (CookButton button : buttons) button.resizeIcon(frameSize, screenSize, 1);
 	}
 	
 	/**

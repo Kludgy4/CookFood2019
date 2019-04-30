@@ -13,16 +13,15 @@ public class CookButton extends JButton  {
 	
 	BufferedImage buttonIcon;
 	
-	public CookButton(Icon icon) {
-		this.buttonIcon = icon.getImage();
+	public CookButton(CookIcon cookIcon) {
+		this.buttonIcon = cookIcon.getImage();
 	}
 	
 	public void resizeIcon(Dimension frameSize, Dimension screenSize, double scalePercentage){
-
 		int newWidth, newHeight;
 		double imageAspect = buttonIcon.getWidth()/buttonIcon.getHeight();
 		
-		//Determines the new button icon dimensions
+		//Determines the new button icon dimensions, while maintaining the original image aspect ratio
 		newHeight = (int)(buttonIcon.getHeight()*(frameSize.getHeight()/screenSize.getHeight())*scalePercentage);
 	    newWidth = (int) (newHeight*(1/imageAspect));
 		

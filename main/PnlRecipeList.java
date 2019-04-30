@@ -4,13 +4,11 @@ import static main.CookManager.frameSize;
 import static main.CookManager.screenSize;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -23,11 +21,13 @@ public class PnlRecipeList extends JPanel {
 	ArrayList<JCheckBox> checkboxes = new ArrayList<>();
 	ArrayList<Recipe> recipes = new ArrayList<>();
 	
+	/**
+	 * Constructs a new recipe-list panel
+	 */
 	public PnlRecipeList() {
-		setBorder(BorderFactory.createMatteBorder(0, 5, 0, 0, Color.BLACK));
 		setLayout(new BorderLayout());
 		
-		//Adds a "JScrollPane", that automatically manages scrollbar usage within its contained frame
+		//Adds a "JScrollPane" to the frame that automatically manages scrollbar usage for all Components added to the frame
 		GridBagLayout layout = new GridBagLayout();
 		layout.preferredLayoutSize(this);
 		JPanel recipeListPanel = new JPanel(layout);
@@ -36,7 +36,6 @@ public class PnlRecipeList extends JPanel {
 		recipeListLayout.fill = GridBagConstraints.HORIZONTAL;
 		
 		JTextArea test1 = new JTextArea("Hello");
-		test1.setSize(1000, 500);
 		recipeListLayout.fill = GridBagConstraints.HORIZONTAL;
 		recipeListLayout.weightx = 0.5;
 		recipeListLayout.gridx = 0;
@@ -44,7 +43,6 @@ public class PnlRecipeList extends JPanel {
 		recipeListPanel.add(test1, recipeListLayout);
 		
 		JTextArea test2 = new JTextArea("World");
-		test2.setSize(1000, 500);
 		recipeListLayout.fill = GridBagConstraints.HORIZONTAL;
 		recipeListLayout.weightx = 0.5;
 		recipeListLayout.gridx = 1;
@@ -55,10 +53,15 @@ public class PnlRecipeList extends JPanel {
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		add(scroller, BorderLayout.CENTER);
 		
-		//Other stuff
-		resizeElements(frameSize, screenSize);
+	}
+	
+	/**
+	 * Resizes all of the Components contained within this panel
+	 * @param frameSize The size of the entire frame
+	 * @param screenSize The size of the entire screen
+	 */
+	public void resizeElements(Dimension frameSize, Dimension screenSize) {
 		
-		repaint();
 	}
 	
 	public void refreshRecipes() {
@@ -68,9 +71,5 @@ public class PnlRecipeList extends JPanel {
 		
 		resizeElements(frameSize, screenSize);
 		repaint();
-	}
-	
-	public void resizeElements(Dimension frameSize, Dimension screenSize) {
-	
 	}
 }

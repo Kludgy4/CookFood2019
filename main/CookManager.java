@@ -1,8 +1,8 @@
 package main;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
@@ -15,8 +15,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.KeyStroke;
 
 /**
@@ -40,15 +38,11 @@ public class CookManager extends JFrame {
 		//Sets, tracks, and appropriately resizes, the Frame and its elements during program use
 		addComponentListener(new ComponentAdapter() {  
 	        public void componentResized(ComponentEvent e) {
-	            Component c = (Component)e.getSource();
-	            frameSize.setSize(c.getWidth(), c.getHeight());
 	            redraw();
 	        }
         });
 		addWindowStateListener(new WindowStateListener() {
 			public void windowStateChanged(WindowEvent e) {
-				Component c = (Component)e.getSource();
-	            frameSize.setSize(c.getWidth(), c.getHeight());
 	            redraw();
 			}
 		});
@@ -70,6 +64,7 @@ public class CookManager extends JFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 		redraw();
+		
 	}
 
 	/**
@@ -132,10 +127,10 @@ public class CookManager extends JFrame {
 	 * @param imagePath the path to the buttonIcon used for the buttonIcon. Use null if there isn't a buttonIcon.
 	 * @return The JMenuItem from the specified parameters.
 	 */
-	public JMenuItem createMenuItem(String text, KeyStroke keyboardShortcut, String tip, Icon icon) {
+	public JMenuItem createMenuItem(String text, KeyStroke keyboardShortcut, String tip, CookIcon cookIcon) {
 		JMenuItem item;
 		
-		if (icon == null) item = new JMenuItem(text);
+		if (cookIcon == null) item = new JMenuItem(text);
 		else item = new JMenuItem(text);
 		
 		if (keyboardShortcut != null) item.setAccelerator(keyboardShortcut);
@@ -147,6 +142,11 @@ public class CookManager extends JFrame {
 	 * Updates the positioning and sizing of all on-screen components
 	 */
 	public void redraw() {
+		//Calculates the new adjusted size of the usable frame. Removes error introduced by 'automatic Window shading'
+		Insets error = getInsets();
+        frameSize.setSize(getWidth() - (error.left + error.right), getHeight() - (error.bottom + error.top));
+        
+        //Adjusts scaling on the main, and the list, panels
         guiMain.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.6), (int)(CookManager.frameSize.getHeight())));
         guiMain.resizeElements(frameSize, screenSize);
         guiMain.repaint();
