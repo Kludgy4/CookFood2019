@@ -1,11 +1,8 @@
-package main;
-
-import static main.CookManager.frameSize;
-import static main.CookManager.screenSize;
+package cook.recipe.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -13,17 +10,20 @@ import java.util.ArrayList;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
 
+import cook.components.CookBox;
+import cook.components.CookTextPane;
+import cook.elements.Recipe;
+import cook.elements.RecipeInterface;
+
 @SuppressWarnings("serial")
-public class PnlRecipeList extends JPanel {
+public class PnlIngredientsList extends JPanel {
 
 	ArrayList<JCheckBox> checkboxes = new ArrayList<>();
 	ArrayList<JTextPane> titles = new ArrayList<>();
@@ -33,10 +33,7 @@ public class PnlRecipeList extends JPanel {
 	GridBagLayout layout;
 	GridBagConstraints recipeListLayout;
 	
-	/**
-	 * Constructs a new recipe-list panel
-	 */
-	public PnlRecipeList() {
+	public PnlIngredientsList() {
 		setLayout(new BorderLayout());
 		
 		//Creates the panel on which components will be drawn
@@ -51,6 +48,7 @@ public class PnlRecipeList extends JPanel {
 		//Adds a "JScrollPane" to the frame that automatically manages scrollbar usage for all Components added to the frame
 		JScrollPane scroller = new JScrollPane(recipeListPanel);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scroller.getVerticalScrollBar().setUnitIncrement(25);
 		add(scroller, BorderLayout.CENTER);
 		
 		recipes = (new RecipeInterface()).retrieveRecipes();
@@ -63,32 +61,21 @@ public class PnlRecipeList extends JPanel {
 	 * @param screenSize The size of the entire screen
 	 */
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
-		//Resizes the button font and buttonIcon sizes
-		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
-		for (JTextPane recipeTitle : titles) {
-			recipeTitle.setFont(newFont);
-		}
-	}
-	
-	public void refreshRecipes() {
-		recipeListPanel.removeAll();
-		recipes = (new RecipeInterface()).retrieveRecipes();
-		addComponents();
-		resizeElements(frameSize, screenSize);
-		repaint();
+		
 	}
 	
 	public void addComponents() {
-		StyleContext context = new StyleContext();
-	    StyledDocument document = new DefaultStyledDocument(context);
-	    StyleConstants.setAlignment(context.getStyle(StyleContext.DEFAULT_STYLE), StyleConstants.ALIGN_CENTER);
-		
 	    for (int i = 0; i < recipes.size(); i++) {
-			//Adds each recipe title to the panel
-			JTextPane recipeTitle = new JTextPane(document);
+	    	StyleContext context = new StyleContext();
+		    StyledDocument document = new DefaultStyledDocument(context);
+		    StyleConstants.setAlignment(context.getStyle(StyleContext.DEFAULT_STYLE), StyleConstants.ALIGN_CENTER);
+			
+		    //Adds each recipe title to the panel
+			CookTextPane recipeTitle = new CookTextPane(document, 0, i);
 			recipeTitle.setText(recipes.get(i).title);
 			recipeTitle.setEditable(false);
 			recipeTitle.setHighlighter(null);
+			recipeTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
 			
 			recipeListLayout.gridx = 0;
 			recipeListLayout.gridy = i;
@@ -99,7 +86,7 @@ public class PnlRecipeList extends JPanel {
 			recipeListPanel.add(recipeTitle, recipeListLayout);
 			
 			//Adds a corresponding recipe checkbox to the panel
-			JCheckBox recipeCheckBox = new JCheckBox();
+			CookBox recipeCheckBox = new CookBox(1, i);
 			recipeListLayout.gridx = 1;
 			recipeListLayout.gridy = i;
 			recipeListLayout.weightx = 0.1;
@@ -109,4 +96,5 @@ public class PnlRecipeList extends JPanel {
 			recipeListPanel.add(recipeCheckBox, recipeListLayout);
 		}
 	}
+
 }

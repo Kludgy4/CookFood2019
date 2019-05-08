@@ -1,14 +1,18 @@
-package main;
+package cook;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import cook.main.frames.FrMain;
+import cook.recipe.frames.FrRecipe;
 
 /**
  * Main class for CookFood
  * Creates the application object
  */
 public class CookMain {
-	public static CookManager app;
+	public static FrMain app;
+	public static FrRecipe recipe;
 
 	public static void main(String[] args) {
 		try {
@@ -18,6 +22,7 @@ public class CookMain {
 		}
 
 		//Creates the application window ready for event-driven processing
-		app = new CookManager();
+		app = new FrMain();
 	}
 }
+

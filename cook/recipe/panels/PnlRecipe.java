@@ -1,20 +1,27 @@
-package main;
+package cook.recipe.panels;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+
+import cook.elements.Ingredient;
+import cook.elements.Recipe;
 
 @SuppressWarnings("serial")
 public class PnlRecipe extends JPanel {
 
 	public PnlRecipe() {
-		
+		setBorder(BorderFactory.createMatteBorder(0, 0, 0, 12, Color.BLACK));
 	}
 	
 	public PnlRecipe(Recipe recipeInfo) {
-		
+		super();
+		//Preload data into boxes here
 	}
 	
 	public void saveRecipe(Recipe recipe) {
@@ -36,6 +43,11 @@ public class PnlRecipe extends JPanel {
 			System.out.println("There was an error saving your recipe");
 			e.printStackTrace();
 		}
+		
+	}
+
+	public void resizeElements(Dimension frameSize, Dimension screenSize) {
+		// TODO Auto-generated method stub
 		
 	}
 

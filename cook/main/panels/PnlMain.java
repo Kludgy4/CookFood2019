@@ -1,9 +1,11 @@
-package main;
+package cook.main.panels;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,20 +20,27 @@ import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter; 
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import cook.CookMain;
+import cook.components.CookButton;
+import cook.components.CookIcon;
+import cook.elements.Ingredient;
+import cook.elements.Recipe;
+import cook.recipe.frames.FrRecipe; 
 
 @SuppressWarnings("serial")
 public class PnlMain extends JPanel {
 	
 	ArrayList<CookButton> buttons = new ArrayList<>();
 	
-	ArrayList<Ingredient> arrayRecipes = new ArrayList<>();
+	ArrayList<Recipe> arrayRecipes = new ArrayList<>();
 	JPanel pnlBtn = new JPanel();
 	EmptyBorder pnlBorder;
 	GridLayout pnlLayout;
 	
 	/**
-	 * Constructs a new main panel
+	 * Constructs a new cook panel
 	 */
 	public PnlMain() {
 		setBorder(BorderFactory.createMatteBorder(0, 0, 0, 12, Color.BLACK));
@@ -46,10 +55,37 @@ public class PnlMain extends JPanel {
 	 */
 	public void addButtons() {
 		//Creates the relevant CookButtons to add to the JPanel
-		buttons.add(CookIcon.ADD.getCookButton("Add Recipe"));
-		buttons.add(CookIcon.REMOVE.getCookButton("Remove Recipe(s)"));
-		buttons.add(CookIcon.EDIT.getCookButton("Edit Recipe"));
-		buttons.add(CookIcon.GENERATE.getCookButton("Generate List"));
+		CookButton addButton = CookIcon.ADD.getCookButton("Add Recipe");
+		CookButton removeButton = CookIcon.REMOVE.getCookButton("Remove Recipe(s)");
+		CookButton editButton = CookIcon.EDIT.getCookButton("Edit Recipe");
+		CookButton generateButton = CookIcon.GENERATE.getCookButton("Generate List");
+		
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Add");
+				CookMain.recipe = new FrRecipe();
+			}
+		});
+		removeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Remove");
+			}
+		});
+		editButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Edit");
+			}
+		});
+		generateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Generate");
+			}
+		});
+		
+		buttons.add(addButton);
+		buttons.add(removeButton);
+		buttons.add(editButton);
+		buttons.add(generateButton);
 		
 		//Adds the buttons to the panel (contained within another panel with whitespace (blank borders) around it)
 		for (CookButton button : buttons) pnlBtn.add(button);

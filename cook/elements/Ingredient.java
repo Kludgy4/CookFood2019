@@ -1,13 +1,13 @@
-package main;
+package cook.elements;
 
 /**
  * Holds the Ingredient Information in a helpful structure
  */
 public class Ingredient {
 	
-	String name;
-	int quantity;
-	QuantityType quantityType;
+	public String name;
+	public int quantity;
+	public QuantityType quantityType;
 	
 	/**
 	 * Creates a new Ingredient object

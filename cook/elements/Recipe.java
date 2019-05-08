@@ -1,12 +1,12 @@
-package main;
+package cook.elements;
 
 import java.util.ArrayList;
 
 public class Recipe {
 	
-	String title;
-	String cookbook;
-	ArrayList<Ingredient> ingredients;
+	public String title;
+	public String cookbook;
+	public ArrayList<Ingredient> ingredients;
 	
 	/**
 	 * Creates a new Recipe object

@@ -1,4 +1,4 @@
-package main;
+package cook.components;
 
 import java.awt.image.BufferedImage;
 
@@ -26,11 +26,11 @@ public enum CookIcon {
 	 */
 	public BufferedImage getImage() {
 		try {
-			return ImageIO.read(getClass().getResource("/res/" + location + ".png"));
+			return ImageIO.read(getClass().getResource("/cook/resources/" + location + ".png"));
 		} catch(Exception e) {
 			System.out.println(location + " picture not found");
 			try {
-				return ImageIO.read(getClass().getResource("/res/404.png"));
+				return ImageIO.read(getClass().getResource("/cook/resources/404.png"));
 			} catch(Exception e1) {
 				System.out.println("There was an error loading the 404 picture...");
 				e1.printStackTrace();

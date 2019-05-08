@@ -1,4 +1,4 @@
-package main;
+package cook.elements;
 
 public enum QuantityType {
 	//Mass
@@ -11,6 +11,7 @@ public enum QuantityType {
 	DRAMS("Dram", "Drams"), TEASPOONS("Teaspoon", "Teaspoons"), DESSERTSPOONS("Dessertspoon", "Dessertspoons"), 
 	TABLESPOONS("Tablespoon", "Tablespoons"), FLUIDOUNCES("Fluidounce", "Fluidounces"), WINEGLASSES("Wineglass", "Wineglasses"), 
 	TEACUPS("Teacup", "Teacups"), GILLS("Gill", "Gills"), CUPS("Cup", "Cups"), QUARTS("Quart", "Quarts"), POTTLES("Pottle", "Pottles"),
+	//Vats, bottles, barrels, carton, hint, handfuls, cloves
 	
 	//Quantity
 	WHOLE("Whole", "Whole"), OTHER("Other", "Other");

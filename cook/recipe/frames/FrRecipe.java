@@ -1,4 +1,4 @@
-package main;
+package cook.recipe.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -17,23 +17,21 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-/**
- * The Frame in which the application Panels are drawn
- * Completes basic setup
- */
+import cook.CookSettings;
+import cook.components.CookIcon;
+import cook.recipe.panels.PnlIngredientsList;
+import cook.recipe.panels.PnlRecipe;
+
 @SuppressWarnings("serial")
-public class CookManager extends JFrame {
+public class FrRecipe extends JFrame {
 	public static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	public static Dimension frameSize = new Dimension();
 	
-	public PnlMain guiMain;
-	public PnlRecipeList guiList;
+	public PnlRecipe guiMain;
+	public PnlIngredientsList guiList;
 	
-	/**
-	 * Constructs a new window in which the CookFood program is run
-	 */
-	public CookManager() {
-		super("CookFood");
+	public FrRecipe() {
+		super();
 		
 		//Sets, tracks, and appropriately resizes, the Frame and its elements during program use
 		addComponentListener(new ComponentAdapter() {  
@@ -46,27 +44,25 @@ public class CookManager extends JFrame {
 	            redraw();
 			}
 		});
-
+		
 		//Other miscellaneous setup tasks
 		getContentPane().setBackground(CookSettings.colRed);
 		
 		//Constructs the frame for displaying
-		guiMain = new PnlMain();
-		guiList = new PnlRecipeList();
+		guiMain = new PnlRecipe();
+		guiList = new PnlIngredientsList();
 		
 		add(guiMain, BorderLayout.WEST);
 		add(guiList, BorderLayout.EAST);
 		createMenuBar();
 		
 		//Displays the frame to the user
-		setBounds(10, 10, screenSize.width / 2, screenSize.height /2);
+		setBounds(100, 100, screenSize.width / 2, screenSize.height /2);
 		setMinimumSize(new Dimension(1024, 512));
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 		redraw();
-		
 	}
-
+	
 	/**
 	 * Constructs the menubar displayed at the top of the screen
 	 */
@@ -94,7 +90,7 @@ public class CookManager extends JFrame {
 		JMenuItem generate = createMenuItem("Generate...", KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK), 
 				"Generates a Shopping List from selected recipes", null);
 		generate.addActionListener((ActionEvent event) -> {
-			//Do stuff here
+			
 		});
 		
 		JMenuItem exit = createMenuItem("Exit", KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK), 
@@ -116,7 +112,7 @@ public class CookManager extends JFrame {
 		
 		setJMenuBar(menubar);
 	}
-
+	
 	/**
 	 * Creates a menu item from the specified parameters. To add functionality to
 	 * the item you need to do it separately.
@@ -137,20 +133,21 @@ public class CookManager extends JFrame {
 		item.setToolTipText(tip);
 		return item;
 	}
-	
+
 	/**
 	 * Updates the positioning and sizing of all on-screen components
 	 */
 	public void redraw() {
 		//Calculates the new adjusted size of the usable frame. Removes error introduced by 'automatic Window shading'
 		Insets error = getInsets();
+		System.out.println(getWidth());
         frameSize.setSize(getWidth() - (error.left + error.right), getHeight() - (error.bottom + error.top));
         
-        //Adjusts scaling on the main, and the list, panels
-        guiMain.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.6), (int)(CookManager.frameSize.getHeight())));
+        //Adjusts scaling on the cook, and the list, panels
+        guiMain.setPreferredSize(new Dimension((int)(FrRecipe.frameSize.getWidth()*0.55), (int)(FrRecipe.frameSize.getHeight())));
         guiMain.resizeElements(frameSize, screenSize);
         guiMain.repaint();
-        guiList.setPreferredSize(new Dimension((int)(CookManager.frameSize.getWidth()*0.4), (int)(CookManager.frameSize.getHeight())));
+        guiList.setPreferredSize(new Dimension((int)(FrRecipe.frameSize.getWidth()*0.45), (int)(FrRecipe.frameSize.getHeight())));
         guiList.resizeElements(frameSize, screenSize);
         guiList.repaint();
 	}

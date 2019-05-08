@@ -1,4 +1,4 @@
-package main;
+package cook.elements;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,13 +53,13 @@ public class RecipeInterface {
 	 */
 	public ArrayList<File> getFolderFiles() {
 		//Ensures that the file saving/opening location exists
-		File file = new File((getClass().getResource("../") + "CookFoodRecipes").substring(6));
+		File file = new File((getClass().getResource("../../") + "CookFoodRecipes").substring(6));
 		file.mkdirs();
 		
 		//Gets all of the files saved on the computer in the CookFood save folder
 		ArrayList<File> files = new ArrayList<>();
 		
-		for (File fileEntry : (new File((getClass().getResource("../") + "CookFoodRecipes").substring(6))).listFiles()) {
+		for (File fileEntry : (new File((getClass().getResource("../../") + "CookFoodRecipes").substring(6))).listFiles()) {
 	        if (!fileEntry.isDirectory()) {
 	        	files.add(fileEntry.getAbsoluteFile());
 	        }
