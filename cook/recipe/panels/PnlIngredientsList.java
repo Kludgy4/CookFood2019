@@ -70,7 +70,7 @@ public class PnlIngredientsList extends JPanel {
 		    StyledDocument document = new DefaultStyledDocument(context);
 		    StyleConstants.setAlignment(context.getStyle(StyleContext.DEFAULT_STYLE), StyleConstants.ALIGN_CENTER);
 			
-		    //Adds each recipe title to the panel
+		    //Adds each recipe pnlTitle to the panel
 			CookTextPane recipeTitle = new CookTextPane(document, 0, i);
 			recipeTitle.setText(recipes.get(i).title);
 			recipeTitle.setEditable(false);

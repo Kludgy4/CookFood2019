@@ -19,7 +19,7 @@ public class Ingredient {
 	}
 	
 	/**
-	 * Stores loaded ingredient data into memory
+	 * Stores loaded pnlIngredient data into memory
 	 * @param name
 	 * @param quantity
 	 * @param quantityType
@@ -31,8 +31,8 @@ public class Ingredient {
 	}
 	
 	/**
-	 * Verifies whether input ingredient data is sufficient
-	 * @return A boolean representative of this ingredient's validity
+	 * Verifies whether input pnlIngredient data is sufficient
+	 * @return A boolean representative of this pnlIngredient's validity
 	 */
 	public boolean isValid() {
 		if (!name.equals("") && quantity > 0 && quantityType != null) {

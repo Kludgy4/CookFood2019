@@ -53,7 +53,7 @@ public class FrMain extends JFrame {
 		});
 
 		//Other miscellaneous setup tasks
-		getContentPane().setBackground(CookSettings.colRed);
+		getContentPane().setBackground(CookSettings.colGreenTrans);
 		
 		//Constructs the frame for displaying
 		guiMain = new PnlMain();
@@ -150,7 +150,7 @@ public class FrMain extends JFrame {
 		Insets error = getInsets();
         frameSize.setSize(getWidth() - (error.left + error.right), getHeight() - (error.bottom + error.top));
         
-        //Adjusts scaling on the cook, and the list, panels
+        //Adjusts scaling on the cook, and the list, panes
         guiMain.setPreferredSize(new Dimension((int)(FrMain.frameSize.getWidth()*0.6), (int)(FrMain.frameSize.getHeight())));
         guiMain.resizeElements(frameSize, screenSize);
         guiMain.repaint();

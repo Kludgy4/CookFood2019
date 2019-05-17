@@ -127,7 +127,7 @@ public class PnlMain extends JPanel {
 	
 	/**
 	 * This method extracts all of the ingredients from input recipes and places them into an unsorted array.
-	 * It then sorts all of these ingredients into alphabetical order by name, and then returns the sorted ingredient array
+	 * It then sorts all of these ingredients into alphabetical order by name, and then returns the sorted pnlIngredient array
 	 * @param recipeArray The array of recipes whose ingredients need to be ordered
 	 * @return An array of input recipe ingredients, alphabetically arranged
 	 */
@@ -203,6 +203,7 @@ public class PnlMain extends JPanel {
 			FileWriter writer = new FileWriter(saveLocation);
 			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 			Date dateobj = new Date();
+			
 			writer.append("----------------------------------------" + "\n");
 			writer.append("Shopping List Generated " + df.format(dateobj) + "\n");
 			writer.append("----------------------------------------" + "\n");

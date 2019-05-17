@@ -52,14 +52,16 @@ public class RecipeInterface {
 	 * @return
 	 */
 	public ArrayList<File> getFolderFiles() {
-		//Ensures that the file saving/opening location exists
-		File file = new File((getClass().getResource("../../") + "CookFoodRecipes").substring(6));
+//		//Ensures that the file saving/opening location exists
+		//File file = new File((getClass().getResource("../../") + "CookFoodRecipes").substring(6));
+		File file = new File(("C:\\Users\\matt\\Desktop\\CookFoodRecipes"));
 		file.mkdirs();
+		System.out.println(file.getPath());
 		
 		//Gets all of the files saved on the computer in the CookFood save folder
 		ArrayList<File> files = new ArrayList<>();
 		
-		for (File fileEntry : (new File((getClass().getResource("../../") + "CookFoodRecipes").substring(6))).listFiles()) {
+		for (File fileEntry : file.listFiles()) {
 	        if (!fileEntry.isDirectory()) {
 	        	files.add(fileEntry.getAbsoluteFile());
 	        }
@@ -68,8 +70,8 @@ public class RecipeInterface {
 	}
 	
 	/**
-	 * Deletes a recipe from the system given its title
-	 * @param title The title of the recipe to be deleted
+	 * Deletes a recipe from the system given its pnlTitle
+	 * @param pnlTitle The pnlTitle of the recipe to be deleted
 	 * @return A boolean confirming whether the file was successfully deleted or not
 	 */
 	public boolean deleteRecipe(String title) {

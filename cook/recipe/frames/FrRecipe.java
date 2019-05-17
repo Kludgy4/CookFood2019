@@ -32,7 +32,6 @@ public class FrRecipe extends JFrame {
 	
 	public FrRecipe() {
 		super();
-		
 		//Sets, tracks, and appropriately resizes, the Frame and its elements during program use
 		addComponentListener(new ComponentAdapter() {  
 	        public void componentResized(ComponentEvent e) {
@@ -140,10 +139,9 @@ public class FrRecipe extends JFrame {
 	public void redraw() {
 		//Calculates the new adjusted size of the usable frame. Removes error introduced by 'automatic Window shading'
 		Insets error = getInsets();
-		System.out.println(getWidth());
         frameSize.setSize(getWidth() - (error.left + error.right), getHeight() - (error.bottom + error.top));
         
-        //Adjusts scaling on the cook, and the list, panels
+        //Adjusts scaling on the cook, and the list, panes
         guiMain.setPreferredSize(new Dimension((int)(FrRecipe.frameSize.getWidth()*0.55), (int)(FrRecipe.frameSize.getHeight())));
         guiMain.resizeElements(frameSize, screenSize);
         guiMain.repaint();

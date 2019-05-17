@@ -19,7 +19,7 @@ public class Recipe {
 	
 	/**
 	 * Stores loaded recipe data into memory
-	 * @param title
+	 * @param pnlTitle
 	 * @param cookbook
 	 * @param ingredients
 	 */
