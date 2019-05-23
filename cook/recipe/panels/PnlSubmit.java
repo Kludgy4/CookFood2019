@@ -52,7 +52,7 @@ public class PnlSubmit extends JPanel {
 		//Resizes the button font and buttonIcon sizes
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
 		submitButton.setFont(newFont);
-		submitButton.resizeIcon(frameSize, screenSize, 1);
+		submitButton.resizeIcon(frameSize, screenSize, 0.8);
 		//layoutConstraints.ipady = (int)(getHeight() / 5);
 	}
 	

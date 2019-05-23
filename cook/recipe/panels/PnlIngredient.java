@@ -5,13 +5,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
 import cook.components.CookButton;
 import cook.components.CookIcon;
@@ -84,20 +82,25 @@ public class PnlIngredient extends JPanel {
 	}
 	
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
+		//layoutConstraints.
+		buttonInsets = new Insets((int)(frameSize.height/80), (int)(frameSize.width/100), (int)(frameSize.height/80), (int)(frameSize.width/100));
+		layoutConstraints.insets = buttonInsets;
+		
 		//Resizes the button font and buttonIcon sizes
-		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
+		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.035));
 		addButton.setFont(newFont);
 		removeButton.setFont(newFont);
 		
 		//Resizes the button icons
-		addButton.resizeIcon(frameSize, screenSize, 1);
-		removeButton.resizeIcon(frameSize, screenSize, 1);
+		addButton.resizeIcon(frameSize, screenSize, 0.8);
+		removeButton.resizeIcon(frameSize, screenSize, 0.8);
 		
 		//Resizes the spacing between the buttons
 //		pnlBtn.setLayout(new GridLayout(4, 1, 0, (int)(frameSize.getHeight()*0.02)));
 		
-		//layoutConstraints.ipady = (int)(getHeight() / 1000);
 		namePane.setFont(newFont);
 		quantityPane.setFont(newFont);
+		removeAll();
+		addElements();
 	}
 }
