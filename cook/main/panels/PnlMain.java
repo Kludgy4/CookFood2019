@@ -117,7 +117,7 @@ public class PnlMain extends JPanel {
 	
 	/**
 	 * Generates and saves a shopping list (populated with ingredients in alphabetical order) in an input location
-	 * @param recipeArray The recipes whose ingredients should be used in the shopping list
+	 * @param recipeArray The ingredients whose ingredients should be used in the shopping list
 	 */
 	public void generateShoppingList(ArrayList<Recipe> recipeArray) {
 		ArrayList<Ingredient> arrangedIngredients  = arrangeIngredients(recipeArray);
@@ -126,9 +126,9 @@ public class PnlMain extends JPanel {
 	}
 	
 	/**
-	 * This method extracts all of the ingredients from input recipes and places them into an unsorted array.
+	 * This method extracts all of the ingredients from input ingredients and places them into an unsorted array.
 	 * It then sorts all of these ingredients into alphabetical order by name, and then returns the sorted pnlIngredient array
-	 * @param recipeArray The array of recipes whose ingredients need to be ordered
+	 * @param recipeArray The array of ingredients whose ingredients need to be ordered
 	 * @return An array of input recipe ingredients, alphabetically arranged
 	 */
 	public ArrayList<Ingredient> arrangeIngredients(ArrayList<Recipe> recipeArray) {

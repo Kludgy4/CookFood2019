@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 
 import cook.elements.Ingredient;
 import cook.elements.Recipe;
+import cook.recipe.frames.FrRecipe;
 
 @SuppressWarnings("serial")
 public class PnlRecipe extends JPanel {
@@ -22,10 +23,10 @@ public class PnlRecipe extends JPanel {
 	PnlIngredient pnlIngredient;
 	PnlSubmit pnlSubmit;
 	
-	Font smallFont;
-	Font largeFont;
+	FrRecipe parent;
 	
-	public PnlRecipe() {
+	public PnlRecipe(FrRecipe parent) {
+		this.parent = parent;
 		setBorder(BorderFactory.createMatteBorder(0, 0, 0, 12, Color.BLACK));
 		
 		//Constructs onscreen elements
@@ -71,11 +72,9 @@ public class PnlRecipe extends JPanel {
 	}
 
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
-		smallFont = new Font("Arial", Font.ITALIC, (int)(frameSize.getHeight()*0.02));
-		largeFont = new Font("Arial", Font.ITALIC, (int)(frameSize.getHeight()*0.04));
 		
 		pnlTitle.setPreferredSize(new Dimension(getWidth(), (int)(getHeight()*0.2)));
-		pnlTitle.resizeElements(largeFont);
+		pnlTitle.resizeElements(new Font("Arial", Font.ITALIC, (int)(frameSize.getHeight()*0.04)));
 		pnlIngredient.setPreferredSize(new Dimension(getWidth(), (int)(getHeight()*0.6)));
 		pnlIngredient.resizeElements(frameSize, screenSize);
 		pnlSubmit.setPreferredSize(new Dimension(getWidth(), (int)(getHeight()*0.2)));

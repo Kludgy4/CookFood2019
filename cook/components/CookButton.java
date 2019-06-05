@@ -17,7 +17,7 @@ public class CookButton extends JButton  {
 	
 	public CookButton(CookIcon cookIcon) {
 		this.buttonIcon = cookIcon.getImage();
-		setBorder(new RoundBorder(25));
+		setBorder(new RoundBorder(15));
 	}
 	
 	public void resizeIcon(Dimension frameSize, Dimension screenSize, double scalePercentage){

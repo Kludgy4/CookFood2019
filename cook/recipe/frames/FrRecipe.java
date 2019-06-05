@@ -48,7 +48,7 @@ public class FrRecipe extends JFrame {
 		getContentPane().setBackground(CookSettings.colRed);
 		
 		//Constructs the frame for displaying
-		guiMain = new PnlRecipe();
+		guiMain = new PnlRecipe(this);
 		guiList = new PnlIngredientsList();
 		
 		add(guiMain, BorderLayout.WEST);
@@ -87,7 +87,7 @@ public class FrRecipe extends JFrame {
 		});
 		
 		JMenuItem generate = createMenuItem("Generate...", KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK), 
-				"Generates a Shopping List from selected recipes", null);
+				"Generates a Shopping List from selected ingredients", null);
 		generate.addActionListener((ActionEvent event) -> {
 			
 		});

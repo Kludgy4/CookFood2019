@@ -1,12 +1,10 @@
 package cook.recipe.panels;
 
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import cook.components.CookTextPane;
@@ -34,7 +32,6 @@ public class PnlRecipeTitle extends JPanel {
 		setLayout(layout);
 		
 		this.recipePanel = recipePanel;
-		setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
 		
 		//Add text boxes
 	    layoutConstraints.ipady = 10;
@@ -47,18 +44,18 @@ public class PnlRecipeTitle extends JPanel {
 		cookbookPane = new CookTextPane(1, 0);
 		cookbookPane.setText("Cookbook");
 		
-		addPanes();
+		refreshPanes();
 	}
 
 	public void resizeElements(Font font) {
-		removeAll();
-		layoutConstraints.ipady = (int)(getHeight() / 5);
+		layoutConstraints.ipady = (int)(getHeight() / 10);
 		titlePane.setFont(font);
 		cookbookPane.setFont(font);
-		addPanes();
+		refreshPanes();
 	}
 	
-	public void addPanes() {
+	public void refreshPanes() {
+		removeAll();
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 0;
 		add(titlePane, layoutConstraints);

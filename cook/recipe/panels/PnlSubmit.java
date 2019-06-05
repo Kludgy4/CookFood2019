@@ -1,13 +1,11 @@
 package cook.recipe.panels;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import cook.components.CookButton;
@@ -23,7 +21,7 @@ public class PnlSubmit extends JPanel {
 	CookButton submitButton;
 	
 	public PnlSubmit(PnlRecipe recipePanel) {
-		buttonInsets = new Insets(25, 25, 25, 25);
+		buttonInsets = new Insets(0, 30, 0, 30);
 		
 		//Creates the layout manager that is used to manage component creation
 		layoutConstraints = new GridBagConstraints();
@@ -36,7 +34,6 @@ public class PnlSubmit extends JPanel {
 		setLayout(layout);
 		
 		this.recipePanel = recipePanel;
-		setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
 		
 		//Add text boxes
 	    layoutConstraints.ipady = 10;

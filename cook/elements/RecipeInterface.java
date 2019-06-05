@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class RecipeInterface {
 	
 	/**
-	 * Retrieves all recipes previously saved on the system
-	 * @return An array of all previously saved recipes as 'Recipe' objects
+	 * Retrieves all ingredients previously saved on the system
+	 * @return An array of all previously saved ingredients as 'Recipe' objects
 	 */
 	public ArrayList<Recipe> retrieveRecipes() {
 		try {
@@ -41,8 +41,8 @@ public class RecipeInterface {
 			}
 			return recipes;
 		} catch (Exception e) {
-			//Returns a blank array if there is an error opening saved recipes
-			System.out.println("There was an error opening your saved recipes");
+			//Returns a blank array if there is an error opening saved ingredients
+			System.out.println("There was an error opening your saved ingredients");
 			return new ArrayList<Recipe>();
 		}
 	}

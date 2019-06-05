@@ -1,19 +1,23 @@
 package cook.recipe.panels;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+import cook.CookMain;
 import cook.components.CookButton;
 import cook.components.CookIcon;
 import cook.components.CookTextPane;
+import cook.elements.Ingredient;
+import cook.elements.QuantityType;
+import cook.recipe.frames.FrRecipe;
 
 @SuppressWarnings("serial")
 public class PnlIngredient extends JPanel {
@@ -40,7 +44,6 @@ public class PnlIngredient extends JPanel {
 		setLayout(layout);
 		
 		this.recipePanel = recipePanel;
-		setBorder(BorderFactory.createLineBorder(Color.GREEN, 5));
 		
 		//Add text boxes
 	    layoutConstraints.ipady = 10;
@@ -55,6 +58,22 @@ public class PnlIngredient extends JPanel {
 		
 		addButton = CookIcon.ADD.getCookButton("Add Ingredient");
 		removeButton = CookIcon.REMOVE.getCookButton("Remove Ingredient");
+		
+		addButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Add");
+				recipePanel.parent.guiList.ingredients.add(new Ingredient(namePane.getText(), Integer.parseInt(quantityPane.getText()), QuantityType.KILOGRAMS));
+				recipePanel.parent.guiList.addComponents();
+				recipePanel.parent.redraw();
+			}
+		});
+		
+		removeButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("Remove");
+			}
+		});
+		
 		addElements();
 	}
 	
@@ -76,14 +95,14 @@ public class PnlIngredient extends JPanel {
 		
 		add(addButton, layoutConstraints);
 
-		layoutConstraints.gridy = 3;
-		layoutConstraints.gridx = 0;
+		layoutConstraints.gridy = 2;
+		layoutConstraints.gridx = 1;
 		add(removeButton, layoutConstraints);
 	}
 	
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
 		//layoutConstraints.
-		buttonInsets = new Insets((int)(frameSize.height/80), (int)(frameSize.width/100), (int)(frameSize.height/80), (int)(frameSize.width/100));
+		buttonInsets = new Insets((int)(frameSize.height/50), (int)(frameSize.width/100), (int)(frameSize.height/50), (int)(frameSize.width/100));
 		layoutConstraints.insets = buttonInsets;
 		
 		//Resizes the button font and buttonIcon sizes

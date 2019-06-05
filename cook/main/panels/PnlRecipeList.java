@@ -16,10 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.text.DefaultStyledDocument;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyleContext;
-import javax.swing.text.StyledDocument;
 
 import cook.components.CookBox;
 import cook.components.CookTextPane;
@@ -85,12 +81,8 @@ public class PnlRecipeList extends JPanel {
 	
 	public void addComponents() {
 	    for (int i = 0; i < recipes.size(); i++) {
-	    	StyleContext context = new StyleContext();
-		    StyledDocument document = new DefaultStyledDocument(context);
-		    StyleConstants.setAlignment(context.getStyle(StyleContext.DEFAULT_STYLE), StyleConstants.ALIGN_CENTER);
-			
 		    //Adds each recipe pnlTitle to the panel
-			CookTextPane recipeTitle = new CookTextPane(document, 0, i);
+			CookTextPane recipeTitle = new CookTextPane(true, 0, i);
 			recipeTitle.setText(recipes.get(i).title);
 			recipeTitle.setEditable(false);
 			recipeTitle.setHighlighter(null);

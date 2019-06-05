@@ -68,6 +68,7 @@ public class FrMain extends JFrame {
 		setMinimumSize(new Dimension(1024, 512));
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
+		
 		redraw();
 	}
 
@@ -96,7 +97,7 @@ public class FrMain extends JFrame {
 		});
 		
 		JMenuItem generate = createMenuItem("Generate...", KeyStroke.getKeyStroke(KeyEvent.VK_G, ActionEvent.CTRL_MASK), 
-				"Generates a Shopping List from selected recipes", null);
+				"Generates a Shopping List from selected ingredients", null);
 		generate.addActionListener((ActionEvent event) -> {
 			
 		});
