@@ -5,7 +5,7 @@ import javax.swing.JCheckBox;
 @SuppressWarnings("serial")
 public class CookBox extends JCheckBox {
 	
-	int x, y;
+	public int x, y;
 	
 	/**
 	 * A CheckBox class that knows its screen grid location

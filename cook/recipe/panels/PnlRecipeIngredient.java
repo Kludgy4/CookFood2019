@@ -5,7 +5,10 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
+import cook.components.CookBox;
 import cook.components.CookButton;
 import cook.components.CookCombo;
 import cook.components.CookIcon;
@@ -44,7 +47,7 @@ public class PnlRecipeIngredient extends CookPanel {
 		
 		//Creates Buttons
 		addButton = CookIcon.ADD.getCookButton("Add Ingredient");
-		removeButton = CookIcon.REMOVE.getCookButton("Remove Ingredient");
+		removeButton = CookIcon.REMOVE.getCookButton("Remove Ingredient(s)");
 		
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -60,6 +63,33 @@ public class PnlRecipeIngredient extends CookPanel {
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Remove");
+				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
+				PnlIngredientsList list = parent.pnlIngredientsList;
+				//TODO Add ingredient dependent on input ingredient
+				ArrayList<Integer> selectedCheckboxes = new ArrayList<>();
+				
+				for (CookBox c : list.checkboxes) {
+					if (c.isSelected()) {
+						c.setSelected(false);
+						selectedCheckboxes.add(c.y);
+					}
+				}
+				
+				List<Ingredient> found = new ArrayList<Ingredient>();
+				for (CookTextPane n : list.names) {
+					if (selectedCheckboxes.contains(n.y)) {
+						for (Ingredient i : list.ingredients) {
+							System.out.println(i.name + " " + n.getText());
+							if (i.name.equals(n.getText())) {
+								found.add(i);
+							}
+						}
+					}
+				}
+				list.ingredients.removeAll(found);
+				
+				list.addComponents();
+				parent.redraw();
 			}
 		});
 		

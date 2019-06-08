@@ -10,7 +10,7 @@ import cook.elements.RoundBorder;
 @SuppressWarnings("serial")
 public class CookTextPane extends JTextPane {
 
-	int x, y;
+	public int x, y;
 	
 	/**
 	 * A TextPane class that knows its screen grid location
