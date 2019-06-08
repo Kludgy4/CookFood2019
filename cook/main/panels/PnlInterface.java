@@ -25,12 +25,13 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import cook.CookMain;
 import cook.components.CookButton;
 import cook.components.CookIcon;
+import cook.components.CookPanel;
 import cook.elements.Ingredient;
 import cook.elements.Recipe;
 import cook.recipe.frames.FrRecipe; 
 
 @SuppressWarnings("serial")
-public class PnlMain extends JPanel {
+public class PnlInterface extends CookPanel {
 	
 	ArrayList<CookButton> buttons = new ArrayList<>();
 	
@@ -40,9 +41,9 @@ public class PnlMain extends JPanel {
 	GridLayout pnlLayout;
 	
 	/**
-	 * Constructs a new cook panel
+	 * Constructs the Main Interface Panel
 	 */
-	public PnlMain() {
+	public PnlInterface() {
 		setBorder(BorderFactory.createMatteBorder(0, 0, 0, 12, Color.BLACK));
 		
 		//Constructs onscreen elements
@@ -60,6 +61,7 @@ public class PnlMain extends JPanel {
 		CookButton editButton = CookIcon.EDIT.getCookButton("Edit Recipe");
 		CookButton generateButton = CookIcon.GENERATE.getCookButton("Generate List");
 		
+		//Adds relevant functionality to each of the buttons
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Add");
@@ -82,6 +84,7 @@ public class PnlMain extends JPanel {
 			}
 		});
 		
+		//Adds the buttons all to a list to be easily resized later
 		buttons.add(addButton);
 		buttons.add(removeButton);
 		buttons.add(editButton);
@@ -92,13 +95,7 @@ public class PnlMain extends JPanel {
 		add(pnlBtn);
 	}
 	
-	/**
-	 * Resizes all of the Components contained within this panel
-	 * @param frameSize The size of the entire frame
-	 * @param screenSize The size of the entire screen
-	 */
 	public void resizeElements (Dimension frameSize, Dimension screenSize) {
-		
 		//Resizes the button font and buttonIcon sizes
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
 		for (CookButton button : buttons) button.setFont(newFont);
@@ -127,7 +124,7 @@ public class PnlMain extends JPanel {
 	
 	/**
 	 * This method extracts all of the ingredients from input ingredients and places them into an unsorted array.
-	 * It then sorts all of these ingredients into alphabetical order by name, and then returns the sorted pnlIngredient array
+	 * It then sorts all of these ingredients into alphabetical order by name, and then returns the sorted pnlRecipeIngredient array
 	 * @param recipeArray The array of ingredients whose ingredients need to be ordered
 	 * @return An array of input recipe ingredients, alphabetically arranged
 	 */

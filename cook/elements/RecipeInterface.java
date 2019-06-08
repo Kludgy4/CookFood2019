@@ -48,15 +48,14 @@ public class RecipeInterface {
 	}
 	
 	/**
-	 * Gets all of the
-	 * @return
+	 * Gets all of the files currently contained in the program recipe save folder
+	 * @return An ArrayList of all the files contained in the save folder
 	 */
 	public ArrayList<File> getFolderFiles() {
 //		//Ensures that the file saving/opening location exists
 		//File file = new File((getClass().getResource("../../") + "CookFoodRecipes").substring(6));
 		File file = new File(("C:\\Users\\matt\\Desktop\\CookFoodRecipes"));
 		file.mkdirs();
-		System.out.println(file.getPath());
 		
 		//Gets all of the files saved on the computer in the CookFood save folder
 		ArrayList<File> files = new ArrayList<>();

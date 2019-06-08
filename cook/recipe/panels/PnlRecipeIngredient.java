@@ -2,69 +2,58 @@ package cook.recipe.panels;
 
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-
-import cook.CookMain;
 import cook.components.CookButton;
+import cook.components.CookCombo;
 import cook.components.CookIcon;
+import cook.components.CookPanel;
 import cook.components.CookTextPane;
 import cook.elements.Ingredient;
 import cook.elements.QuantityType;
 import cook.recipe.frames.FrRecipe;
 
 @SuppressWarnings("serial")
-public class PnlIngredient extends JPanel {
+public class PnlRecipeIngredient extends CookPanel {
 	
-	PnlRecipe recipePanel;
-	GridBagLayout layout;
-	GridBagConstraints layoutConstraints;
 	Insets buttonInsets;
+	
 	CookTextPane namePane, quantityPane;
 	CookButton addButton, removeButton;
+	CookCombo comboBox;
 	
-	public PnlIngredient(PnlRecipe recipePanel) {
-		this.recipePanel = recipePanel;
-		buttonInsets = new Insets(25, 25, 25, 25);
-		
-		//Creates the layout manager that is used to manage component creation
-		layoutConstraints = new GridBagConstraints();
-		layoutConstraints.fill = GridBagConstraints.HORIZONTAL;
-		
-		//Creates the panel on which components will be drawn
-		layout = new GridBagLayout();
-		layout.preferredLayoutSize(this);
-		//layout.setConstraints(this, layoutConstraints);
-		setLayout(layout);
-		
-		this.recipePanel = recipePanel;
-		
-		//Add text boxes
+	public PnlRecipeIngredient() {
+		buttonInsets = new Insets(0, 25, 0, 25);
+		createLayout();
+		addElements();
+	}
+	
+	public void addElements() {
+		//Creates text boxes
 	    layoutConstraints.ipady = 10;
 	    layoutConstraints.weightx = 0.5;
 	    layoutConstraints.insets = buttonInsets;
 	    
-	    namePane = new CookTextPane(0, 0);
+	    namePane = new CookTextPane(false, 0, 0);
+	    quantityPane = new CookTextPane(false, 0, 1);
+	    
 	    namePane.setText("Ingredient Name");
-		
-		quantityPane = new CookTextPane(0, 1);
 		quantityPane.setText("Quantity");
 		
+		//Creates Buttons
 		addButton = CookIcon.ADD.getCookButton("Add Ingredient");
 		removeButton = CookIcon.REMOVE.getCookButton("Remove Ingredient");
 		
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Add");
-				recipePanel.parent.guiList.ingredients.add(new Ingredient(namePane.getText(), Integer.parseInt(quantityPane.getText()), QuantityType.KILOGRAMS));
-				recipePanel.parent.guiList.addComponents();
-				recipePanel.parent.redraw();
+				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
+				//TODO Add ingredient dependant on input ingredient
+				parent.pnlIngredientsList.ingredients.add(new Ingredient(namePane.getText(), Integer.parseInt(quantityPane.getText()), (QuantityType) comboBox.getSelectedItem()));
+				parent.pnlIngredientsList.addComponents();
+				parent.redraw();
 			}
 		});
 		
@@ -74,10 +63,14 @@ public class PnlIngredient extends JPanel {
 			}
 		});
 		
-		addElements();
+		comboBox = new CookCombo();
+		
+		refreshElements();
 	}
 	
-	public void addElements() {
+	public void refreshElements() {
+		//TODO Allow this to stay in the main addElements method rather then having to exist
+		//Adds the constructed elements to their respective positions in the frame
 		layoutConstraints.gridwidth = 2;
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 0;
@@ -88,7 +81,7 @@ public class PnlIngredient extends JPanel {
 		add(quantityPane, layoutConstraints);
 		
 		layoutConstraints.gridx = 1;
-		add(new JComboBox<>(), layoutConstraints);
+		add(comboBox, layoutConstraints);
 		
 		layoutConstraints.gridy = 2;
 		layoutConstraints.gridx = 0;
@@ -101,25 +94,22 @@ public class PnlIngredient extends JPanel {
 	}
 	
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
-		//layoutConstraints.
-		buttonInsets = new Insets((int)(frameSize.height/50), (int)(frameSize.width/100), (int)(frameSize.height/50), (int)(frameSize.width/100));
+		//
+		buttonInsets = new Insets((int)(frameSize.height/50), 25, (int)(frameSize.height/50), 25);
 		layoutConstraints.insets = buttonInsets;
 		
-		//Resizes the button font and buttonIcon sizes
+		//Resizes the panel font sizes
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.035));
 		addButton.setFont(newFont);
 		removeButton.setFont(newFont);
+		namePane.setFont(newFont);
+		quantityPane.setFont(newFont);
+		comboBox.setFont(newFont);
 		
 		//Resizes the button icons
 		addButton.resizeIcon(frameSize, screenSize, 0.8);
 		removeButton.resizeIcon(frameSize, screenSize, 0.8);
 		
-		//Resizes the spacing between the buttons
-//		pnlBtn.setLayout(new GridLayout(4, 1, 0, (int)(frameSize.getHeight()*0.02)));
-		
-		namePane.setFont(newFont);
-		quantityPane.setFont(newFont);
-		removeAll();
-		addElements();
+		refreshElements();
 	}
 }

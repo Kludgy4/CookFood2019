@@ -1,66 +1,47 @@
 package cook.recipe.panels;
 
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Insets;
 
-import javax.swing.JPanel;
-
+import cook.components.CookPanel;
 import cook.components.CookTextPane;
 
 @SuppressWarnings("serial")
-public class PnlRecipeTitle extends JPanel {
+public class PnlRecipeTitle extends CookPanel {
 	
-	PnlRecipe recipePanel;
-	GridBagLayout layout;
-	GridBagConstraints layoutConstraints;
 	Insets buttonInsets;
 	CookTextPane titlePane, cookbookPane;
 	
-	public PnlRecipeTitle(PnlRecipe recipePanel) {
-		buttonInsets = new Insets(25, 25, 25, 25);
-		
-		//Creates the layout manager that is used to manage component creation
-		layoutConstraints = new GridBagConstraints();
-		layoutConstraints.fill = GridBagConstraints.HORIZONTAL;
-		
-		//Creates the panel on which components will be drawn
-		layout = new GridBagLayout();
-		layout.preferredLayoutSize(this);
-		//layout.setConstraints(this, layoutConstraints);
-		setLayout(layout);
-		
-		this.recipePanel = recipePanel;
-		
-		//Add text boxes
+	public PnlRecipeTitle() {
+		buttonInsets = new Insets(0, 25, 0, 25);
+		createLayout();
+		addTextPanels();
+	}
+	
+	public void addTextPanels() {
+		//Constructs the text boxes
 	    layoutConstraints.ipady = 10;
 	    layoutConstraints.weightx = 0.5;
 	    layoutConstraints.insets = buttonInsets;
 	    
-	    titlePane = new CookTextPane(0, 0);
+	    titlePane = new CookTextPane(false, 0, 0);
 	    titlePane.setText("Recipe Title");
 		
-		cookbookPane = new CookTextPane(1, 0);
+		cookbookPane = new CookTextPane(false, 1, 0);
 		cookbookPane.setText("Cookbook");
 		
-		refreshPanes();
-	}
-
-	public void resizeElements(Font font) {
-		layoutConstraints.ipady = (int)(getHeight() / 10);
-		titlePane.setFont(font);
-		cookbookPane.setFont(font);
-		refreshPanes();
-	}
-	
-	public void refreshPanes() {
-		removeAll();
+		//Adds the text boxes to the panel
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 0;
 		add(titlePane, layoutConstraints);
 		layoutConstraints.gridx = 1;
 		add(cookbookPane, layoutConstraints);
 	}
-	
+
+	public void resizeElements(Dimension frameSize, Dimension screenSize) {
+		Font font = new Font("Arial", Font.ITALIC, (int)(frameSize.getHeight()*0.04));
+		titlePane.setFont(font);
+		cookbookPane.setFont(font);
+	}
 }

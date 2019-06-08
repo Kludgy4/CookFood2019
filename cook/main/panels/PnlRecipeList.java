@@ -1,68 +1,69 @@
 package cook.main.panels;
 
-import static cook.main.frames.FrMain.frameSize;
-import static cook.main.frames.FrMain.screenSize;
-
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.util.ArrayList;
 
 import javax.swing.JCheckBox;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
-import javax.swing.ScrollPaneConstants;
 
 import cook.components.CookBox;
+import cook.components.CookPanelList;
 import cook.components.CookTextPane;
 import cook.elements.Recipe;
 import cook.elements.RecipeInterface;
 
 @SuppressWarnings("serial")
-public class PnlRecipeList extends JPanel {
+public class PnlRecipeList extends CookPanelList {
 
 	ArrayList<JCheckBox> checkboxes = new ArrayList<>();
 	ArrayList<JTextPane> titles = new ArrayList<>();
 	ArrayList<Recipe> recipes;
 	
-	JPanel recipeListPanel;
-	GridBagLayout layout;
-	GridBagConstraints recipeListLayout;
-	
 	/**
-	 * Constructs a new recipe-list panel
+	 * Constructs the Main Recipe-List Panel
 	 */
 	public PnlRecipeList() {
-		setLayout(new BorderLayout());
-		
-		//Creates the panel on which components will be drawn
-		layout = new GridBagLayout();
-		layout.preferredLayoutSize(this);
-		recipeListPanel = new JPanel(layout);
-		
-		//Creates the layout manager that is used to manage component creation
-		recipeListLayout = new GridBagConstraints();
-		recipeListLayout.fill = GridBagConstraints.HORIZONTAL;
-		
-		//Adds a "JScrollPane" to the frame that automatically manages scrollbar usage for all Components added to the frame
-		JScrollPane scroller = new JScrollPane(recipeListPanel);
-		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scroller.getVerticalScrollBar().setUnitIncrement(25);
-		add(scroller, BorderLayout.CENTER);
-		
-		recipes = (new RecipeInterface()).retrieveRecipes();
-		addComponents();
+		createScrollableLayout();
+		refreshRecipes();
 	}
 	
 	/**
-	 * Resizes all of the Components contained within this panel
-	 * @param frameSize The size of the entire frame
-	 * @param screenSize The size of the entire screen
+	 * Creates and adds specified components to the panel
 	 */
+	public void addComponents() {
+	    for (int i = 0; i < recipes.size(); i++) {
+		    //Adds each recipe to the panel
+			CookTextPane recipeTitle = new CookTextPane(true, 0, i);
+			recipeTitle.setText(recipes.get(i).title);
+			recipeTitle.setEditable(false);
+			recipeTitle.setHighlighter(null);
+			recipeTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+			
+			layoutConstraints.gridx = 0;
+			layoutConstraints.gridy = i;
+			layoutConstraints.weightx = 0.9;
+			layoutConstraints.ipady = 75;
+			
+			titles.add(recipeTitle);
+			listPanel.add(recipeTitle, layoutConstraints);
+			
+			//Adds a corresponding recipe checkbox to the panel
+			CookBox recipeCheckBox = new CookBox(1, i);
+			
+			layoutConstraints.gridx = 1;
+			layoutConstraints.gridy = i;
+			layoutConstraints.weightx = 0.1;
+			layoutConstraints.anchor = GridBagConstraints.CENTER;
+			layoutConstraints.ipady = 75;
+			
+			checkboxes.add(recipeCheckBox);
+			listPanel.add(recipeCheckBox, layoutConstraints);
+		}
+	}
+	
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
 		//Resizes the button font and buttonIcon sizes
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
@@ -71,40 +72,14 @@ public class PnlRecipeList extends JPanel {
 		}
 	}
 	
+	/**
+	 * Refreshes the list of recipes saved in program memory
+	 */
 	public void refreshRecipes() {
-		recipeListPanel.removeAll();
+		listPanel.removeAll();
 		recipes = (new RecipeInterface()).retrieveRecipes();
 		addComponents();
-		resizeElements(frameSize, screenSize);
-		repaint();
 	}
 	
-	public void addComponents() {
-	    for (int i = 0; i < recipes.size(); i++) {
-		    //Adds each recipe pnlTitle to the panel
-			CookTextPane recipeTitle = new CookTextPane(true, 0, i);
-			recipeTitle.setText(recipes.get(i).title);
-			recipeTitle.setEditable(false);
-			recipeTitle.setHighlighter(null);
-			recipeTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
-			
-			recipeListLayout.gridx = 0;
-			recipeListLayout.gridy = i;
-			recipeListLayout.weightx = 0.9;
-			recipeListLayout.ipady = 75;
-			
-			titles.add(recipeTitle);
-			recipeListPanel.add(recipeTitle, recipeListLayout);
-			
-			//Adds a corresponding recipe checkbox to the panel
-			CookBox recipeCheckBox = new CookBox(1, i);
-			recipeListLayout.gridx = 1;
-			recipeListLayout.gridy = i;
-			recipeListLayout.weightx = 0.1;
-			recipeListLayout.anchor = GridBagConstraints.EAST;
-			recipeListLayout.ipady = 75;
-			checkboxes.add(recipeCheckBox);
-			recipeListPanel.add(recipeCheckBox, recipeListLayout);
-		}
-	}
+	
 }

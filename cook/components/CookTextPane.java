@@ -12,15 +12,15 @@ public class CookTextPane extends JTextPane {
 
 	int x, y;
 	
-	public CookTextPane (int x, int y) {
-		this.x = x;
-		this.y = y;
-		setBorder(new RoundBorder(10));
-	}
-	
+	/**
+	 * A TextPane class that knows its screen grid location
+	 * @param centered Whether the text should be centered in the box
+	 * @param x The x position of the textpane on the screen
+	 * @param y The y position of the textpane on the screen
+	 */
 	public CookTextPane (boolean centered, int x, int y) {
 		super(new DefaultStyledDocument(new StyleContext()));
-		StyleConstants.setAlignment(getStyle(StyleContext.DEFAULT_STYLE), StyleConstants.ALIGN_CENTER);
+		if (centered) StyleConstants.setAlignment(getStyle(StyleContext.DEFAULT_STYLE), StyleConstants.ALIGN_CENTER);
 		this.x = x;
 		this.y = y;
 		setBorder(new RoundBorder(10));

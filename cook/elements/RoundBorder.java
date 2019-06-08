@@ -12,6 +12,10 @@ public class RoundBorder implements Border {
 
     private int radius;
 
+    /**
+     * A StackOverflow class that does magic to round the borders of onscreen components
+     * @param radius The radius of the rounded border in pixels
+     */
     public RoundBorder(int radius) {
         this.radius = radius;
     }

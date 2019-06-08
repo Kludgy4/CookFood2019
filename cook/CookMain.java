@@ -3,7 +3,6 @@ package cook;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import cook.elements.RecipeInterface;
 import cook.main.frames.FrMain;
 import cook.recipe.frames.FrRecipe;
 
@@ -23,8 +22,6 @@ public class CookMain {
 		}
 
 		//Creates the application window ready for event-driven processing
-		RecipeInterface t = new RecipeInterface();
-		t.getFolderFiles();
 		app = new FrMain();
 		
 	}

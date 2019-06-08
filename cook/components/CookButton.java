@@ -15,11 +15,22 @@ public class CookButton extends JButton  {
 	
 	BufferedImage buttonIcon;
 	
+	/**
+	 * A Button class with added automatic icon handling capability built-in
+	 * @param cookIcon
+	 */
 	public CookButton(CookIcon cookIcon) {
 		this.buttonIcon = cookIcon.getImage();
 		setBorder(new RoundBorder(15));
 	}
 	
+	/**
+	 * Resizes the icon contained inside the button to match the size of its containing window. 
+	 * Allows the button to be scaled up or down from the automatic sizing
+	 * @param frameSize The size of the entire frame
+	 * @param screenSize The size of the entire screen
+	 * @param scalePercentage The percentage to alter the button size by
+	 */
 	public void resizeIcon(Dimension frameSize, Dimension screenSize, double scalePercentage){
 		int newWidth, newHeight;
 		double imageAspect = buttonIcon.getWidth()/buttonIcon.getHeight();

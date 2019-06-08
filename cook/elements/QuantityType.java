@@ -14,7 +14,8 @@ public enum QuantityType {
 	//Vats, bottles, barrels, carton, hint, handfuls, cloves
 	
 	//Quantity
-	WHOLE("Whole", "Whole"), OTHER("Other", "Other");
+	VAT("Vat", "Vats"), BOTTLE("Bottle", "Bottles"), BARREL("Barrel", "Barrels"), CARTON("Carton", "Cartons"), HINT("Hint", "Hints"), 
+	HANDFUL("Handful", "Handfuls"), CLOVE("Clove", "Cloves"), WHOLE("Whole", "Whole"), OTHER("Other", "Other");
 	
 	private String singularName = "", multiName = "";
 	
