@@ -80,7 +80,7 @@ public class PnlIngredientsList extends CookPanelList {
 			listPanel.add(ingredientQuantity, layoutConstraints);
 			
 			//Adds a corresponding recipe checkbox to the panel
-			CookBox recipeCheckBox = new CookBox(2, i);
+			CookBox recipeCheckBox = new CookBox(2, i, ingredient);
 			layoutConstraints.gridx = 2;
 			layoutConstraints.weightx = 0.1;
 			layoutConstraints.anchor = GridBagConstraints.EAST;

@@ -51,7 +51,7 @@ public class PnlRecipeList extends CookPanelList {
 			listPanel.add(recipeTitle, layoutConstraints);
 			
 			//Adds a corresponding recipe checkbox to the panel
-			CookBox recipeCheckBox = new CookBox(1, i);
+			CookBox recipeCheckBox = new CookBox(1, i, recipes.get(i));
 			
 			layoutConstraints.gridx = 1;
 			layoutConstraints.gridy = i;
