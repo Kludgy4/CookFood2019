@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 
-import javax.swing.JCheckBox;
 import javax.swing.JTextPane;
 
 import cook.components.CookBox;
@@ -18,9 +17,9 @@ import cook.elements.RecipeInterface;
 @SuppressWarnings("serial")
 public class PnlRecipeList extends CookPanelList {
 
-	ArrayList<JCheckBox> checkboxes = new ArrayList<>();
-	ArrayList<JTextPane> titles = new ArrayList<>();
-	ArrayList<Recipe> recipes;
+	ArrayList<CookBox> checkboxes = new ArrayList<>();
+	ArrayList<CookTextPane> titles = new ArrayList<>();
+	public ArrayList<Recipe> recipes;
 	
 	/**
 	 * Constructs the Main Recipe-List Panel

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Recipe {
 	
+	public String fileName;
+	
 	public String title;
 	public String cookbook;
 	public ArrayList<Ingredient> ingredients;
@@ -12,6 +14,7 @@ public class Recipe {
 	 * Creates a new Recipe object
 	 */
 	public Recipe() {
+		fileName = "";
 		title = "";
 		cookbook = "";
 		ingredients = new ArrayList<>();

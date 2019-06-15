@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import cook.components.CookFrame;
+import cook.main.frames.FrMain;
 import cook.recipe.panels.PnlIngredientsList;
 import cook.recipe.panels.PnlRecipeInterface;
 
@@ -14,15 +15,16 @@ import cook.recipe.panels.PnlRecipeInterface;
 @SuppressWarnings("serial")
 public class FrRecipe extends CookFrame {
 	
+	public FrMain mainFrame;
 	public PnlRecipeInterface pnlRecipeInterface;
 	public PnlIngredientsList pnlIngredientsList;
 	
 	/**
 	 * Constructs a new window (In which the Recipe section of the CookFood program is run)	 
 	 */
-	public FrRecipe() {
+	public FrRecipe(FrMain mainFrame) {
 		super();
-		
+		this.mainFrame = mainFrame;
 		//Constructs the frame for displaying
 		pnlRecipeInterface = new PnlRecipeInterface(this);
 		pnlIngredientsList = new PnlIngredientsList();

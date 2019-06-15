@@ -23,11 +23,15 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import cook.CookMain;
+import cook.CookSettings;
+import cook.components.CookBox;
 import cook.components.CookButton;
 import cook.components.CookIcon;
 import cook.components.CookPanel;
 import cook.elements.Ingredient;
 import cook.elements.Recipe;
+import cook.elements.RecipeInterface;
+import cook.main.frames.FrMain;
 import cook.recipe.frames.FrRecipe; 
 
 @SuppressWarnings("serial")
@@ -39,11 +43,13 @@ public class PnlInterface extends CookPanel {
 	JPanel pnlBtn = new JPanel();
 	EmptyBorder pnlBorder;
 	GridLayout pnlLayout;
+	FrMain mainFrame;
 	
 	/**
 	 * Constructs the Main Interface Panel
 	 */
-	public PnlInterface() {
+	public PnlInterface(FrMain mainFrame) {
+		this.mainFrame = mainFrame;
 		setBorder(BorderFactory.createMatteBorder(0, 0, 0, 12, Color.BLACK));
 		
 		//Constructs onscreen elements
@@ -65,12 +71,26 @@ public class PnlInterface extends CookPanel {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Add");
-				CookMain.recipe = new FrRecipe();
+				CookMain.recipe = new FrRecipe(mainFrame);
 			}
 		});
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Remove");
+				
+				PnlRecipeList list = mainFrame.pnlRecipeList;
+				
+				for (CookBox c : list.checkboxes) {
+					if (c.isSelected()) {
+						c.setSelected(false);
+						Recipe cTarget = (Recipe)c.target;
+						String fileName = (cTarget.fileName).substring(0, cTarget.fileName.length()-4);
+						(new RecipeInterface()).deleteRecipe(fileName);
+						arrayRecipes.remove(c.target);
+					}
+				}
+				list.addComponents();
+				mainFrame.redraw();
 			}
 		});
 		editButton.addActionListener(new ActionListener() {
@@ -182,7 +202,7 @@ public class PnlInterface extends CookPanel {
 	    if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
 	    	saveDirectory = chooser.getSelectedFile().toString() + "." + fileExtension;
 	    } else {
-	    	saveDirectory = (getClass().getResource("../") + "CookFoodRecipes").substring(6);
+	    	saveDirectory = CookSettings.savePath;
 	    	System.out.println("Defaulting list output location to recipe save folder: " + saveDirectory);
 	    }
 		

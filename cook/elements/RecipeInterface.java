@@ -7,8 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import cook.CookSettings;
+
 public class RecipeInterface {
-	
+	//TODO Remove RecipeInterface class from the system
 	/**
 	 * Retrieves all ingredients previously saved on the system
 	 * @return An array of all previously saved ingredients as 'Recipe' objects
@@ -35,6 +37,7 @@ public class RecipeInterface {
 						recipe.ingredients.add(new Ingredient(inputData[0], Integer.parseInt(inputData[1]), QuantityType.valueOf(inputData[2].toUpperCase())));
 						input = reader.readLine();
 					}
+					recipe.fileName = f.getName();
 					recipes.add(recipe);
 					reader.close();
 				} catch (FileNotFoundException e) {} catch (IOException e) {e.printStackTrace();}
@@ -52,9 +55,8 @@ public class RecipeInterface {
 	 * @return An ArrayList of all the files contained in the save folder
 	 */
 	public ArrayList<File> getFolderFiles() {
-//		//Ensures that the file saving/opening location exists
-		//File file = new File((getClass().getResource("../../") + "CookFoodRecipes").substring(6));
-		File file = new File(("C:\\Users\\matt\\Desktop\\CookFoodRecipes"));
+		//Ensures that the file saving/opening location exists
+		File file = new File(CookSettings.savePath);
 		file.mkdirs();
 		
 		//Gets all of the files saved on the computer in the CookFood save folder
@@ -75,14 +77,16 @@ public class RecipeInterface {
 	 */
 	public boolean deleteRecipe(String title) {
 		ArrayList<File> files = getFolderFiles();
-		
+		System.out.println("Deleting " + title + " from " + files.toString());
 		//Perform a linear search for the file to delete
 		int i = 0;
 		boolean foundIt = false;
 		
 		//Search for the given string until none left or found		
 		while (!foundIt && i < files.size()) {
-			if (files.get(i).getName() == title) {
+			String fileName = files.get(i).getName();
+			System.out.println(title);
+			if (fileName.substring(0, fileName.length()-4).equals(title)) {
 				foundIt = true;
 			} else {
 				i++;
