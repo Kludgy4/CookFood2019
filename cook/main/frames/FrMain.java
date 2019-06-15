@@ -15,6 +15,7 @@ import cook.main.panels.PnlRecipeList;
  */
 @SuppressWarnings("serial")
 public class FrMain extends CookFrame {
+	//TODO Update references across the program to be static because they only exist once so why pass stuff everywhere if can just be static?
 	public PnlInterface pnlInterface;
 	public PnlRecipeList pnlRecipeList;
 	
@@ -37,7 +38,7 @@ public class FrMain extends CookFrame {
 		setExtendedState(JFrame.MAXIMIZED_BOTH);
 		setVisible(true);
 	}
-
+	
 	/**
 	 * Updates the positioning and sizing of all on-screen components
 	 */

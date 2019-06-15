@@ -69,23 +69,19 @@ public class PnlInterface extends CookPanel {
 		//Adds relevant functionality to each of the buttons
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Add");
+				//TODO swap focus to open frame if already existing rather then opening a second one
 				CookMain.recipe = new FrRecipe(mainFrame);
 			}
 		});
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Delete");
 				
 				PnlRecipeList list = mainFrame.pnlRecipeList;
 				
-				for (CookBox c : list.checkboxes) {
-					if (c.isSelected()) {
-						c.setSelected(false);
-						Recipe cTarget = (Recipe)c.target;
-						String fileName = (cTarget.fileName).substring(0, cTarget.fileName.length()-4);
-						(new RecipeInterface()).deleteRecipe(fileName);
-					}
+				for (CookBox box : list.getSelectedCheckboxes()) {
+					Recipe cTarget = (Recipe)box.target;
+					String fileName = (cTarget.fileName).substring(0, cTarget.fileName.length()-4);
+					(new RecipeInterface()).deleteRecipe(fileName);
 				}
 				list.refreshRecipes();
 				mainFrame.redraw();
@@ -93,19 +89,16 @@ public class PnlInterface extends CookPanel {
 		});
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Edit");
+				
+				//CookMain.recipe = new FrRecipe(mainFrame, );
 			}
 		});
 		generateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO insert method which gets all selected checkbox objects automatically to prevent duplicate code between here and deletion above
-				System.out.println("Generate");
 				ArrayList<Recipe> selectedRecipes = new ArrayList<>();
-				for (CookBox c : mainFrame.pnlRecipeList.checkboxes) {
-					if (c.isSelected()) {
-						c.setSelected(false);
-						selectedRecipes.add((Recipe)c.target);
-					}
+				
+				for (CookBox c : mainFrame.pnlRecipeList.getSelectedCheckboxes()) {
+					selectedRecipes.add((Recipe)c.target);
 				}
 				generateShoppingList(selectedRecipes);
 			}

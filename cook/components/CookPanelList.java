@@ -3,6 +3,7 @@ package cook.components;
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,6 +13,7 @@ import javax.swing.ScrollPaneConstants;
 public abstract class CookPanelList extends CookPanel {
 
 	protected JPanel listPanel;
+	protected ArrayList<CookBox> checkboxes = new ArrayList<>();
 	
 	/**
 	 * Constructs the gridbag layout for list panels to use, by automatically constructing 
@@ -34,5 +36,17 @@ public abstract class CookPanelList extends CookPanel {
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scroller.getVerticalScrollBar().setUnitIncrement(25);
 		add(scroller, BorderLayout.CENTER);
+	}
+	
+	public ArrayList<CookBox> getSelectedCheckboxes() {
+		ArrayList<CookBox> selectedBoxes = new ArrayList<>();
+		
+		for (CookBox box : checkboxes) {
+			if (box.isSelected()) {
+				box.setSelected(false);
+				selectedBoxes.add(box);
+			}
+		}
+		return selectedBoxes;
 	}
 }

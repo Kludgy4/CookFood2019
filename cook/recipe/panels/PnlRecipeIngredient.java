@@ -49,7 +49,6 @@ public class PnlRecipeIngredient extends CookPanel {
 		
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Add");
 				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
 				//TODO Add ingredient dependant on input ingredient
 				parent.pnlIngredientsList.ingredients.add(new Ingredient(namePane.getText(), Integer.parseInt(quantityPane.getText()), (QuantityType) comboBox.getSelectedItem()));
@@ -60,16 +59,11 @@ public class PnlRecipeIngredient extends CookPanel {
 		
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Delete");
 				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
 				PnlIngredientsList list = parent.pnlIngredientsList;
-				//TODO Add ingredient dependent on input ingredient
 				
-				for (CookBox c : list.checkboxes) {
-					if (c.isSelected()) {
-						c.setSelected(false);
-						list.ingredients.remove(c.target);
-					}
+				for (CookBox c : list.getSelectedCheckboxes()) {
+					list.ingredients.remove(c.target);
 				}
 				list.addComponents();
 				parent.redraw();

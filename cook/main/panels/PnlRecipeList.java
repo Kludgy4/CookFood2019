@@ -17,7 +17,6 @@ import cook.elements.RecipeInterface;
 @SuppressWarnings("serial")
 public class PnlRecipeList extends CookPanelList {
 
-	ArrayList<CookBox> checkboxes = new ArrayList<>();
 	ArrayList<CookTextPane> titles = new ArrayList<>();
 	public ArrayList<Recipe> recipes;
 	

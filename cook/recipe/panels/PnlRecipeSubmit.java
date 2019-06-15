@@ -39,7 +39,6 @@ public class PnlRecipeSubmit extends CookPanel {
 		
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Submit");
 				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
 				PnlRecipeList recipes = parent.mainFrame.pnlRecipeList;
 				
