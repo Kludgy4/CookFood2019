@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import cook.elements.RoundBorder;
-
 @SuppressWarnings("serial")
 public class CookButton extends JButton  {
 	
@@ -21,7 +19,6 @@ public class CookButton extends JButton  {
 	 */
 	public CookButton(CookIcon cookIcon) {
 		this.buttonIcon = cookIcon.getImage();
-		setBorder(new RoundBorder(15));
 	}
 	
 	/**

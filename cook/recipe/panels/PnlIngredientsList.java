@@ -15,8 +15,7 @@ public class PnlIngredientsList extends CookPanelList {
 
 	ArrayList<CookTextPane> names = new ArrayList<>();
 	ArrayList<CookTextPane> quantities = new ArrayList<>();
-	
-	ArrayList<Ingredient> ingredients = new ArrayList<>();
+	public ArrayList<Ingredient> ingredients = new ArrayList<>();
 	
 	public PnlIngredientsList() {
 		createScrollableLayout();

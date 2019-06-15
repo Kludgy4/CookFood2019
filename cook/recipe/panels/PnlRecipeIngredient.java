@@ -21,9 +21,9 @@ public class PnlRecipeIngredient extends CookPanel {
 	
 	Insets buttonInsets;
 	
-	CookTextPane namePane, quantityPane;
-	CookButton addButton, deleteButton;
-	CookCombo comboBox;
+	public CookTextPane namePane, quantityPane;
+	public CookButton addButton, deleteButton;
+	public CookCombo comboBox;
 	
 	public PnlRecipeIngredient() {
 		buttonInsets = new Insets(0, 25, 0, 25);

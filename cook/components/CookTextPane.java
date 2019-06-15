@@ -1,11 +1,10 @@
 package cook.components;
 
+import javax.swing.BorderFactory;
 import javax.swing.JTextPane;
 import javax.swing.text.DefaultStyledDocument;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
-
-import cook.elements.RoundBorder;
 
 @SuppressWarnings("serial")
 public class CookTextPane extends JTextPane {
@@ -23,6 +22,6 @@ public class CookTextPane extends JTextPane {
 		if (centered) StyleConstants.setAlignment(getStyle(StyleContext.DEFAULT_STYLE), StyleConstants.ALIGN_CENTER);
 		this.x = x;
 		this.y = y;
-		setBorder(new RoundBorder(10));
+		setBorder(BorderFactory.createEmptyBorder());
 	}
 }

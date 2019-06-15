@@ -19,7 +19,6 @@ public abstract class CookFrame extends JFrame {
 	
 	public CookFrame() {
 		super("CookFood");
-		
 		//Sets, tracks, and appropriately resizes, the Frame and its elements during program use
 		addComponentListener(new ComponentAdapter() {  
 	        public void componentResized(ComponentEvent e) {
@@ -33,7 +32,7 @@ public abstract class CookFrame extends JFrame {
 		});
 		
 		//Other miscellaneous setup tasks
-		getContentPane().setBackground(CookSettings.colRed);
+		getContentPane().setBackground(CookSettings.colourBackground);
 	}
 	
 	public abstract void redraw();

@@ -5,9 +5,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
+
+import cook.CookSettings;
 
 @SuppressWarnings("serial")
 public abstract class CookPanelList extends CookPanel {
@@ -35,7 +38,13 @@ public abstract class CookPanelList extends CookPanel {
 		JScrollPane scroller = new JScrollPane(listPanel);
 		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		scroller.getVerticalScrollBar().setUnitIncrement(25);
+		scroller.setBorder(BorderFactory.createEmptyBorder());
+		
 		add(scroller, BorderLayout.CENTER);
+		
+		//Sets the background of the layout
+		listPanel.setBackground(CookSettings.colourBackground);
+		setBackground(CookSettings.colourBackground);
 	}
 	
 	public ArrayList<CookBox> getSelectedCheckboxes() {

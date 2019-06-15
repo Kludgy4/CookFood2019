@@ -6,6 +6,8 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import cook.CookSettings;
+
 @SuppressWarnings("serial")
 public abstract class CookPanel extends JPanel {
 
@@ -26,6 +28,9 @@ public abstract class CookPanel extends JPanel {
 		layout.preferredLayoutSize(this);
 		
 		setLayout(layout);
+		
+		//Sets the colour of the background
+		setBackground(CookSettings.colourBackground);
 	}
 	
 	/**

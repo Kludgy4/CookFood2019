@@ -21,10 +21,10 @@ public class RecipeInterface {
 			ArrayList<Recipe> recipes = new ArrayList<>();
 			
 			//Iterates over every retrieved recipe and turns them into recipe objects
-			for (File f : recipeFiles) {
+			for (File file : recipeFiles) {
 				try {
 					//Primes the reader and reads general recipe informationE
-					BufferedReader reader = new BufferedReader(new FileReader(f));
+					BufferedReader reader = new BufferedReader(new FileReader(file));
 					Recipe recipe = new Recipe();
 					String[] inputData = reader.readLine().split(",");
 					recipe.title = inputData[0];
@@ -41,7 +41,7 @@ public class RecipeInterface {
 						)));
 						input = reader.readLine();
 					}
-					recipe.fileName = f.getName();
+					recipe.fileName = file.getName();
 					recipes.add(recipe);
 					reader.close();
 				} catch (FileNotFoundException e) {} catch (IOException e) {e.printStackTrace();}

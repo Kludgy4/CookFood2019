@@ -2,6 +2,8 @@ package cook.components;
 
 import javax.swing.JCheckBox;
 
+import cook.CookSettings;
+
 @SuppressWarnings("serial")
 public class CookBox extends JCheckBox {
 	
@@ -18,6 +20,7 @@ public class CookBox extends JCheckBox {
 		this.x = x;
 		this.y = y;
 		this.target = target;
+		setBackground(CookSettings.colourBackground);
 	}
 	
 }

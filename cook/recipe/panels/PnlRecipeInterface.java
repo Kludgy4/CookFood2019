@@ -1,23 +1,21 @@
 package cook.recipe.panels;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 
+import cook.CookSettings;
 import cook.components.CookPanel;
-import cook.elements.Recipe;
 import cook.recipe.frames.FrRecipe;
 
 @SuppressWarnings("serial")
 public class PnlRecipeInterface extends CookPanel {
 
-	PnlRecipeTitle pnlTitle;
-	PnlRecipeIngredient pnlRecipeIngredient;
-	PnlRecipeSubmit pnlRecipeSubmit;
+	public PnlRecipeTitle pnlTitle;
+	public PnlRecipeIngredient pnlRecipeIngredient;
+	public PnlRecipeSubmit pnlRecipeSubmit;
 	
 	ArrayList<CookPanel> panels = new ArrayList<>();
 	
@@ -27,21 +25,12 @@ public class PnlRecipeInterface extends CookPanel {
 	 * Constructs the Recipe Interface Panel
 	 */
 	public PnlRecipeInterface(FrRecipe parent) {
-		setBorder(BorderFactory.createMatteBorder(0, 0, 0, 12, Color.BLACK));
 		this.parent = parent;
 		
 		//Constructs onscreen elements
+		setBackground(CookSettings.colourBackground);
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		addFrames();
-	}
-	
-	/**
-	 * Constructs the Recipe Interface Panel, but uses input data to prepopulate the text fields
-	 * @param recipeInfo
-	 */
-	public PnlRecipeInterface(Recipe recipeInfo) {
-		super();
-		//TODO Preload data into boxes here
 	}
 	
 	/**

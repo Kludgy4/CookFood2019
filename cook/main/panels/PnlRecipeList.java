@@ -6,8 +6,10 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.JTextPane;
 
+import cook.CookSettings;
 import cook.components.CookBox;
 import cook.components.CookPanelList;
 import cook.components.CookTextPane;
@@ -39,6 +41,7 @@ public class PnlRecipeList extends CookPanelList {
 			recipeTitle.setEditable(false);
 			recipeTitle.setHighlighter(null);
 			recipeTitle.setAlignmentY(Component.CENTER_ALIGNMENT);
+			recipeTitle.setBorder(BorderFactory.createMatteBorder(1,1,1,1,CookSettings.neutral3));
 			
 			layoutConstraints.gridx = 0;
 			layoutConstraints.gridy = i;

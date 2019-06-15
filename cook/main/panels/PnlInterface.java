@@ -1,9 +1,8 @@
 package cook.main.panels;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -14,11 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -39,9 +35,7 @@ public class PnlInterface extends CookPanel {
 	
 	ArrayList<CookButton> buttons = new ArrayList<>();
 	
-	JPanel pnlBtn = new JPanel();
-	EmptyBorder pnlBorder;
-	GridLayout pnlLayout;
+	PnlInterfaceButtons pnlBtn = new PnlInterfaceButtons();
 	FrMain mainFrame;
 	
 	/**
@@ -49,7 +43,6 @@ public class PnlInterface extends CookPanel {
 	 */
 	public PnlInterface(FrMain mainFrame) {
 		this.mainFrame = mainFrame;
-		setBorder(BorderFactory.createMatteBorder(0, 0, 0, 12, Color.BLACK));
 		
 		//Constructs onscreen elements
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -70,7 +63,7 @@ public class PnlInterface extends CookPanel {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//TODO swap focus to open frame if already existing rather then opening a second one
-				CookMain.recipe = new FrRecipe(mainFrame);
+				CookMain.recipe = new FrRecipe(mainFrame, null);
 			}
 		});
 		deleteButton.addActionListener(new ActionListener() {
@@ -90,7 +83,7 @@ public class PnlInterface extends CookPanel {
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//CookMain.recipe = new FrRecipe(mainFrame, );
+				CookMain.recipe = new FrRecipe(mainFrame, (Recipe) mainFrame.pnlRecipeList.getSelectedCheckboxes().get(0).target);
 			}
 		});
 		generateButton.addActionListener(new ActionListener() {
@@ -112,7 +105,7 @@ public class PnlInterface extends CookPanel {
 		
 		//Adds the buttons to the panel (contained within another panel with whitespace (blank borders) around it)
 		for (CookButton button : buttons) pnlBtn.add(button);
-		add(pnlBtn);
+		add(pnlBtn, BorderLayout.CENTER);
 	}
 	
 	public void resizeElements (Dimension frameSize, Dimension screenSize) {
@@ -121,12 +114,7 @@ public class PnlInterface extends CookPanel {
 		for (CookButton button : buttons) button.setFont(newFont);
 		
 		//Resizes the border spacing around the buttons
-		pnlBorder = new EmptyBorder((int)(frameSize.getHeight()*0.06), (int)(frameSize.getWidth()*0.08),
-				(int)(frameSize.getHeight()*0.06), (int)(frameSize.getWidth()*0.2));
-		pnlBtn.setBorder(pnlBorder);
-		
-		//Resizes the spacing between the buttons
-		pnlBtn.setLayout(new GridLayout(4, 1, 0, (int)(frameSize.getHeight()*0.02)));
+		pnlBtn.resizeElements(frameSize, screenSize);
 		
 		//Resizes the button icons
 		for (CookButton button : buttons) button.resizeIcon(frameSize, screenSize, 1);

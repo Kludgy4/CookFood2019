@@ -11,7 +11,7 @@ import cook.components.CookTextPane;
 public class PnlRecipeTitle extends CookPanel {
 	
 	Insets buttonInsets;
-	CookTextPane titlePane, cookbookPane;
+	public CookTextPane titlePane, cookbookPane;
 	
 	public PnlRecipeTitle() {
 		buttonInsets = new Insets(0, 25, 0, 25);

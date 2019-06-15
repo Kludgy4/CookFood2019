@@ -105,6 +105,6 @@ public class PnlRecipeSubmit extends CookPanel {
 		//Resizes the button font and icon sizes
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
 		submitButton.setFont(newFont);
-		submitButton.resizeIcon(frameSize, screenSize, 0.8);
+		submitButton.resizeIcon(frameSize, screenSize, 0.75);
 	}
 }

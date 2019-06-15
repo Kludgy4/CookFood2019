@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import cook.components.CookFrame;
+import cook.elements.Recipe;
 import cook.main.frames.FrMain;
 import cook.recipe.panels.PnlIngredientsList;
 import cook.recipe.panels.PnlRecipeInterface;
@@ -22,12 +23,20 @@ public class FrRecipe extends CookFrame {
 	/**
 	 * Constructs a new window (In which the Recipe section of the CookFood program is run)	 
 	 */
-	public FrRecipe(FrMain mainFrame) {
+	public FrRecipe(FrMain mainFrame, Recipe preloadRecipe) {
 		super();
 		this.mainFrame = mainFrame;
 		//Constructs the frame for displaying
 		pnlRecipeInterface = new PnlRecipeInterface(this);
 		pnlIngredientsList = new PnlIngredientsList();
+		
+		if (preloadRecipe != null) {
+			pnlRecipeInterface.pnlTitle.titlePane.setText(preloadRecipe.title);
+			pnlRecipeInterface.pnlTitle.cookbookPane.setText(preloadRecipe.cookbook);
+			
+			pnlIngredientsList.ingredients = preloadRecipe.ingredients;
+			pnlIngredientsList.addComponents();
+		}
 		
 		add(pnlRecipeInterface, BorderLayout.WEST);
 		add(pnlIngredientsList, BorderLayout.EAST);

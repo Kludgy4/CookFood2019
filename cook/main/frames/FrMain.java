@@ -24,7 +24,6 @@ public class FrMain extends CookFrame {
 	 */
 	public FrMain() {
 		super();
-
 		//Constructs the frame for displaying
 		pnlInterface = new PnlInterface(this);
 		pnlRecipeList = new PnlRecipeList();
