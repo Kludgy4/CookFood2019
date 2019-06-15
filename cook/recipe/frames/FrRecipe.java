@@ -2,6 +2,7 @@ package cook.recipe.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
 
 import cook.components.CookFrame;
 import cook.elements.Recipe;
@@ -26,13 +27,18 @@ public class FrRecipe extends CookFrame {
 	public FrRecipe(FrMain mainFrame, Recipe preloadRecipe) {
 		super();
 		this.mainFrame = mainFrame;
+		mainFrame.setEnabled(false);
+		
 		//Constructs the frame for displaying
 		pnlRecipeInterface = new PnlRecipeInterface(this);
 		pnlIngredientsList = new PnlIngredientsList();
 		
+		pnlRecipeInterface.pnlRecipeSubmit.updating = false;
 		if (preloadRecipe != null) {
 			pnlRecipeInterface.pnlTitle.titlePane.setText(preloadRecipe.title);
 			pnlRecipeInterface.pnlTitle.cookbookPane.setText(preloadRecipe.cookbook);
+			pnlRecipeInterface.pnlRecipeSubmit.updating = true;
+			pnlRecipeInterface.pnlRecipeSubmit.updatingTitle = preloadRecipe.title;
 			
 			pnlIngredientsList.ingredients = preloadRecipe.ingredients;
 			pnlIngredientsList.addComponents();
@@ -61,5 +67,12 @@ public class FrRecipe extends CookFrame {
         pnlIngredientsList.setPreferredSize(new Dimension((int)(frameSize.getWidth()*0.45), (int)(frameSize.getHeight())));
         pnlIngredientsList.resizeElements(frameSize, screenSize);
         pnlIngredientsList.repaint();
+	}
+	
+	protected void processWindowEvent(final WindowEvent e) {
+		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+			mainFrame.setEnabled(true);
+			dispose();
+		}
 	}
 }

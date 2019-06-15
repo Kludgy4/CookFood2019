@@ -47,12 +47,14 @@ public abstract class CookPanelList extends CookPanel {
 		setBackground(CookSettings.colourBackground);
 	}
 	
-	public ArrayList<CookBox> getSelectedCheckboxes() {
+	public ArrayList<CookBox> getSelectedCheckboxes(boolean shouldUncheck) {
 		ArrayList<CookBox> selectedBoxes = new ArrayList<>();
 		
 		for (CookBox box : checkboxes) {
 			if (box.isSelected()) {
-				box.setSelected(false);
+				if (shouldUncheck) {
+					box.setSelected(false);
+				}
 				selectedBoxes.add(box);
 			}
 		}

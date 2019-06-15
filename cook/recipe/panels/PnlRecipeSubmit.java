@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import cook.CookMain;
 import cook.CookSettings;
 import cook.components.CookButton;
 import cook.components.CookIcon;
@@ -22,6 +23,8 @@ import cook.recipe.frames.FrRecipe;
 public class PnlRecipeSubmit extends CookPanel {
 
 	CookButton submitButton;
+	public boolean updating;
+	public String updatingTitle;
 	
 	/**
 	 * Creates the simple recipe submission panel containing one button
@@ -51,6 +54,7 @@ public class PnlRecipeSubmit extends CookPanel {
 				
 				//TODO Add ingredient dependant on input ingredient
 				//Add recipe to the other window and dispose of this one
+				CookMain.app.setEnabled(true);
 				parent.dispose();
 			}
 		});
@@ -75,15 +79,21 @@ public class PnlRecipeSubmit extends CookPanel {
 		
 		//Writes recipe information to the given file
 		try {
-			if (file.exists()) {
-				//TODO make saving number for duplicate names work
-				int duplicateNumber = 1;
-				file = new File(CookSettings.savePath + "/" + recipe.title + " (" + duplicateNumber + ")" + ".ckf");
-				while (file.exists()) {
-					duplicateNumber++;
-					file = new File(CookSettings.savePath + "/" + recipe.title + " (" + duplicateNumber + ")" + ".ckf");
+			System.out.println(updatingTitle);
+			if (!updating || !recipe.title.equals(updatingTitle)) {
+				if (file.exists()) {
+						//TODO make saving number for duplicate names work
+						int duplicateNumber = 1;
+						file = new File(CookSettings.savePath + "/" + recipe.title + " (" + duplicateNumber + ")" + ".ckf");
+						while (file.exists()) {
+							duplicateNumber++;
+							file = new File(CookSettings.savePath + "/" + recipe.title + " (" + duplicateNumber + ")" + ".ckf");
+						}
+						recipe.title = recipe.title + "(" + duplicateNumber + ")";
 				}
 			}
+			
+			
 			
 			FileWriter writer = new FileWriter(file);
 			writer.append(recipe.title + "," + recipe.cookbook + "\n");

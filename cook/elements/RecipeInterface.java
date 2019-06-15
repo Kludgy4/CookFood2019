@@ -73,36 +73,4 @@ public class RecipeInterface {
 	    }
 		return files;
 	}
-	
-	/**
-	 * Deletes a recipe from the system given its pnlTitle
-	 * @param pnlTitle The pnlTitle of the recipe to be deleted
-	 * @return A boolean confirming whether the file was successfully deleted or not
-	 */
-	public boolean deleteRecipe(String title) {
-		ArrayList<File> files = getFolderFiles();
-		System.out.println("Deleting " + title + " from " + files.toString());
-		//Perform a linear search for the file to delete
-		int i = 0;
-		boolean foundIt = false;
-		
-		//Search for the given string until none left or found		
-		while (!foundIt && i < files.size()) {
-			String fileName = files.get(i).getName();
-			if (fileName.substring(0, fileName.length()-4).equals(title)) {
-				foundIt = true;
-			} else {
-				i++;
-			}
-		}
-		
-		//If the file was found, then delete it from the system
-		if (foundIt) {
-			files.get(i).delete();
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
 }

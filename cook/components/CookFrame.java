@@ -44,14 +44,4 @@ public abstract class CookFrame extends JFrame {
 		Insets error = getInsets();
         frameSize.setSize(getWidth() - (error.left + error.right), getHeight() - (error.bottom + error.top));
 	}
-	
-	/**
-	 * Ensures the window closes and disposes of allocated system resources safely
-	 */
-	protected void processWindowEvent(final WindowEvent e) {
-		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-			System.out.println("Terminating Window");
-			dispose();
-		}
-	}
 }

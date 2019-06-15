@@ -68,34 +68,39 @@ public class PnlInterface extends CookPanel {
 		});
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 				PnlRecipeList list = mainFrame.pnlRecipeList;
 				
-				for (CookBox box : list.getSelectedCheckboxes()) {
+				for (CookBox box : list.getSelectedCheckboxes(true)) {
 					Recipe cTarget = (Recipe)box.target;
 					String fileName = (cTarget.fileName).substring(0, cTarget.fileName.length()-4);
-					(new RecipeInterface()).deleteRecipe(fileName);
+					deleteRecipe(fileName);
 				}
 				list.refreshRecipes();
+				mainFrame.pnlRecipeList.disableButtons();
 				mainFrame.redraw();
 			}
 		});
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				CookMain.recipe = new FrRecipe(mainFrame, (Recipe) mainFrame.pnlRecipeList.getSelectedCheckboxes().get(0).target);
+				CookMain.recipe = new FrRecipe(mainFrame, (Recipe) mainFrame.pnlRecipeList.getSelectedCheckboxes(true).get(0).target);
+				mainFrame.pnlRecipeList.disableButtons();
 			}
 		});
 		generateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<Recipe> selectedRecipes = new ArrayList<>();
 				
-				for (CookBox c : mainFrame.pnlRecipeList.getSelectedCheckboxes()) {
+				for (CookBox c : mainFrame.pnlRecipeList.getSelectedCheckboxes(true)) {
 					selectedRecipes.add((Recipe)c.target);
 				}
+				mainFrame.pnlRecipeList.disableButtons();
 				generateShoppingList(selectedRecipes);
 			}
 		});
+		
+		deleteButton.setEnabled(false);
+		editButton.setEnabled(false);
+		generateButton.setEnabled(false);
 		
 		//Adds the buttons all to a list to be easily resized later
 		buttons.add(addButton);
@@ -118,6 +123,37 @@ public class PnlInterface extends CookPanel {
 		
 		//Resizes the button icons
 		for (CookButton button : buttons) button.resizeIcon(frameSize, screenSize, 1);
+	}
+	
+	/**
+	 * Deletes a recipe from the system given its pnlTitle
+	 * @param pnlTitle The pnlTitle of the recipe to be deleted
+	 * @return A boolean confirming whether the file was successfully deleted or not
+	 */
+	public boolean deleteRecipe(String title) {
+		ArrayList<File> files = (new RecipeInterface()).getFolderFiles();
+		System.out.println("Deleting " + title + " from " + files.toString());
+		//Perform a linear search for the file to delete
+		int i = 0;
+		boolean foundIt = false;
+		
+		//Search for the given string until none left or found		
+		while (!foundIt && i < files.size()) {
+			String fileName = files.get(i).getName();
+			if (fileName.substring(0, fileName.length()-4).equals(title)) {
+				foundIt = true;
+			} else {
+				i++;
+			}
+		}
+		
+		//If the file was found, then delete it from the system
+		if (foundIt) {
+			files.get(i).delete();
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	/**

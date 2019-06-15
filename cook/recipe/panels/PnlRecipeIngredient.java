@@ -62,7 +62,7 @@ public class PnlRecipeIngredient extends CookPanel {
 				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
 				PnlIngredientsList list = parent.pnlIngredientsList;
 				
-				for (CookBox c : list.getSelectedCheckboxes()) {
+				for (CookBox c : list.getSelectedCheckboxes(true)) {
 					list.ingredients.remove(c.target);
 				}
 				list.addComponents();

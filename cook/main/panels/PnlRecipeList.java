@@ -4,6 +4,8 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -11,21 +13,25 @@ import javax.swing.JTextPane;
 
 import cook.CookSettings;
 import cook.components.CookBox;
+import cook.components.CookButton;
 import cook.components.CookPanelList;
 import cook.components.CookTextPane;
 import cook.elements.Recipe;
 import cook.elements.RecipeInterface;
+import cook.main.frames.FrMain;
 
 @SuppressWarnings("serial")
 public class PnlRecipeList extends CookPanelList {
 
 	ArrayList<CookTextPane> titles = new ArrayList<>();
 	public ArrayList<Recipe> recipes;
+	FrMain mainFrame;
 	
 	/**
 	 * Constructs the Main Recipe-List Panel
 	 */
-	public PnlRecipeList() {
+	public PnlRecipeList(FrMain mainFrame) {
+		this.mainFrame = mainFrame;
 		createScrollableLayout();
 		refreshRecipes();
 	}
@@ -54,6 +60,13 @@ public class PnlRecipeList extends CookPanelList {
 			//Adds a corresponding recipe checkbox to the panel
 			CookBox recipeCheckBox = new CookBox(1, i, recipes.get(i));
 			
+			//Greys out boxes dependent on how many are selected
+			recipeCheckBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					disableButtons();
+				}
+			});
+			
 			layoutConstraints.gridx = 1;
 			layoutConstraints.gridy = i;
 			layoutConstraints.weightx = 0.1;
@@ -62,6 +75,24 @@ public class PnlRecipeList extends CookPanelList {
 			
 			checkboxes.add(recipeCheckBox);
 			listPanel.add(recipeCheckBox, layoutConstraints);
+		}
+	}
+	
+	public void disableButtons() {
+		ArrayList<CookButton> buttons = mainFrame.pnlInterface.buttons;
+		switch (getSelectedCheckboxes(false).size()) {
+			case 0:
+				//Greys out buttons if no recipes are selected
+				buttons.get(1).setEnabled(false); buttons.get(2).setEnabled(false); buttons.get(3).setEnabled(false);
+				break;
+			case 1:
+				//Enables all buttons if one recipe is selected
+				buttons.get(1).setEnabled(true); buttons.get(2).setEnabled(true); buttons.get(3).setEnabled(true);
+				break;
+			default:
+				//Disables only the editing button if two or more recipes are selected
+				buttons.get(1).setEnabled(true); buttons.get(2).setEnabled(false); buttons.get(3).setEnabled(true);
+				break;
 		}
 	}
 	

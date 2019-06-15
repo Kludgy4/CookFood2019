@@ -2,9 +2,11 @@ package cook.main.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
+import cook.CookMain;
 import cook.components.CookFrame;
 import cook.main.panels.PnlInterface;
 import cook.main.panels.PnlRecipeList;
@@ -26,7 +28,7 @@ public class FrMain extends CookFrame {
 		super();
 		//Constructs the frame for displaying
 		pnlInterface = new PnlInterface(this);
-		pnlRecipeList = new PnlRecipeList();
+		pnlRecipeList = new PnlRecipeList(this);
 		
 		add(pnlInterface, BorderLayout.WEST);
 		add(pnlRecipeList, BorderLayout.EAST);
@@ -52,5 +54,14 @@ public class FrMain extends CookFrame {
         pnlRecipeList.setPreferredSize(new Dimension((int)(frameSize.getWidth()*0.4), (int)(frameSize.getHeight())));
         pnlRecipeList.resizeElements(frameSize, screenSize);
         pnlRecipeList.repaint();
+	}
+	
+	protected void processWindowEvent(final WindowEvent e) {
+		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+			dispose();
+		} else if (e.getID() == WindowEvent.WINDOW_GAINED_FOCUS) {
+			System.out.println("Stuff");
+			CookMain.recipe.setAlwaysOnTop(true);
+		}
 	}
 }
