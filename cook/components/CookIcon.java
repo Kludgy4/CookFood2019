@@ -10,7 +10,7 @@ public enum CookIcon {
 	ADD("add"),
 	EDIT("edit"),
 	GENERATE("generate"),
-	REMOVE("remove"),
+	DELETE("delete"),
 	SUBMIT("generate"),
 	TEMP("404");
 

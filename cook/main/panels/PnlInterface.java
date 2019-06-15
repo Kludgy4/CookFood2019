@@ -39,7 +39,6 @@ public class PnlInterface extends CookPanel {
 	
 	ArrayList<CookButton> buttons = new ArrayList<>();
 	
-	ArrayList<Recipe> arrayRecipes = new ArrayList<>();
 	JPanel pnlBtn = new JPanel();
 	EmptyBorder pnlBorder;
 	GridLayout pnlLayout;
@@ -63,7 +62,7 @@ public class PnlInterface extends CookPanel {
 	public void addButtons() {
 		//Creates the relevant CookButtons to add to the JPanel
 		CookButton addButton = CookIcon.ADD.getCookButton("Add Recipe");
-		CookButton removeButton = CookIcon.REMOVE.getCookButton("Remove Recipe(s)");
+		CookButton deleteButton = CookIcon.DELETE.getCookButton("Delete Recipe(s)");
 		CookButton editButton = CookIcon.EDIT.getCookButton("Edit Recipe");
 		CookButton generateButton = CookIcon.GENERATE.getCookButton("Generate List");
 		
@@ -74,9 +73,9 @@ public class PnlInterface extends CookPanel {
 				CookMain.recipe = new FrRecipe(mainFrame);
 			}
 		});
-		removeButton.addActionListener(new ActionListener() {
+		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Remove");
+				System.out.println("Delete");
 				
 				PnlRecipeList list = mainFrame.pnlRecipeList;
 				
@@ -86,10 +85,9 @@ public class PnlInterface extends CookPanel {
 						Recipe cTarget = (Recipe)c.target;
 						String fileName = (cTarget.fileName).substring(0, cTarget.fileName.length()-4);
 						(new RecipeInterface()).deleteRecipe(fileName);
-						arrayRecipes.remove(c.target);
 					}
 				}
-				list.addComponents();
+				list.refreshRecipes();
 				mainFrame.redraw();
 			}
 		});
@@ -100,13 +98,22 @@ public class PnlInterface extends CookPanel {
 		});
 		generateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//TODO insert method which gets all selected checkbox objects automatically to prevent duplicate code between here and deletion above
 				System.out.println("Generate");
+				ArrayList<Recipe> selectedRecipes = new ArrayList<>();
+				for (CookBox c : mainFrame.pnlRecipeList.checkboxes) {
+					if (c.isSelected()) {
+						c.setSelected(false);
+						selectedRecipes.add((Recipe)c.target);
+					}
+				}
+				generateShoppingList(selectedRecipes);
 			}
 		});
 		
 		//Adds the buttons all to a list to be easily resized later
 		buttons.add(addButton);
-		buttons.add(removeButton);
+		buttons.add(deleteButton);
 		buttons.add(editButton);
 		buttons.add(generateButton);
 		

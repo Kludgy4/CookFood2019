@@ -22,7 +22,6 @@ public class CookMain {
 		}
 
 		//Creates the application window ready for event-driven processing
-		System.out.println(CookSettings.savePath);
 		app = new FrMain();
 	}
 }

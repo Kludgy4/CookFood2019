@@ -22,7 +22,7 @@ public class PnlRecipeIngredient extends CookPanel {
 	Insets buttonInsets;
 	
 	CookTextPane namePane, quantityPane;
-	CookButton addButton, removeButton;
+	CookButton addButton, deleteButton;
 	CookCombo comboBox;
 	
 	public PnlRecipeIngredient() {
@@ -45,7 +45,7 @@ public class PnlRecipeIngredient extends CookPanel {
 		
 		//Creates Buttons
 		addButton = CookIcon.ADD.getCookButton("Add Ingredient");
-		removeButton = CookIcon.REMOVE.getCookButton("Remove Ingredient(s)");
+		deleteButton = CookIcon.DELETE.getCookButton("Delete Ingredient(s)");
 		
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -58,9 +58,9 @@ public class PnlRecipeIngredient extends CookPanel {
 			}
 		});
 		
-		removeButton.addActionListener(new ActionListener() {
+		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Remove");
+				System.out.println("Delete");
 				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
 				PnlIngredientsList list = parent.pnlIngredientsList;
 				//TODO Add ingredient dependent on input ingredient
@@ -103,7 +103,7 @@ public class PnlRecipeIngredient extends CookPanel {
 
 		layoutConstraints.gridy = 2;
 		layoutConstraints.gridx = 1;
-		add(removeButton, layoutConstraints);
+		add(deleteButton, layoutConstraints);
 	}
 	
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
@@ -114,14 +114,14 @@ public class PnlRecipeIngredient extends CookPanel {
 		//Resizes the panel font sizes
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.035));
 		addButton.setFont(newFont);
-		removeButton.setFont(newFont);
+		deleteButton.setFont(newFont);
 		namePane.setFont(newFont);
 		quantityPane.setFont(newFont);
 		comboBox.setFont(newFont);
 		
 		//Resizes the button icons
 		addButton.resizeIcon(frameSize, screenSize, 0.8);
-		removeButton.resizeIcon(frameSize, screenSize, 0.8);
+		deleteButton.resizeIcon(frameSize, screenSize, 0.8);
 		
 		refreshElements();
 	}

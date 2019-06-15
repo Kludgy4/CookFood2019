@@ -34,7 +34,11 @@ public class RecipeInterface {
 					String input = reader.readLine();
 					while (input != null) {
 						inputData = input.split(",");
-						recipe.ingredients.add(new Ingredient(inputData[0], Integer.parseInt(inputData[1]), QuantityType.valueOf(inputData[2].toUpperCase())));
+						recipe.ingredients.add(new Ingredient(
+								inputData[0], 
+								Integer.parseInt(inputData[1]), 
+								QuantityType.valueOf(QuantityType.convertMultipleType(inputData[2].toUpperCase())
+						)));
 						input = reader.readLine();
 					}
 					recipe.fileName = f.getName();
@@ -85,7 +89,6 @@ public class RecipeInterface {
 		//Search for the given string until none left or found		
 		while (!foundIt && i < files.size()) {
 			String fileName = files.get(i).getName();
-			System.out.println(title);
 			if (fileName.substring(0, fileName.length()-4).equals(title)) {
 				foundIt = true;
 			} else {

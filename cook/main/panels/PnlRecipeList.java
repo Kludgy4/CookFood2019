@@ -79,6 +79,4 @@ public class PnlRecipeList extends CookPanelList {
 		recipes = (new RecipeInterface()).retrieveRecipes();
 		addComponents();
 	}
-	
-	
 }

@@ -11,11 +11,10 @@ public enum QuantityType {
 	DRAMS("Dram", "Drams"), TEASPOONS("Teaspoon", "Teaspoons"), DESSERTSPOONS("Dessertspoon", "Dessertspoons"), 
 	TABLESPOONS("Tablespoon", "Tablespoons"), FLUIDOUNCES("Fluidounce", "Fluidounces"), WINEGLASSES("Wineglass", "Wineglasses"), 
 	TEACUPS("Teacup", "Teacups"), GILLS("Gill", "Gills"), CUPS("Cup", "Cups"), QUARTS("Quart", "Quarts"), POTTLES("Pottle", "Pottles"),
-	//Vats, bottles, barrels, carton, hint, handfuls, cloves
 	
 	//Quantity
-	VAT("Vat", "Vats"), BOTTLE("Bottle", "Bottles"), BARREL("Barrel", "Barrels"), CARTON("Carton", "Cartons"), HINT("Hint", "Hints"), 
-	HANDFUL("Handful", "Handfuls"), CLOVE("Clove", "Cloves"), WHOLE("Whole", "Whole"), OTHER("Other", "Other");
+	VATS("Vat", "Vats"), BOTTLES("Bottle", "Bottles"), BARRELS("Barrel", "Barrels"), CARTONS("Carton", "Cartons"), HINTS("Hint", "Hints"), 
+	HANDFULS("Handful", "Handfuls"), CLOVES("Clove", "Cloves"), WHOLE("Whole", "Whole"), OTHER("Other", "Other");
 	
 	private String singularName = "", multiName = "";
 	
@@ -38,6 +37,16 @@ public enum QuantityType {
 	 */
 	public String getMultipleType() {
 		return multiName;
+	}
+	
+	public static String convertMultipleType(String name) {
+		for (QuantityType q : values()) {
+			if (q.singularName.toUpperCase().equals(name) || q.multiName.toUpperCase().equals(name)) {
+				return q.multiName.toUpperCase();
+			}
+		}
+		System.out.println("No valid enum value found for saved ingredient type");
+		return name.toUpperCase();
 	}
 	
 }
