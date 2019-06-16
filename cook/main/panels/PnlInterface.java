@@ -76,14 +76,14 @@ public class PnlInterface extends CookPanel {
 					deleteRecipe(fileName);
 				}
 				list.refreshRecipes();
-				mainFrame.pnlRecipeList.disableButtons();
+				disableButtons();
 				mainFrame.redraw();
 			}
 		});
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CookMain.recipe = new FrRecipe(mainFrame, (Recipe) mainFrame.pnlRecipeList.getSelectedCheckboxes(true).get(0).target);
-				mainFrame.pnlRecipeList.disableButtons();
+				disableButtons();
 			}
 		});
 		generateButton.addActionListener(new ActionListener() {
@@ -93,7 +93,7 @@ public class PnlInterface extends CookPanel {
 				for (CookBox c : mainFrame.pnlRecipeList.getSelectedCheckboxes(true)) {
 					selectedRecipes.add((Recipe)c.target);
 				}
-				mainFrame.pnlRecipeList.disableButtons();
+				disableButtons();
 				generateShoppingList(selectedRecipes);
 			}
 		});
@@ -111,6 +111,24 @@ public class PnlInterface extends CookPanel {
 		//Adds the buttons to the panel (contained within another panel with whitespace (blank borders) around it)
 		for (CookButton button : buttons) pnlBtn.add(button);
 		add(pnlBtn, BorderLayout.CENTER);
+	}
+	
+	public void disableButtons() {
+		ArrayList<CookButton> buttons = mainFrame.pnlInterface.buttons;
+		switch (mainFrame.pnlRecipeList.getSelectedCheckboxes(false).size()) {
+			case 0:
+				//Greys out buttons if no recipes are selected
+				buttons.get(1).setEnabled(false); buttons.get(2).setEnabled(false); buttons.get(3).setEnabled(false);
+				break;
+			case 1:
+				//Enables all buttons if one recipe is selected
+				buttons.get(1).setEnabled(true); buttons.get(2).setEnabled(true); buttons.get(3).setEnabled(true);
+				break;
+			default:
+				//Disables only the editing button if two or more recipes are selected
+				buttons.get(1).setEnabled(true); buttons.get(2).setEnabled(false); buttons.get(3).setEnabled(true);
+				break;
+		}
 	}
 	
 	public void resizeElements (Dimension frameSize, Dimension screenSize) {

@@ -50,7 +50,9 @@ public class FrRecipe extends CookFrame {
 		//Displays the frame to the user
 		setBounds(100, 100, (int) screenSize.getWidth() / 2, (int) screenSize.getHeight() / 2);
 		setMinimumSize(new Dimension(1400, 512));
+		
 		setVisible(true);
+		requestFocusInWindow();
 	}
 	
 	/**

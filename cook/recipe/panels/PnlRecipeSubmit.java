@@ -93,8 +93,6 @@ public class PnlRecipeSubmit extends CookPanel {
 				}
 			}
 			
-			
-			
 			FileWriter writer = new FileWriter(file);
 			writer.append(recipe.title + "," + recipe.cookbook + "\n");
 			for (Ingredient i : recipe.ingredients) {

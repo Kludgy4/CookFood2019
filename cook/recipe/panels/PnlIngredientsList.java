@@ -7,14 +7,14 @@ import java.util.ArrayList;
 
 import cook.components.CookBox;
 import cook.components.CookPanelList;
-import cook.components.CookTextPane;
+import cook.components.CookTextField;
 import cook.elements.Ingredient;
 
 @SuppressWarnings("serial")
 public class PnlIngredientsList extends CookPanelList {
 
-	ArrayList<CookTextPane> names = new ArrayList<>();
-	ArrayList<CookTextPane> quantities = new ArrayList<>();
+	ArrayList<CookTextField> names = new ArrayList<>();
+	ArrayList<CookTextField> quantities = new ArrayList<>();
 	public ArrayList<Ingredient> ingredients = new ArrayList<>();
 	
 	public PnlIngredientsList() {
@@ -26,11 +26,11 @@ public class PnlIngredientsList extends CookPanelList {
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.025));
 		
 		layoutConstraints.ipady = (int)(frameSize.getHeight()*0.01);
-		for (CookTextPane n : names) {
+		for (CookTextField n : names) {
 			n.setFont(newFont);
 		}
 		
-		for (CookTextPane q : quantities) {
+		for (CookTextField q : quantities) {
 			q.setFont(newFont);
 		}
 		
@@ -47,7 +47,7 @@ public class PnlIngredientsList extends CookPanelList {
 	    	Ingredient ingredient = ingredients.get(i);
 	    	
 		    //Adds each ingredient name to the panel
-			CookTextPane ingredientName = new CookTextPane(true, 0, i);
+			CookTextField ingredientName = new CookTextField(true, 0, i);
 			ingredientName.setText(ingredient.name);
 			ingredientName.setEditable(false);
 			ingredientName.setHighlighter(null);
@@ -60,7 +60,7 @@ public class PnlIngredientsList extends CookPanelList {
 			listPanel.add(ingredientName, layoutConstraints);
 			
 			//Adds each ingredient quantity to the panel
-			CookTextPane ingredientQuantity = new CookTextPane(true, 1, i);
+			CookTextField ingredientQuantity = new CookTextField(true, 1, i);
 			
 			if (ingredient.quantity == 1) {
 				ingredientQuantity.setText(ingredient.quantity + " " + ingredient.quantityType.getSingularType());

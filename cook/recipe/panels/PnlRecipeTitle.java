@@ -5,13 +5,13 @@ import java.awt.Font;
 import java.awt.Insets;
 
 import cook.components.CookPanel;
-import cook.components.CookTextPane;
+import cook.components.CookTextField;
 
 @SuppressWarnings("serial")
 public class PnlRecipeTitle extends CookPanel {
 	
 	Insets buttonInsets;
-	public CookTextPane titlePane, cookbookPane;
+	public CookTextField titlePane, cookbookPane;
 	
 	public PnlRecipeTitle() {
 		buttonInsets = new Insets(0, 25, 0, 25);
@@ -25,11 +25,8 @@ public class PnlRecipeTitle extends CookPanel {
 	    layoutConstraints.weightx = 0.5;
 	    layoutConstraints.insets = buttonInsets;
 	    
-	    titlePane = new CookTextPane(false, 0, 0);
-	    titlePane.setText("Recipe Title");
-		
-		cookbookPane = new CookTextPane(false, 1, 0);
-		cookbookPane.setText("Cookbook");
+	    titlePane = new CookTextField(false, "Recipe Title", 0, 0);
+		cookbookPane = new CookTextField(false, "Cookbook", 1, 0);
 		
 		//Adds the text boxes to the panel
 		layoutConstraints.gridx = 0;
@@ -40,8 +37,8 @@ public class PnlRecipeTitle extends CookPanel {
 	}
 
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
-		Font font = new Font("Arial", Font.ITALIC, (int)(frameSize.getHeight()*0.04));
-		titlePane.setFont(font);
-		cookbookPane.setFont(font);
+		Font font = new Font("Arial", Font.PLAIN, (int)(frameSize.getHeight()*0.04));
+		titlePane.changeFont(font);
+		cookbookPane.changeFont(font);
 	}
 }

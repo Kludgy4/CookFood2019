@@ -6,12 +6,15 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.text.PlainDocument;
+
 import cook.components.CookBox;
 import cook.components.CookButton;
 import cook.components.CookCombo;
 import cook.components.CookIcon;
 import cook.components.CookPanel;
-import cook.components.CookTextPane;
+import cook.components.CookTextField;
+import cook.components.IntegerFilter;
 import cook.elements.Ingredient;
 import cook.elements.QuantityType;
 import cook.recipe.frames.FrRecipe;
@@ -21,7 +24,7 @@ public class PnlRecipeIngredient extends CookPanel {
 	
 	Insets buttonInsets;
 	
-	public CookTextPane namePane, quantityPane;
+	public CookTextField namePane, quantityPane;
 	public CookButton addButton, deleteButton;
 	public CookCombo comboBox;
 	
@@ -37,12 +40,12 @@ public class PnlRecipeIngredient extends CookPanel {
 	    layoutConstraints.weightx = 0.5;
 	    layoutConstraints.insets = buttonInsets;
 	    
-	    namePane = new CookTextPane(false, 0, 0);
-	    quantityPane = new CookTextPane(false, 0, 1);
+	    namePane = new CookTextField(false, "Ingredient Name", 0, 0);
+	    quantityPane = new CookTextField(false, "Quantity", 0, 1);
 	    
-	    namePane.setText("Ingredient Name");
-		quantityPane.setText("Quantity");
-		
+	    PlainDocument doc = (PlainDocument) quantityPane.getDocument();
+	    doc.setDocumentFilter(new IntegerFilter("Quantity"));
+	    
 		//Creates Buttons
 		addButton = CookIcon.ADD.getCookButton("Add Ingredient");
 		deleteButton = CookIcon.DELETE.getCookButton("Delete Ingredient(s)");
@@ -109,8 +112,8 @@ public class PnlRecipeIngredient extends CookPanel {
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.035));
 		addButton.setFont(newFont);
 		deleteButton.setFont(newFont);
-		namePane.setFont(newFont);
-		quantityPane.setFont(newFont);
+		namePane.changeFont(newFont);
+		quantityPane.changeFont(newFont);
 		comboBox.setFont(newFont);
 		
 		//Resizes the button icons
