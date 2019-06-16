@@ -11,7 +11,7 @@ To run this project on your computer, download the latest version from this GitH
 ### Prerequisites
 This project currently requires the following to run:
 
-* Java Version 1.8 >= 191
+* At least Java version 1.12
 * Windows, OSX or Linux Operating Systems
 
 ### Installing
@@ -20,6 +20,13 @@ This project currently requires the following to run:
 3. Move the unzipped folder to a convenient location on your computer
 4. If you are using Windows, double-click "RUNME.bat", otherwise, just double-click "CookFood.jar"
 5. CookFood should now open ready for you to use. If you encounter any issues during the installation process, please see the FAQ below
+**IMPORTANT SETUP POINT**
+To ensure the program scales correctly to your screen size when running on Windows 10, follow these steps:
+1. Open the Settings app
+2. Navigate into the System window
+3. Navigate to the Display tab
+4. Scroll down to "Scale and Layout"
+5. Change the value of the "Change the size of text, apps, and other items" combo box to 100%
 
 ## Usage
 This section assumes that you have been able to open the program as instructed above
