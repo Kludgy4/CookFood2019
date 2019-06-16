@@ -56,13 +56,16 @@ public class PnlRecipeIngredient extends CookPanel {
 		addButton.setEnabled(false);
 		deleteButton.setEnabled(false);
 		
+		//Adds relevant functionality to each of the buttons
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Saves the input ingredient to the system memory
 				PnlIngredientsList list = recipeFrame.pnlIngredientsList;
 				
 				list.ingredients.add(new Ingredient(nameField.getText(), Integer.parseInt(quantityField.getText()), (QuantityType) comboBox.getSelectedItem()));
 				list.addComponents();
 				
+				//Sets the ingredient input text areas to contain their placeholder text
 				nameField.setPlaceholder();
 				quantityField.setPlaceholder();
 				recipeFrame.redraw();
@@ -71,6 +74,7 @@ public class PnlRecipeIngredient extends CookPanel {
 		
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Deletes selected ingredients from system memory
 				PnlIngredientsList list = recipeFrame.pnlIngredientsList;
 				
 				for (CookBox c : list.getSelectedCheckboxes(true)) {
@@ -82,6 +86,7 @@ public class PnlRecipeIngredient extends CookPanel {
 			}
 		});
 		
+		//The combo box that allows selection of ingredient QuantityType
 		comboBox = new CookCombo();
 		
 		refreshElements();

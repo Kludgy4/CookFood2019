@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.JTextField;
 
 import cook.CookSettings;
 import cook.components.CookBox;
@@ -86,10 +85,12 @@ public class PnlRecipeList extends CookPanelList {
 		//Resizes the button font and buttonIcon sizes
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
 		
-		for (JTextField recipeTitle : titles) {
+		//Resizes each recipeTitle by setting their font
+		for (CookTextField recipeTitle : titles) {
 			recipeTitle.setFont(newFont);
 		}
 		
+		//Resizes each checkbox by setting their font and PreferredSize
 		for (CookBox checkbox : checkboxes) {
 			checkbox.setFont(newFont);
 			checkbox.setPreferredSize(new Dimension((int)(frameSize.getHeight()*0.04), (int)(frameSize.getHeight()*0.04)));

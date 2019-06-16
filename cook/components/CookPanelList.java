@@ -47,6 +47,11 @@ public abstract class CookPanelList extends CookPanel {
 		setBackground(CookSettings.colourBackground);
 	}
 	
+	/**
+	 * Goes through the checkboxes added to the panel and returns those that have been selected
+	 * @param shouldUncheck Whether this method should automatically uncheck all of the checkboxes
+	 * @return An array of the selected checkboxes
+	 */
 	public ArrayList<CookBox> getSelectedCheckboxes(boolean shouldUncheck) {
 		ArrayList<CookBox> selectedBoxes = new ArrayList<>();
 		

@@ -29,15 +29,4 @@ public class Ingredient {
 		this.quantity = quantity;
 		this.quantityType = quantityType;
 	}
-	
-	/**
-	 * Verifies whether input pnlRecipeIngredient data is sufficient
-	 * @return A boolean representative of this pnlRecipeIngredient's validity
-	 */
-	public boolean isValid() {
-		if (!name.equals("") && quantity > 0 && quantityType != null) {
-			return true;
-		}
-		return false;
-	}
 }

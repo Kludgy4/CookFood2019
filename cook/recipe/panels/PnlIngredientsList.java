@@ -87,14 +87,17 @@ public class PnlIngredientsList extends CookPanelList {
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.025));
 		
+		//Resizes each displayed name by setting their font
 		for (CookTextField name : names) {
 			name.setFont(newFont);
 		}
 		
+		//Resizes each quantity TextField by setting their font
 		for (CookTextField quantity : quantities) {
 			quantity.setFont(newFont);
 		}
 		
+		//Resizes each checkbox by setting their font and PreferredSize
 		for (CookBox checkbox : checkboxes) {
 			checkbox.setFont(newFont);
 			checkbox.setPreferredSize(new Dimension((int)(frameSize.getHeight()*0.04), (int)(frameSize.getHeight()*0.04)));

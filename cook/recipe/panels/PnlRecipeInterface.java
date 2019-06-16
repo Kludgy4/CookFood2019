@@ -52,6 +52,9 @@ public class PnlRecipeInterface extends CookPanel {
 		add(pnlRecipeSubmit, BorderLayout.SOUTH);
 	}
 	
+	/**
+	 * Disables the delete button depending on whether the user has selected any ingredients yet to delete
+	 */
 	public void disableButtons() {
 		switch (recipeFrame.pnlIngredientsList.getSelectedCheckboxes(false).size()) {
 			case 0:

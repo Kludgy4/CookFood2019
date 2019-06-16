@@ -62,28 +62,42 @@ public class CookTextField extends JTextField {
 		setPlaceholder();
 	}
 	
+	/**
+	 * Sets the TextField placeholder text
+	 */
 	public void setPlaceholder() {
 		setForeground(CookSettings.neutral4);
 		setFont(appliedFont.deriveFont(Font.ITALIC));
 		setText(placeholderText);
 	}
 	
+	/**
+	 * Removes the TextField placeholder text for user input
+	 */
 	public void removePlaceholder() {
 		setForeground(Color.BLACK);
 		setFont(appliedFont);
 		setText("");
 	}
 	
-	public void changeFont(Font f) {
-		appliedFont = f;
+	/**
+	 * Changes the Font of the textfield 
+	 * @param font
+	 */
+	public void changeFont(Font font) {
+		appliedFont = font;
 		if (getText().equals(placeholderText)) {
 			setForeground(CookSettings.neutral4);
 			setFont(appliedFont.deriveFont(Font.ITALIC));
 		} else {
-			setFont(f);
+			setFont(font);
 		}
 	}
 	
+	/**
+	 * Verifies whether the box is empty of text or not, taking into account the potential presence of placeholder text
+	 * @return Whether or not the textfield is empty
+	 */
 	public boolean isEmpty() {
 		if (placeholderText.equals(getText()) || getText().isEmpty()) {
 			return true;

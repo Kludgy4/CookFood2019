@@ -13,6 +13,8 @@ import java.awt.event.WindowStateListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -46,15 +48,22 @@ public abstract class CookFrame extends JFrame {
 		createMenubar();
 	}
 	
+	/**
+	 * Creates the menubar for in-program online help
+	 */
 	private void createMenubar() {
 		JMenuBar menubar = new JMenuBar();
 		JMenu help = new JMenu("Help");
 		JMenuItem helper = createMenuItem("Help", KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK), "Get Online Help for this program");
 		helper.addActionListener((ActionEvent event) -> {
 			try {
+				final URL url = new URL("http://www.google.com.au");
+				URLConnection connection = url.openConnection();
+				connection.connect();
 				Desktop.getDesktop().browse(new URI("https://github.com/Kludgy4/CookFood2019"));
 			} catch (Exception e) {
 				System.out.println("There was a problem getting the latest 'Online Help'. Make sure you are connected to the internet and try again");
+				System.out.println("Now attempting to open the locally stored Online Help file");
 				try {
 					Desktop.getDesktop().open(new File(CookSettings.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/README.md"));
 				} catch (IOException e1) {
@@ -91,5 +100,11 @@ public abstract class CookFrame extends JFrame {
 	protected void refreshFrameSize() {
 		Insets error = getInsets();
         frameSize.setSize(getWidth() - (error.left + error.right), getHeight() - (error.bottom + error.top));
+	}
+	
+	protected void processWindowEvent(final WindowEvent e) {
+		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
+			dispose();
+		} 
 	}
 }

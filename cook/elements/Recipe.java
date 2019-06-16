@@ -31,15 +31,4 @@ public class Recipe {
 		this.cookbook = cookbook;
 		this.ingredients = ingredients;
 	}
-	
-	/**
-	 * Verifies whether input recipe data is sufficient
-	 * @return A boolean representative of this recipe's validity
-	 */
-	public boolean isValid(String titlePlaceholder, String cookbookPlaceholder) {
-		if (!title.equals("") && !cookbook.equals("") && !title.equals(titlePlaceholder) && !cookbook.equals(cookbookPlaceholder)) {
-			return true;
-		}
-		return false;
-	}
 }

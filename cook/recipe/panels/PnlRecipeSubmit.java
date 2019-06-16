@@ -99,9 +99,9 @@ public class PnlRecipeSubmit extends CookPanel {
 			}
 			
 			FileWriter writer = new FileWriter(file);
-			writer.append(recipe.title + "," + recipe.cookbook + "\n");
+			writer.append(recipe.title + "," + recipe.cookbook + System.lineSeparator());
 			for (Ingredient i : recipe.ingredients) {
-				writer.append(i.name + "," + i.quantity + "," + i.quantityType.getMultipleType() + "\n");
+				writer.append(i.name + "," + i.quantity + "," + i.quantityType.getMultipleType() + System.lineSeparator());
 			}
 			
 			recipe.fileName = file.getName();

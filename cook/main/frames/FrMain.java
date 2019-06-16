@@ -2,11 +2,9 @@ package cook.main.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 
-import cook.CookMain;
 import cook.components.CookFrame;
 import cook.main.panels.PnlInterface;
 import cook.main.panels.PnlRecipeList;
@@ -53,13 +51,5 @@ public class FrMain extends CookFrame {
         pnlRecipeList.setPreferredSize(new Dimension((int)(frameSize.getWidth()*0.4), (int)(frameSize.getHeight())));
         pnlRecipeList.resizeElements(frameSize, screenSize);
         pnlRecipeList.repaint();
-	}
-	
-	protected void processWindowEvent(final WindowEvent e) {
-		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-			dispose();
-		} else if (e.getID() == WindowEvent.WINDOW_GAINED_FOCUS) {
-			CookMain.recipe.setAlwaysOnTop(true);
-		}
 	}
 }

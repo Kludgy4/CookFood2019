@@ -1,6 +1,7 @@
 package cook.main.panels;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -62,18 +63,23 @@ public class PnlInterface extends CookPanel {
 		//Adds relevant functionality to each of the buttons
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Checks whether the Recipe creation window already exists
 				if (CookMain.recipe == null) {
+					//Create a new Recipe creation window
 					CookMain.recipe = new FrRecipe(mainFrame, null);
 				} else {
+					//Display the recipe creation window that already exists
 					CookMain.recipe.setVisible(true);
 				}
 			}
 		});
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Prompts the user to confirm Recipe deletion
 				if (JOptionPane.showConfirmDialog(mainFrame, "Are you sure you wish to delete this/these recipe(s)?") == JOptionPane.YES_OPTION) {
 					PnlRecipeList list = mainFrame.pnlRecipeList;
 					
+					//Uses the deleteRecipe linear search algorithm to fufill task requirements and delete the Recipe from the system
 					for (CookBox box : list.getSelectedCheckboxes(true)) {
 						Recipe cTarget = (Recipe)box.target;
 						String fileName = (cTarget.fileName).substring(0, cTarget.fileName.length()-4);
@@ -87,12 +93,20 @@ public class PnlInterface extends CookPanel {
 		});
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CookMain.recipe = new FrRecipe(mainFrame, (Recipe) mainFrame.pnlRecipeList.getSelectedCheckboxes(true).get(0).target);
-				disableButtons();
+				//Checks whether the Recipe editing window already exists
+				if (CookMain.recipe == null) {
+					//Create a new Recipe editing window
+					CookMain.recipe = new FrRecipe(mainFrame, (Recipe) mainFrame.pnlRecipeList.getSelectedCheckboxes(true).get(0).target);
+					disableButtons();
+				} else {
+					//Display the recipe editing window that already exists
+					CookMain.recipe.setVisible(true);
+				}
 			}
 		});
 		generateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Gets selectedRecipes and calls the method that generates the shopping list
 				ArrayList<Recipe> selectedRecipes = new ArrayList<>();
 				
 				for (CookBox c : mainFrame.pnlRecipeList.getSelectedCheckboxes(true)) {
@@ -103,6 +117,7 @@ public class PnlInterface extends CookPanel {
 			}
 		});
 		
+		//Sets the initial state of each button
 		deleteButton.setEnabled(false);
 		editButton.setEnabled(false);
 		generateButton.setEnabled(false);
@@ -188,6 +203,11 @@ public class PnlInterface extends CookPanel {
 		File saveLocation = getSaveLocation("Text File", "txt");
 		if (!saveLocation.getPath().isEmpty()) {
 			saveList(saveLocation, arrangedIngredients);
+			try {
+				Desktop.getDesktop().open(saveLocation);
+			} catch (IOException e) {
+				System.out.println("Unable to automatically open the generated shopping list");
+			}
 		} else {
 			System.out.println("Please select a location to save your generated shopping list");
 		}
@@ -216,12 +236,10 @@ public class PnlInterface extends CookPanel {
 			int lowestIndex = i;
 			for (int j = i; j < ingredientArray.size(); j++) {
 				if (ingredientArray.get(j).name.compareTo(ingredientArray.get(lowestIndex).name) < 0) {
-					System.out.println("New lowest is " + ingredientArray.get(j).name);
 					lowestIndex = j;
 				}
 			}
 			//Move the lowest found list element to the sorted array
-			System.out.println("Swapping " + ingredientArray.get(i).name + " with " + ingredientArray.get(lowestIndex).name);
 			Ingredient temp = ingredientArray.get(i);
 			ingredientArray.set(i, ingredientArray.get(lowestIndex));
 			ingredientArray.set(lowestIndex, temp);
@@ -271,16 +289,16 @@ public class PnlInterface extends CookPanel {
 			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
 			Date dateobj = new Date();
 			
-			writer.append("----------------------------------------" + "\n");
-			writer.append("Shopping List Generated " + df.format(dateobj) + "\n");
-			writer.append("----------------------------------------" + "\n");
+			writer.append("----------------------------------------" + System.lineSeparator());
+			writer.append("Shopping List Generated " + df.format(dateobj) + System.lineSeparator());
+			writer.append("----------------------------------------" + System.lineSeparator());
 			
 			//Writes the given ingredients to the shopping list in a syntactically correct manner
 			for (Ingredient i : arrangedIngredients) {
 				if (i.quantity > 1) {
-					writer.append(i.quantity + " " + i.quantityType.getMultipleType() + " of " + i.name + "\n");
+					writer.append(i.quantity + " " + i.quantityType.getMultipleType() + " of " + i.name + System.lineSeparator());
 				} else {
-					writer.append(i.quantity + " " + i.quantityType.getSingularType() + " of " + i.name + "\n");
+					writer.append(i.quantity + " " + i.quantityType.getSingularType() + " of " + i.name + System.lineSeparator());
 				}
 			}
 			writer.append("----------------------------------------");
@@ -292,6 +310,4 @@ public class PnlInterface extends CookPanel {
 			e.printStackTrace();
 		}
 	}
-	
-	
 }

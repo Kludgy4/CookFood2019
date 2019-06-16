@@ -15,6 +15,7 @@ public class CookSettings {
 		neutral3 = new Color(0x415058),
 		neutral4 = new Color(0x1F292E);
 	
+	//This is where all CookFood files will be saved on the system
 	public static final String
 		savePath = CookSettings.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "CookFoodRecipes";
 }

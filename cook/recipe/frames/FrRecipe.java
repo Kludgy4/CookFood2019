@@ -2,7 +2,6 @@ package cook.recipe.frames;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.WindowEvent;
 
 import cook.components.CookFrame;
 import cook.elements.Recipe;
@@ -68,11 +67,5 @@ public class FrRecipe extends CookFrame {
         pnlIngredientsList.setPreferredSize(new Dimension((int)(frameSize.getWidth()*0.45), (int)(frameSize.getHeight())));
         pnlIngredientsList.resizeElements(frameSize, screenSize);
         pnlIngredientsList.repaint();
-	}
-	
-	protected void processWindowEvent(final WindowEvent e) {
-		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-			dispose();
-		}
 	}
 }

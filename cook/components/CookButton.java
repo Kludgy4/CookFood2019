@@ -29,6 +29,8 @@ public class CookButton extends JButton  {
 	 * @param scalePercentage The percentage to alter the button size by
 	 */
 	public void resizeIcon(Dimension frameSize, Dimension screenSize, double scalePercentage){
+		//scalePercentage = scalePercentage * 0.5;
+		
 		int newWidth, newHeight;
 		double imageAspect = buttonIcon.getWidth()/buttonIcon.getHeight();
 		
