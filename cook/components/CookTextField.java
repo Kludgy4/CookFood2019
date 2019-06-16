@@ -15,7 +15,7 @@ public class CookTextField extends JTextField {
 
 	public int x, y;
 	
-	String placeholderText;
+	public String placeholderText;
 	public Font appliedFont;
 	
 	/**
@@ -82,6 +82,14 @@ public class CookTextField extends JTextField {
 		} else {
 			setFont(f);
 		}
-		
 	}
+	
+	public boolean isEmpty() {
+		if (placeholderText.equals(getText()) || getText().isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

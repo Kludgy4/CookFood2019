@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.BorderFactory;
+
 import cook.CookMain;
 import cook.CookSettings;
 import cook.components.CookButton;
@@ -45,17 +47,31 @@ public class PnlRecipeSubmit extends CookPanel {
 				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
 				PnlRecipeList recipes = parent.mainFrame.pnlRecipeList;
 				
+				//TODO Avoid repetitive checking of placeholder vs actual text
 				PnlRecipeTitle recipeInformation = parent.pnlRecipeInterface.pnlTitle;
 				
-				saveRecipe(new Recipe(recipeInformation.titlePane.getText(), recipeInformation.cookbookPane.getText(), parent.pnlIngredientsList.ingredients));
-				
-				recipes.refreshRecipes();
-				parent.mainFrame.redraw();
-				
-				//TODO Add ingredient dependant on input ingredient
-				//Add recipe to the other window and dispose of this one
-				CookMain.app.setEnabled(true);
-				parent.dispose();
+				if (!recipeInformation.titlePane.isEmpty() && !recipeInformation.cookbookPane.isEmpty()) {
+					saveRecipe(new Recipe(recipeInformation.titlePane.getText(), recipeInformation.cookbookPane.getText(), parent.pnlIngredientsList.ingredients));
+					recipes.refreshRecipes();
+					parent.mainFrame.redraw();
+					
+					//TODO Add ingredient dependant on input ingredient
+					//Add recipe to the other window and dispose of this one
+					CookMain.app.setEnabled(true);
+					parent.dispose();
+				} else {
+					if (recipeInformation.titlePane.isEmpty()) {
+						recipeInformation.titlePane.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, CookSettings.colourError));
+					} else {
+						recipeInformation.titlePane.setBorder(BorderFactory.createEmptyBorder());
+					}
+					if (recipeInformation.cookbookPane.isEmpty()) {
+						recipeInformation.cookbookPane.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, CookSettings.colourError));
+					} else {
+						recipeInformation.cookbookPane.setBorder(BorderFactory.createEmptyBorder());
+					}
+					
+				}
 			}
 		});
 		
