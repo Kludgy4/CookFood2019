@@ -20,6 +20,7 @@ This project currently requires the following to run:
 3. Move the unzipped folder to a convenient location on your computer
 4. If you are using Windows, double-click "RUNME.bat", otherwise, just double-click "CookFood.jar"
 5. CookFood should now open ready for you to use. If you encounter any issues during the installation process, please see the FAQ below
+
 **IMPORTANT SETUP POINT**
 To ensure the program scales correctly to your screen size when running on Windows 10, follow these steps:
 1. Open the Settings app
