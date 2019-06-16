@@ -27,7 +27,6 @@ public class FrRecipe extends CookFrame {
 	public FrRecipe(FrMain mainFrame, Recipe preloadRecipe) {
 		super();
 		this.mainFrame = mainFrame;
-		mainFrame.setEnabled(false);
 		
 		//Constructs the frame for displaying
 		pnlRecipeInterface = new PnlRecipeInterface(this);
@@ -35,8 +34,8 @@ public class FrRecipe extends CookFrame {
 		
 		pnlRecipeInterface.pnlRecipeSubmit.updating = false;
 		if (preloadRecipe != null) {
-			pnlRecipeInterface.pnlTitle.titlePane.setText(preloadRecipe.title);
-			pnlRecipeInterface.pnlTitle.cookbookPane.setText(preloadRecipe.cookbook);
+			pnlRecipeInterface.pnlTitle.titleField.setText(preloadRecipe.title);
+			pnlRecipeInterface.pnlTitle.cookbookField.setText(preloadRecipe.cookbook);
 			pnlRecipeInterface.pnlRecipeSubmit.updating = true;
 			pnlRecipeInterface.pnlRecipeSubmit.updatingTitle = preloadRecipe.title;
 			
@@ -73,7 +72,6 @@ public class FrRecipe extends CookFrame {
 	
 	protected void processWindowEvent(final WindowEvent e) {
 		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
-			mainFrame.setEnabled(true);
 			dispose();
 		}
 	}

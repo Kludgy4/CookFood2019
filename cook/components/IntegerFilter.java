@@ -8,7 +8,7 @@ import javax.swing.text.DocumentFilter;
 import cook.CookMain;
 
 /**
- * StackOverflow class that forces only integer input
+ * StackOverflow class that forces input into a JTextField to only be positive integers
  */
 public class IntegerFilter extends DocumentFilter {   
 	
@@ -27,29 +27,10 @@ public class IntegerFilter extends DocumentFilter {
 		sb.insert(offset, string);
 		
 		if (test(sb.toString())) {
-			if (sb.toString().equals(allowedText) || sb.toString().isEmpty()) {
-				System.out.println("test");
-				CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
-			} else {
-				System.out.println("test");
-				CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(true);
-			}
+			setButtonEnabled(sb.toString());
 			super.insertString(fb, offset, string, attr);
 		} else {
-			System.out.println("test");
 			CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
-		}
-	}
-
-	private boolean test(String text) {
-		if (text.isEmpty() || text.equals(allowedText)) {
-			return true;
-		}
-		try {
-			Integer.parseInt(text);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
 		}
 	}
 
@@ -61,11 +42,7 @@ public class IntegerFilter extends DocumentFilter {
 		sb.replace(offset, offset + length, text);
 		
 		if (test(sb.toString())) {
-			if (sb.toString().equals(allowedText) || sb.toString().isEmpty()) {
-				CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
-			} else {
-				CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(true);
-			}
+			setButtonEnabled(sb.toString());
 			super.replace(fb, offset, length, text, attrs);
 		} else {
 			CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
@@ -80,17 +57,30 @@ public class IntegerFilter extends DocumentFilter {
 		sb.delete(offset, offset + length);
 		
 		if (test(sb.toString())) {
-			if (sb.toString().equals(allowedText) || sb.toString().isEmpty()) {
-				System.out.println("test");
-				CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
-			} else {
-				System.out.println("test");
-				CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(true);
-			}
+			setButtonEnabled(sb.toString());
 			super.remove(fb, offset, length);
 		} else {
-			System.out.println("test");
 			CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
+		}
+	}
+	
+	private boolean test(String text) {
+		if (text.isEmpty() || text.equals(allowedText)) {
+			return true;
+		}
+		try {
+			Integer.parseInt(text);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+	
+	public void setButtonEnabled(String sb) {
+		if (sb.toString().equals(allowedText) || sb.toString().isEmpty()) {
+			CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
+		} else {
+			CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(true);
 		}
 	}
 }

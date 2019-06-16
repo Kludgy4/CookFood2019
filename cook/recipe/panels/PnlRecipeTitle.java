@@ -3,6 +3,7 @@ package cook.recipe.panels;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Insets;
+import java.util.ArrayList;
 
 import cook.components.CookPanel;
 import cook.components.CookTextField;
@@ -11,7 +12,8 @@ import cook.components.CookTextField;
 public class PnlRecipeTitle extends CookPanel {
 	
 	Insets buttonInsets;
-	public CookTextField titlePane, cookbookPane;
+	public CookTextField titleField, cookbookField;
+	public ArrayList<CookTextField> textFields = new ArrayList<>();
 	
 	public PnlRecipeTitle() {
 		buttonInsets = new Insets(0, 25, 0, 25);
@@ -25,20 +27,23 @@ public class PnlRecipeTitle extends CookPanel {
 	    layoutConstraints.weightx = 0.5;
 	    layoutConstraints.insets = buttonInsets;
 	    
-	    titlePane = new CookTextField(false, "Recipe Title", 0, 0);
-		cookbookPane = new CookTextField(false, "Cookbook", 1, 0);
+	    titleField = new CookTextField(false, "Recipe Title", 0, 0);
+		cookbookField = new CookTextField(false, "Cookbook", 1, 0);
 		
 		//Adds the text boxes to the panel
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 0;
-		add(titlePane, layoutConstraints);
+		textFields.add(titleField);
+		add(titleField, layoutConstraints);
+		
 		layoutConstraints.gridx = 1;
-		add(cookbookPane, layoutConstraints);
+		textFields.add(cookbookField);
+		add(cookbookField, layoutConstraints);
 	}
 
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
 		Font font = new Font("Arial", Font.PLAIN, (int)(frameSize.getHeight()*0.04));
-		titlePane.changeFont(font);
-		cookbookPane.changeFont(font);
+		titleField.changeFont(font);
+		cookbookField.changeFont(font);
 	}
 }

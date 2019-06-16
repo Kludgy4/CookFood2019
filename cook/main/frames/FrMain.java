@@ -17,7 +17,6 @@ import cook.main.panels.PnlRecipeList;
  */
 @SuppressWarnings("serial")
 public class FrMain extends CookFrame {
-	//TODO Update references across the program to be static because they only exist once so why pass stuff everywhere if can just be static?
 	public PnlInterface pnlInterface;
 	public PnlRecipeList pnlRecipeList;
 	
@@ -60,7 +59,6 @@ public class FrMain extends CookFrame {
 		if (e.getID() == WindowEvent.WINDOW_CLOSING) {
 			dispose();
 		} else if (e.getID() == WindowEvent.WINDOW_GAINED_FOCUS) {
-			System.out.println("Stuff");
 			CookMain.recipe.setAlwaysOnTop(true);
 		}
 	}

@@ -62,13 +62,13 @@ public class CookTextField extends JTextField {
 		setPlaceholder();
 	}
 	
-	private void setPlaceholder() {
+	public void setPlaceholder() {
 		setForeground(CookSettings.neutral4);
 		setFont(appliedFont.deriveFont(Font.ITALIC));
 		setText(placeholderText);
 	}
 	
-	private void removePlaceholder() {
+	public void removePlaceholder() {
 		setForeground(Color.BLACK);
 		setFont(appliedFont);
 		setText("");

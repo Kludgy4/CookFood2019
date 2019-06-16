@@ -6,6 +6,11 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -15,6 +20,8 @@ import cook.CookSettings;
 import cook.components.CookBox;
 import cook.components.CookPanelList;
 import cook.components.CookTextField;
+import cook.elements.Ingredient;
+import cook.elements.QuantityType;
 import cook.elements.Recipe;
 import cook.elements.RecipeInterface;
 import cook.main.frames.FrMain;
@@ -94,7 +101,50 @@ public class PnlRecipeList extends CookPanelList {
 	 */
 	public void refreshRecipes() {
 		listPanel.removeAll();
-		recipes = (new RecipeInterface()).retrieveRecipes();
+		recipes = retrieveRecipes();
 		addComponents();
+	}
+	
+	/**
+	 * Retrieves all ingredients previously saved on the system
+	 * @return An array of all previously saved ingredients as 'Recipe' objects
+	 */
+	public ArrayList<Recipe> retrieveRecipes() {
+		try {
+			ArrayList<File> recipeFiles = (new RecipeInterface()).getFolderFiles();
+			ArrayList<Recipe> recipes = new ArrayList<>();
+			
+			//Iterates over every retrieved recipe and turns them into recipe objects
+			for (File file : recipeFiles) {
+				try {
+					//Primes the reader and reads general recipe informationE
+					BufferedReader reader = new BufferedReader(new FileReader(file));
+					Recipe recipe = new Recipe();
+					String[] inputData = reader.readLine().split(",");
+					recipe.title = inputData[0];
+					recipe.cookbook = inputData[1];
+					
+					//Reads saved ingredients and their information into the recipe
+					String input = reader.readLine();
+					while (input != null) {
+						inputData = input.split(",");
+						recipe.ingredients.add(new Ingredient(
+								inputData[0], 
+								Integer.parseInt(inputData[1]), 
+								QuantityType.valueOf(QuantityType.convertMultipleType(inputData[2].toUpperCase())
+						)));
+						input = reader.readLine();
+					}
+					recipe.fileName = file.getName();
+					recipes.add(recipe);
+					reader.close();
+				} catch (FileNotFoundException e) {} catch (IOException e) {e.printStackTrace();}
+			}
+			return recipes;
+		} catch (Exception e) {
+			//Returns a blank array if there is an error opening saved ingredients
+			System.out.println("There was an error opening your saved ingredients");
+			return new ArrayList<Recipe>();
+		}
 	}
 }

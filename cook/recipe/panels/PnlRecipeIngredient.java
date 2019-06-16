@@ -24,7 +24,7 @@ public class PnlRecipeIngredient extends CookPanel {
 	
 	Insets buttonInsets;
 	
-	public CookTextField namePane, quantityPane;
+	public CookTextField nameField, quantityField;
 	public CookButton addButton, deleteButton;
 	public CookCombo comboBox;
 	
@@ -43,10 +43,10 @@ public class PnlRecipeIngredient extends CookPanel {
 	    layoutConstraints.weightx = 0.5;
 	    layoutConstraints.insets = buttonInsets;
 	    
-	    namePane = new CookTextField(false, "Ingredient Name", 0, 0);
-	    quantityPane = new CookTextField(false, "Quantity", 0, 1);
+	    nameField = new CookTextField(false, "Ingredient Name", 0, 0);
+	    quantityField = new CookTextField(false, "Quantity", 0, 1);
 	    
-	    PlainDocument doc = (PlainDocument) quantityPane.getDocument();
+	    PlainDocument doc = (PlainDocument) quantityField.getDocument();
 	    doc.setDocumentFilter(new IntegerFilter("Quantity"));
 	    
 		//Creates Buttons
@@ -58,17 +58,19 @@ public class PnlRecipeIngredient extends CookPanel {
 		
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FrRecipe recipeFrame = ((PnlRecipeInterface)getParent()).recipeFrame;
-				//TODO Add ingredient dependant on input ingredient
-				recipeFrame.pnlIngredientsList.ingredients.add(new Ingredient(namePane.getText(), Integer.parseInt(quantityPane.getText()), (QuantityType) comboBox.getSelectedItem()));
-				recipeFrame.pnlIngredientsList.addComponents();
+				PnlIngredientsList list = recipeFrame.pnlIngredientsList;
+				
+				list.ingredients.add(new Ingredient(nameField.getText(), Integer.parseInt(quantityField.getText()), (QuantityType) comboBox.getSelectedItem()));
+				list.addComponents();
+				
+				nameField.setPlaceholder();
+				quantityField.setPlaceholder();
 				recipeFrame.redraw();
 			}
 		});
 		
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FrRecipe recipeFrame = ((PnlRecipeInterface)getParent()).recipeFrame;
 				PnlIngredientsList list = recipeFrame.pnlIngredientsList;
 				
 				for (CookBox c : list.getSelectedCheckboxes(true)) {
@@ -86,16 +88,15 @@ public class PnlRecipeIngredient extends CookPanel {
 	}
 	
 	public void refreshElements() {
-		//TODO Allow this to stay in the main addElements method rather then having to exist
 		//Adds the constructed elements to their respective positions in the frame
 		layoutConstraints.gridwidth = 2;
 		layoutConstraints.gridx = 0;
 		layoutConstraints.gridy = 0;
-		add(namePane, layoutConstraints);
+		add(nameField, layoutConstraints);
 		
 		layoutConstraints.gridwidth = 1;
 		layoutConstraints.gridy = 1;
-		add(quantityPane, layoutConstraints);
+		add(quantityField, layoutConstraints);
 		
 		layoutConstraints.gridx = 1;
 		add(comboBox, layoutConstraints);
@@ -119,8 +120,8 @@ public class PnlRecipeIngredient extends CookPanel {
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.035));
 		addButton.setFont(newFont);
 		deleteButton.setFont(newFont);
-		namePane.changeFont(newFont);
-		quantityPane.changeFont(newFont);
+		nameField.changeFont(newFont);
+		quantityField.changeFont(newFont);
 		comboBox.setFont(newFont);
 		
 		//Resizes the button icons

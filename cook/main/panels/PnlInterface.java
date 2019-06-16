@@ -20,7 +20,6 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import cook.CookMain;
-import cook.CookSettings;
 import cook.components.CookBox;
 import cook.components.CookButton;
 import cook.components.CookIcon;
@@ -63,8 +62,11 @@ public class PnlInterface extends CookPanel {
 		//Adds relevant functionality to each of the buttons
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//TODO swap focus to open frame if already existing rather then opening a second one
-				CookMain.recipe = new FrRecipe(mainFrame, null);
+				if (CookMain.recipe == null) {
+					CookMain.recipe = new FrRecipe(mainFrame, null);
+				} else {
+					CookMain.recipe.setVisible(true);
+				}
 			}
 		});
 		deleteButton.addActionListener(new ActionListener() {

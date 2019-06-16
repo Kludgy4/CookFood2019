@@ -11,14 +11,13 @@ import java.io.IOException;
 
 import javax.swing.BorderFactory;
 
-import cook.CookMain;
 import cook.CookSettings;
 import cook.components.CookButton;
 import cook.components.CookIcon;
 import cook.components.CookPanel;
+import cook.components.CookTextField;
 import cook.elements.Ingredient;
 import cook.elements.Recipe;
-import cook.main.panels.PnlRecipeList;
 import cook.recipe.frames.FrRecipe;
 
 @SuppressWarnings("serial")
@@ -45,32 +44,24 @@ public class PnlRecipeSubmit extends CookPanel {
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrRecipe recipeFrame = ((PnlRecipeInterface)getParent()).recipeFrame;
-				PnlRecipeList recipes = recipeFrame.mainFrame.pnlRecipeList;
 				
-				//TODO Avoid repetitive checking of placeholder vs actual text
 				PnlRecipeTitle recipeInformation = recipeFrame.pnlRecipeInterface.pnlTitle;
 				
-				if (!recipeInformation.titlePane.isEmpty() && !recipeInformation.cookbookPane.isEmpty()) {
-					saveRecipe(new Recipe(recipeInformation.titlePane.getText(), recipeInformation.cookbookPane.getText(), recipeFrame.pnlIngredientsList.ingredients));
-					recipes.refreshRecipes();
+				if (!recipeInformation.titleField.isEmpty() && !recipeInformation.cookbookField.isEmpty()) {
+					saveRecipe(new Recipe(recipeInformation.titleField.getText(), recipeInformation.cookbookField.getText(), recipeFrame.pnlIngredientsList.ingredients));
+					recipeFrame.mainFrame.pnlRecipeList.refreshRecipes();
 					recipeFrame.mainFrame.redraw();
 					
-					//TODO Add ingredient dependant on input ingredient
 					//Add recipe to the other window and dispose of this one
-					CookMain.app.setEnabled(true);
 					recipeFrame.dispose();
 				} else {
-					if (recipeInformation.titlePane.isEmpty()) {
-						recipeInformation.titlePane.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, CookSettings.colourError));
-					} else {
-						recipeInformation.titlePane.setBorder(BorderFactory.createEmptyBorder());
+					for (CookTextField textField : recipeInformation.textFields) {
+						if (textField.isEmpty()) {
+							textField.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, CookSettings.colourError));
+						} else {
+							textField.setBorder(BorderFactory.createEmptyBorder());
+						}
 					}
-					if (recipeInformation.cookbookPane.isEmpty()) {
-						recipeInformation.cookbookPane.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, CookSettings.colourError));
-					} else {
-						recipeInformation.cookbookPane.setBorder(BorderFactory.createEmptyBorder());
-					}
-					
 				}
 			}
 		});
@@ -95,10 +86,8 @@ public class PnlRecipeSubmit extends CookPanel {
 		
 		//Writes recipe information to the given file
 		try {
-			System.out.println(updatingTitle);
 			if (!updating || !recipe.title.equals(updatingTitle)) {
 				if (file.exists()) {
-						//TODO make saving number for duplicate names work
 						int duplicateNumber = 1;
 						file = new File(CookSettings.savePath + "/" + recipe.title + " (" + duplicateNumber + ")" + ".ckf");
 						while (file.exists()) {
