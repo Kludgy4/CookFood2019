@@ -19,13 +19,13 @@ public class PnlRecipeInterface extends CookPanel {
 	
 	ArrayList<CookPanel> panels = new ArrayList<>();
 	
-	FrRecipe parent;
+	FrRecipe recipeFrame;
 	
 	/**
 	 * Constructs the Recipe Interface Panel
 	 */
-	public PnlRecipeInterface(FrRecipe parent) {
-		this.parent = parent;
+	public PnlRecipeInterface(FrRecipe recipeFrame) {
+		this.recipeFrame = recipeFrame;
 		
 		//Constructs onscreen elements
 		setBackground(CookSettings.colourBackground);
@@ -39,7 +39,7 @@ public class PnlRecipeInterface extends CookPanel {
 	public void addFrames() {
 		//Constructs Panels for use and adds them to the screen
 		pnlTitle = new PnlRecipeTitle();
-		pnlRecipeIngredient = new PnlRecipeIngredient();
+		pnlRecipeIngredient = new PnlRecipeIngredient(recipeFrame);
 		pnlRecipeSubmit = new PnlRecipeSubmit();
 		
 		panels.add(pnlTitle);
@@ -50,6 +50,17 @@ public class PnlRecipeInterface extends CookPanel {
 		add(pnlTitle, BorderLayout.NORTH);
 		add(pnlRecipeIngredient, BorderLayout.CENTER);
 		add(pnlRecipeSubmit, BorderLayout.SOUTH);
+	}
+	
+	public void disableButtons() {
+		switch (recipeFrame.pnlIngredientsList.getSelectedCheckboxes(false).size()) {
+			case 0:
+				pnlRecipeIngredient.deleteButton.setEnabled(false);
+				break;
+			default:
+				pnlRecipeIngredient.deleteButton.setEnabled(true);
+				break;
+		}
 	}
 	
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {

@@ -51,7 +51,6 @@ public class PnlRecipeList extends CookPanelList {
 			layoutConstraints.gridx = 0;
 			layoutConstraints.gridy = i;
 			layoutConstraints.weightx = 0.9;
-			layoutConstraints.ipady = 75;
 			
 			titles.add(recipeTitle);
 			listPanel.add(recipeTitle, layoutConstraints);
@@ -70,7 +69,6 @@ public class PnlRecipeList extends CookPanelList {
 			layoutConstraints.gridy = i;
 			layoutConstraints.weightx = 0.1;
 			layoutConstraints.anchor = GridBagConstraints.CENTER;
-			layoutConstraints.ipady = 75;
 			
 			checkboxes.add(recipeCheckBox);
 			listPanel.add(recipeCheckBox, layoutConstraints);
@@ -80,8 +78,14 @@ public class PnlRecipeList extends CookPanelList {
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
 		//Resizes the button font and buttonIcon sizes
 		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.04));
+		
 		for (JTextField recipeTitle : titles) {
 			recipeTitle.setFont(newFont);
+		}
+		
+		for (CookBox checkbox : checkboxes) {
+			checkbox.setFont(newFont);
+			checkbox.setPreferredSize(new Dimension((int)(frameSize.getHeight()*0.04), (int)(frameSize.getHeight()*0.04)));
 		}
 	}
 	

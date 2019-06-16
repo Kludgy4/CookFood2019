@@ -31,7 +31,7 @@ public class FrRecipe extends CookFrame {
 		
 		//Constructs the frame for displaying
 		pnlRecipeInterface = new PnlRecipeInterface(this);
-		pnlIngredientsList = new PnlIngredientsList();
+		pnlIngredientsList = new PnlIngredientsList(this);
 		
 		pnlRecipeInterface.pnlRecipeSubmit.updating = false;
 		if (preloadRecipe != null) {

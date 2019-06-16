@@ -44,21 +44,21 @@ public class PnlRecipeSubmit extends CookPanel {
 		
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
-				PnlRecipeList recipes = parent.mainFrame.pnlRecipeList;
+				FrRecipe recipeFrame = ((PnlRecipeInterface)getParent()).recipeFrame;
+				PnlRecipeList recipes = recipeFrame.mainFrame.pnlRecipeList;
 				
 				//TODO Avoid repetitive checking of placeholder vs actual text
-				PnlRecipeTitle recipeInformation = parent.pnlRecipeInterface.pnlTitle;
+				PnlRecipeTitle recipeInformation = recipeFrame.pnlRecipeInterface.pnlTitle;
 				
 				if (!recipeInformation.titlePane.isEmpty() && !recipeInformation.cookbookPane.isEmpty()) {
-					saveRecipe(new Recipe(recipeInformation.titlePane.getText(), recipeInformation.cookbookPane.getText(), parent.pnlIngredientsList.ingredients));
+					saveRecipe(new Recipe(recipeInformation.titlePane.getText(), recipeInformation.cookbookPane.getText(), recipeFrame.pnlIngredientsList.ingredients));
 					recipes.refreshRecipes();
-					parent.mainFrame.redraw();
+					recipeFrame.mainFrame.redraw();
 					
 					//TODO Add ingredient dependant on input ingredient
 					//Add recipe to the other window and dispose of this one
 					CookMain.app.setEnabled(true);
-					parent.dispose();
+					recipeFrame.dispose();
 				} else {
 					if (recipeInformation.titlePane.isEmpty()) {
 						recipeInformation.titlePane.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, CookSettings.colourError));

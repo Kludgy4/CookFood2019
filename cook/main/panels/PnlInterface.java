@@ -15,6 +15,7 @@ import java.util.Date;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -68,16 +69,18 @@ public class PnlInterface extends CookPanel {
 		});
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PnlRecipeList list = mainFrame.pnlRecipeList;
-				
-				for (CookBox box : list.getSelectedCheckboxes(true)) {
-					Recipe cTarget = (Recipe)box.target;
-					String fileName = (cTarget.fileName).substring(0, cTarget.fileName.length()-4);
-					deleteRecipe(fileName);
+				if (JOptionPane.showConfirmDialog(mainFrame, "Are you sure you wish to delete this/these recipe(s)?") == JOptionPane.YES_OPTION) {
+					PnlRecipeList list = mainFrame.pnlRecipeList;
+					
+					for (CookBox box : list.getSelectedCheckboxes(true)) {
+						Recipe cTarget = (Recipe)box.target;
+						String fileName = (cTarget.fileName).substring(0, cTarget.fileName.length()-4);
+						deleteRecipe(fileName);
+					}
+					list.refreshRecipes();
+					disableButtons();
+					mainFrame.redraw();
 				}
-				list.refreshRecipes();
-				disableButtons();
-				mainFrame.redraw();
 			}
 		});
 		editButton.addActionListener(new ActionListener() {
@@ -181,7 +184,11 @@ public class PnlInterface extends CookPanel {
 	public void generateShoppingList(ArrayList<Recipe> recipeArray) {
 		ArrayList<Ingredient> arrangedIngredients  = arrangeIngredients(recipeArray);
 		File saveLocation = getSaveLocation("Text File", "txt");
-		saveList(saveLocation, arrangedIngredients);
+		if (!saveLocation.getPath().isEmpty()) {
+			saveList(saveLocation, arrangedIngredients);
+		} else {
+			System.out.println("Please select a location to save your generated shopping list");
+		}
 	}
 	
 	/**
@@ -228,7 +235,6 @@ public class PnlInterface extends CookPanel {
 	 * @return A File object representative of the save location
 	 */
 	public File getSaveLocation(String fileExtensionDescription, String fileExtension) {
-		
 		//Adjusts the settings of the file save location selector
 		JFileChooser chooser = new JFileChooser();
 		String saveDirectory = "";
@@ -239,15 +245,15 @@ public class PnlInterface extends CookPanel {
 	    FileFilter filter = new FileNameExtensionFilter(fileExtensionDescription, fileExtension);
 	    chooser.setAcceptAllFileFilterUsed(false);
 	    chooser.setFileFilter(filter);
-	    
-	    //Determines the final determined save location
-	    if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) { 
-	    	saveDirectory = chooser.getSelectedFile().toString() + "." + fileExtension;
-	    } else {
-	    	saveDirectory = CookSettings.savePath;
-	    	System.out.println("Defaulting list output location to recipe save folder: " + saveDirectory);
-	    }
-		
+		    //Determines the final determined save location
+		    switch (chooser.showSaveDialog(null)) {
+		    	case JFileChooser.APPROVE_OPTION:
+		    		saveDirectory = chooser.getSelectedFile().toString() + "." + fileExtension;
+		    		break;
+		    	default:
+		    		saveDirectory = "";
+		    		break;
+		    }
 		return new File(saveDirectory);
 	}
 	

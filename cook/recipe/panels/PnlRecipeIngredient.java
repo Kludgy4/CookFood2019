@@ -28,7 +28,10 @@ public class PnlRecipeIngredient extends CookPanel {
 	public CookButton addButton, deleteButton;
 	public CookCombo comboBox;
 	
-	public PnlRecipeIngredient() {
+	FrRecipe recipeFrame;
+	
+	public PnlRecipeIngredient(FrRecipe recipeFrame) {
+		this.recipeFrame = recipeFrame; 
 		buttonInsets = new Insets(0, 25, 0, 25);
 		createLayout();
 		addElements();
@@ -50,26 +53,30 @@ public class PnlRecipeIngredient extends CookPanel {
 		addButton = CookIcon.ADD.getCookButton("Add Ingredient");
 		deleteButton = CookIcon.DELETE.getCookButton("Delete Ingredient(s)");
 		
+		addButton.setEnabled(false);
+		deleteButton.setEnabled(false);
+		
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
+				FrRecipe recipeFrame = ((PnlRecipeInterface)getParent()).recipeFrame;
 				//TODO Add ingredient dependant on input ingredient
-				parent.pnlIngredientsList.ingredients.add(new Ingredient(namePane.getText(), Integer.parseInt(quantityPane.getText()), (QuantityType) comboBox.getSelectedItem()));
-				parent.pnlIngredientsList.addComponents();
-				parent.redraw();
+				recipeFrame.pnlIngredientsList.ingredients.add(new Ingredient(namePane.getText(), Integer.parseInt(quantityPane.getText()), (QuantityType) comboBox.getSelectedItem()));
+				recipeFrame.pnlIngredientsList.addComponents();
+				recipeFrame.redraw();
 			}
 		});
 		
 		deleteButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FrRecipe parent = ((PnlRecipeInterface)getParent()).parent;
-				PnlIngredientsList list = parent.pnlIngredientsList;
+				FrRecipe recipeFrame = ((PnlRecipeInterface)getParent()).recipeFrame;
+				PnlIngredientsList list = recipeFrame.pnlIngredientsList;
 				
 				for (CookBox c : list.getSelectedCheckboxes(true)) {
 					list.ingredients.remove(c.target);
 				}
+				deleteButton.setEnabled(false);
 				list.addComponents();
-				parent.redraw();
+				recipeFrame.redraw();
 			}
 		});
 		

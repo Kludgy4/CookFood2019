@@ -3,12 +3,15 @@ package cook.recipe.panels;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import cook.components.CookBox;
 import cook.components.CookPanelList;
 import cook.components.CookTextField;
 import cook.elements.Ingredient;
+import cook.recipe.frames.FrRecipe;
 
 @SuppressWarnings("serial")
 public class PnlIngredientsList extends CookPanelList {
@@ -17,27 +20,12 @@ public class PnlIngredientsList extends CookPanelList {
 	ArrayList<CookTextField> quantities = new ArrayList<>();
 	public ArrayList<Ingredient> ingredients = new ArrayList<>();
 	
-	public PnlIngredientsList() {
+	FrRecipe recipeFrame;
+	
+	public PnlIngredientsList(FrRecipe recipeFrame) {
+		this.recipeFrame = recipeFrame;
 		createScrollableLayout();
 		addComponents();
-	}
-	
-	public void resizeElements(Dimension frameSize, Dimension screenSize) {
-		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.025));
-		
-		layoutConstraints.ipady = (int)(frameSize.getHeight()*0.01);
-		for (CookTextField n : names) {
-			n.setFont(newFont);
-		}
-		
-		for (CookTextField q : quantities) {
-			q.setFont(newFont);
-		}
-		
-		for (CookBox c : checkboxes) {
-			c.setFont(newFont);
-			c.setPreferredSize(new Dimension((int)(frameSize.getHeight()*0.04), (int)(frameSize.getHeight()*0.04)));
-		}
 	}
 	
 	public void addComponents() {
@@ -79,12 +67,37 @@ public class PnlIngredientsList extends CookPanelList {
 			
 			//Adds a corresponding recipe checkbox to the panel
 			CookBox recipeCheckBox = new CookBox(2, i, ingredient);
+			
+			//Greys out boxes dependent on how many are selected
+			recipeCheckBox.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					recipeFrame.pnlRecipeInterface.disableButtons();
+				}
+			});
+			
 			layoutConstraints.gridx = 2;
 			layoutConstraints.weightx = 0.1;
 			layoutConstraints.anchor = GridBagConstraints.EAST;
 			
 			checkboxes.add(recipeCheckBox);
 			listPanel.add(recipeCheckBox, layoutConstraints);
+		}
+	}
+	
+	public void resizeElements(Dimension frameSize, Dimension screenSize) {
+		Font newFont = new Font("Arial", Font.BOLD, (int)(frameSize.getHeight()*0.025));
+		
+		for (CookTextField name : names) {
+			name.setFont(newFont);
+		}
+		
+		for (CookTextField quantity : quantities) {
+			quantity.setFont(newFont);
+		}
+		
+		for (CookBox checkbox : checkboxes) {
+			checkbox.setFont(newFont);
+			checkbox.setPreferredSize(new Dimension((int)(frameSize.getHeight()*0.04), (int)(frameSize.getHeight()*0.04)));
 		}
 	}
 
