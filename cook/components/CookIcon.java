@@ -8,9 +8,9 @@ import javax.swing.SwingConstants;
 
 public enum CookIcon {
 	ADD("add"),
+	DELETE("delete"),
 	EDIT("edit"),
 	GENERATE("generate"),
-	DELETE("delete"),
 	SUBMIT("generate"),
 	TEMP("404");
 

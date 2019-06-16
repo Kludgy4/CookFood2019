@@ -1,14 +1,24 @@
 package cook.components;
 
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowStateListener;
+import java.io.File;
+import java.io.IOException;
+import java.net.URI;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
 
 import cook.CookSettings;
 
@@ -33,6 +43,44 @@ public abstract class CookFrame extends JFrame {
 		
 		//Other miscellaneous setup tasks
 		getContentPane().setBackground(CookSettings.colourBackground);
+		createMenubar();
+	}
+	
+	private void createMenubar() {
+		JMenuBar menubar = new JMenuBar();
+		JMenu help = new JMenu("Help");
+		JMenuItem helper = createMenuItem("Help", KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK), "Get Online Help for this program");
+		helper.addActionListener((ActionEvent event) -> {
+			try {
+				Desktop.getDesktop().browse(new URI("https://github.com/Kludgy4/CookFood2019"));
+			} catch (Exception e) {
+				System.out.println("There was a problem getting the latest 'Online Help'. Make sure you are connected to the internet and try again");
+				try {
+					Desktop.getDesktop().open(new File(CookSettings.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/README.md"));
+				} catch (IOException e1) {
+					System.out.println("No local 'Online Help' available either. Maybe you moved the downloaded 'README.md' file?");
+				}
+			}
+		});
+		help.add(helper);
+		menubar.add(help);
+		setJMenuBar(menubar);
+	}
+	
+	/**
+	 * Creates a menu item from the specified parameters. To add functionality to
+	 * the item you need to do it separately.
+	 * 
+	 * @param text The label for the menu.
+	 * @param keyboardShortcut The shortcut to activate button. Use null if there isn't one.
+	 * @param tip String provides information to user about the button.
+	 * @return The JMenuItem from the specified parameters.
+	 */
+	public JMenuItem createMenuItem(String text, KeyStroke keyboardShortcut, String tip) {
+		JMenuItem item = new JMenuItem(text);
+		if (keyboardShortcut != null) item.setAccelerator(keyboardShortcut);
+		item.setToolTipText(tip);
+		return item;
 	}
 	
 	public abstract void redraw();
