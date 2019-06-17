@@ -22,6 +22,8 @@ public class CookMain {
 		}
 
 		//Creates the application window ready for event-driven processing
+		recipe = new FrRecipe();
+		recipe.dispose();
 		app = new FrMain();
 	}
 }

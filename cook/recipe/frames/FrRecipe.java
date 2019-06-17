@@ -20,6 +20,8 @@ public class FrRecipe extends CookFrame {
 	public PnlRecipeInterface pnlRecipeInterface;
 	public PnlIngredientsList pnlIngredientsList;
 	
+	public FrRecipe() {}
+	
 	/**
 	 * Constructs a new window (In which the Recipe section of the CookFood program is run)	 
 	 */

@@ -64,7 +64,7 @@ public class PnlInterface extends CookPanel {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Checks whether the Recipe creation window already exists
-				if (CookMain.recipe == null) {
+				if (!CookMain.recipe.isDisplayable()) {
 					//Create a new Recipe creation window
 					CookMain.recipe = new FrRecipe(mainFrame, null);
 				} else {
@@ -94,7 +94,7 @@ public class PnlInterface extends CookPanel {
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Checks whether the Recipe editing window already exists
-				if (CookMain.recipe == null) {
+				if (!CookMain.recipe.isDisplayable()) {
 					//Create a new Recipe editing window
 					CookMain.recipe = new FrRecipe(mainFrame, (Recipe) mainFrame.pnlRecipeList.getSelectedCheckboxes(true).get(0).target);
 					disableButtons();
