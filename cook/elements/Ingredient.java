@@ -20,9 +20,9 @@ public class Ingredient {
 	
 	/**
 	 * Stores loaded pnlRecipeIngredient data in memory
-	 * @param name
-	 * @param quantity
-	 * @param quantityType
+	 * @param name The name of the ingredient
+	 * @param quantity The number of ingredient quantities 
+	 * @param quantityType The type of quantity of the ingredient
 	 */
 	public Ingredient(String name, int quantity, QuantityType quantityType) {
 		this.name = name;

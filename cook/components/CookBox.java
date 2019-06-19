@@ -17,6 +17,7 @@ public class CookBox extends JCheckBox {
 	 * A CheckBox class that knows its screen grid location
 	 * @param x The x position of the checkbox on the screen
 	 * @param y The y position of the checkbox on the screen
+	 * @param target The object linked to this checkbox
 	 */
 	public CookBox (int x, int y, Object target) {
 		super();

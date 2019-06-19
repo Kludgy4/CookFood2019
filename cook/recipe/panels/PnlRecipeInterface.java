@@ -24,6 +24,7 @@ public class PnlRecipeInterface extends CookPanel {
 	
 	/**
 	 * Constructs the Recipe Interface Panel
+	 * @param recipeFrame The parent frame of this panel
 	 */
 	public PnlRecipeInterface(FrRecipe recipeFrame) {
 		this.recipeFrame = recipeFrame;

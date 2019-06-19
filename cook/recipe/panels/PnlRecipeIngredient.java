@@ -38,6 +38,7 @@ public class PnlRecipeIngredient extends CookPanel {
 	
 	/**
 	 * Creates the panel in which ingredients are created and added to a recipe whilst being created
+	 * @param recipeFrame The parent frame of this panel
 	 */
 	public PnlRecipeIngredient(FrRecipe recipeFrame) {
 		this.recipeFrame = recipeFrame; 

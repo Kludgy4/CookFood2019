@@ -25,6 +25,7 @@ public class PnlIngredientsList extends CookPanelList {
 	
 	/**
 	 * Constructs the main Ingredients-List Panel
+	 * @param recipeFrame The parent frame of this panel
 	 */
 	public PnlIngredientsList(FrRecipe recipeFrame) {
 		this.recipeFrame = recipeFrame;

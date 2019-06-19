@@ -36,6 +36,7 @@ public class PnlRecipeList extends CookPanelList {
 	
 	/**
 	 * Constructs the main Recipe List Panel
+	 * @param mainFrame The parent frame of this panel
 	 */
 	public PnlRecipeList(FrMain mainFrame) {
 		this.mainFrame = mainFrame;

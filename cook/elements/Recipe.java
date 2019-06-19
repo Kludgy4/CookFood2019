@@ -26,9 +26,9 @@ public class Recipe {
 	
 	/**
 	 * Stores loaded recipe data into memory
-	 * @param pnlTitle
-	 * @param cookbook
-	 * @param ingredients
+	 * @param title The title of the recipe
+	 * @param cookbook the cookbook the recipe belongs to
+	 * @param ingredients The ingredients attached to this recipe
 	 */
 	public Recipe(String title, String cookbook, ArrayList<Ingredient> ingredients) {
 		this.title = title;

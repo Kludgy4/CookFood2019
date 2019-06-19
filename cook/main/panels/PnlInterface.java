@@ -42,6 +42,7 @@ public class PnlInterface extends CookPanel {
 	
 	/**
 	 * Constructs the Main Interface Panel
+	 * @param mainFrame The parent frame of this panel
 	 */
 	public PnlInterface(FrMain mainFrame) {
 		this.mainFrame = mainFrame;
@@ -174,7 +175,7 @@ public class PnlInterface extends CookPanel {
 	/**
 	 * Deletes a recipe from the system given its pnlTitle
 	 * NOTICE: Required SDD project method - Implementation of a standard search algorithm (to delete a given file)
-	 * @param pnlTitle The pnlTitle of the recipe to be deleted
+	 * @param title The pnlTitle of the recipe to be deleted
 	 * @return A boolean confirming whether the file was successfully deleted or not
 	 */
 	public boolean deleteRecipe(String title) {
@@ -293,8 +294,8 @@ public class PnlInterface extends CookPanel {
 	
 	/**
 	 * Saves an array of ingredients into a text file (in a given location) as a "Shopping List"
-	 * @param saveLocation
-	 * @param arrangedIngredients
+	 * @param saveLocation The location on the computer to which the generated shopping list will be saved
+	 * @param arrangedIngredients The ingredients to be saved to the computer, in alphabetical order
 	 */
 	public void saveList(File saveLocation, ArrayList<Ingredient> arrangedIngredients) {
 		try {

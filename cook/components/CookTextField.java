@@ -87,7 +87,7 @@ public class CookTextField extends JTextField {
 	
 	/**
 	 * Changes the Font of the textfield 
-	 * @param font
+	 * @param font The font to be applied to the textfield
 	 */
 	public void changeFont(Font font) {
 		appliedFont = font;

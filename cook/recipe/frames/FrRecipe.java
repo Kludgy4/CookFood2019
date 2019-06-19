@@ -24,6 +24,8 @@ public class FrRecipe extends CookFrame {
 	
 	/**
 	 * Constructs a new window (In which the Recipe section of the CookFood program is run)	 
+	 * @param mainFrame The parent frame of this panel
+	 * @param preloadRecipe The recipe to be preloaded onto this window when it opens
 	 */
 	public FrRecipe(FrMain mainFrame, Recipe preloadRecipe) {
 		super();
