@@ -8,6 +8,9 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+/**
+ * Extends the functionality of the default JButton to hold and automatically scale, an image/icon that is added to it
+ */
 @SuppressWarnings("serial")
 public class CookButton extends JButton  {
 	
@@ -15,7 +18,7 @@ public class CookButton extends JButton  {
 	
 	/**
 	 * A Button class with added automatic icon handling capability built-in
-	 * @param cookIcon
+	 * @param cookIcon The icon to be added to the button
 	 */
 	public CookButton(CookIcon cookIcon) {
 		this.buttonIcon = cookIcon.getImage();
@@ -26,11 +29,9 @@ public class CookButton extends JButton  {
 	 * Allows the button to be scaled up or down from the automatic sizing
 	 * @param frameSize The size of the entire frame
 	 * @param screenSize The size of the entire screen
-	 * @param scalePercentage The percentage to alter the button size by
+	 * @param scalePercentage The percentage to scale the button size with
 	 */
 	public void resizeIcon(Dimension frameSize, Dimension screenSize, double scalePercentage){
-		//scalePercentage = scalePercentage * 0.5;
-		
 		int newWidth, newHeight;
 		double imageAspect = buttonIcon.getWidth()/buttonIcon.getHeight();
 		

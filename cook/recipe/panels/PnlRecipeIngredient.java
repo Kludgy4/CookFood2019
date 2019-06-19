@@ -5,9 +5,14 @@ import java.awt.Font;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
+import javax.swing.BorderFactory;
 import javax.swing.text.PlainDocument;
 
+import cook.CookSettings;
 import cook.components.CookBox;
 import cook.components.CookButton;
 import cook.components.CookCombo;
@@ -25,19 +30,26 @@ public class PnlRecipeIngredient extends CookPanel {
 	Insets buttonInsets;
 	
 	public CookTextField nameField, quantityField;
+	ArrayList<CookTextField> textFields = new ArrayList<>();
 	public CookButton addButton, deleteButton;
 	public CookCombo comboBox;
 	
 	FrRecipe recipeFrame;
 	
+	/**
+	 * Creates the panel in which ingredients are created and added to a recipe whilst being created
+	 */
 	public PnlRecipeIngredient(FrRecipe recipeFrame) {
 		this.recipeFrame = recipeFrame; 
 		buttonInsets = new Insets(0, 25, 0, 25);
 		createLayout();
-		addElements();
+		addComponents();
 	}
 	
-	public void addElements() {
+	/**
+	 * Creates and adds specified components to the panel
+	 */
+	public void addComponents() {
 		//Creates text boxes
 	    layoutConstraints.ipady = 10;
 	    layoutConstraints.weightx = 0.5;
@@ -47,7 +59,23 @@ public class PnlRecipeIngredient extends CookPanel {
 	    quantityField = new CookTextField(false, "Quantity", 0, 1);
 	    
 	    PlainDocument doc = (PlainDocument) quantityField.getDocument();
-	    doc.setDocumentFilter(new IntegerFilter("Quantity"));
+	    IntegerFilter intFilter = new IntegerFilter("Quantity");
+	    doc.setDocumentFilter(intFilter);
+	    
+	    quantityField.addKeyListener(new KeyListener() {
+			public void keyTyped(KeyEvent e) {}
+			public void keyReleased(KeyEvent e) {
+				if (!quantityField.getText().equals("")) {
+					addButton.setEnabled(true);
+				} else {
+					addButton.setEnabled(false);
+				}
+			}
+			public void keyPressed(KeyEvent e) {}
+		});
+	    
+	    textFields.add(nameField);
+	    textFields.add(quantityField);
 	    
 		//Creates Buttons
 		addButton = CookIcon.ADD.getCookButton("Add Ingredient");
@@ -59,16 +87,27 @@ public class PnlRecipeIngredient extends CookPanel {
 		//Adds relevant functionality to each of the buttons
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Saves the input ingredient to the system memory
-				PnlIngredientsList list = recipeFrame.pnlIngredientsList;
-				
-				list.ingredients.add(new Ingredient(nameField.getText(), Integer.parseInt(quantityField.getText()), (QuantityType) comboBox.getSelectedItem()));
-				list.addComponents();
-				
-				//Sets the ingredient input text areas to contain their placeholder text
-				nameField.setPlaceholder();
-				quantityField.setPlaceholder();
-				recipeFrame.redraw();
+				if (!nameField.isEmpty() && !quantityField.isEmpty()) {
+					//Saves the input ingredient to the system memory
+					PnlIngredientsList list = recipeFrame.pnlIngredientsList;
+					
+					list.ingredients.add(new Ingredient(nameField.getText(), Integer.parseInt(quantityField.getText()), (QuantityType) comboBox.getSelectedItem()));
+					list.addComponents();
+					
+					//Sets the ingredient input text areas to contain their placeholder text
+					nameField.setPlaceholder();
+					quantityField.setPlaceholder();
+					recipeFrame.redraw();
+				} else {
+					//Makes the text boxes with insuffficient data in them red for user feedback
+					for (CookTextField textField : textFields) {
+						if (textField.isEmpty()) {
+							textField.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, CookSettings.colourError));
+						} else {
+							textField.setBorder(BorderFactory.createEmptyBorder());
+						}
+					}
+				}
 			}
 		});
 		
@@ -88,6 +127,10 @@ public class PnlRecipeIngredient extends CookPanel {
 		
 		//The combo box that allows selection of ingredient QuantityType
 		comboBox = new CookCombo();
+		
+		nameField.setToolTipText("Set ingredient name here");
+		quantityField.setToolTipText("Set ingredient quantity here");
+		comboBox.setToolTipText("Select quantity type here");
 		
 		refreshElements();
 	}
@@ -117,7 +160,6 @@ public class PnlRecipeIngredient extends CookPanel {
 	}
 	
 	public void resizeElements(Dimension frameSize, Dimension screenSize) {
-		//
 		buttonInsets = new Insets((int)(frameSize.height/50), 25, (int)(frameSize.height/50), 25);
 		layoutConstraints.insets = buttonInsets;
 		

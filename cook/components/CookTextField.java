@@ -10,6 +10,10 @@ import javax.swing.JTextField;
 
 import cook.CookSettings;
 
+/**
+ * Extends the functionality of the default JTextField to automatically handle placeholder text,
+ * font scaling, and hold the field screen coordinates
+ */
 @SuppressWarnings("serial")
 public class CookTextField extends JTextField {
 
@@ -45,6 +49,7 @@ public class CookTextField extends JTextField {
 		this.y = y;
 		setBorder(BorderFactory.createEmptyBorder());
 		
+		//Adds placeholder text listeners to add and remove when field focus is lost/gained
 		addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {
 				if (getText().isEmpty()) {

@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 
 import cook.CookSettings;
 
+/**
+ * Extends the functionality of the default panel to automatically construct its layout, and force implementation of panel scaling methods
+ */
 @SuppressWarnings("serial")
 public abstract class CookPanel extends JPanel {
 

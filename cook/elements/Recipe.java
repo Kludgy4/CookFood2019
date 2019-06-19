@@ -2,12 +2,16 @@ package cook.elements;
 
 import java.util.ArrayList;
 
+/**
+ * Holds recipe information in a helpful structure
+ */
 public class Recipe {
 	
 	public String fileName;
 	
 	public String title;
 	public String cookbook;
+	//NOTICE: Required SDD project structure - Use of an array of records
 	public ArrayList<Ingredient> ingredients;
 	
 	/**

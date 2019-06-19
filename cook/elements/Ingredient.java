@@ -1,7 +1,7 @@
 package cook.elements;
 
 /**
- * Holds the Ingredient Information in a helpful structure
+ * Holds ingredient information in a helpful structure
  */
 public class Ingredient {
 	

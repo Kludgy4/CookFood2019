@@ -13,15 +13,19 @@ public class PnlRecipeTitle extends CookPanel {
 	
 	Insets buttonInsets;
 	public CookTextField titleField, cookbookField;
+	//NOTICE: Required SDD project structure - Use of an array of records
 	public ArrayList<CookTextField> textFields = new ArrayList<>();
 	
 	public PnlRecipeTitle() {
 		buttonInsets = new Insets(0, 25, 0, 25);
 		createLayout();
-		addTextPanels();
+		addComponents();
 	}
 	
-	public void addTextPanels() {
+	/**
+	 * Creates and adds specified components to the panel
+	 */
+	public void addComponents() {
 		//Constructs the text boxes
 	    layoutConstraints.ipady = 10;
 	    layoutConstraints.weightx = 0.5;
@@ -29,6 +33,9 @@ public class PnlRecipeTitle extends CookPanel {
 	    
 	    titleField = new CookTextField(false, "Recipe Title", 0, 0);
 		cookbookField = new CookTextField(false, "Cookbook", 1, 0);
+		
+		titleField.setToolTipText("Set recipe title here");
+		cookbookField.setToolTipText("Set cookbook title here");
 		
 		//Adds the text boxes to the panel
 		layoutConstraints.gridx = 0;

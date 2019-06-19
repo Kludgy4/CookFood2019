@@ -1,5 +1,8 @@
 package cook.elements;
 
+/**
+ * Holds and manages the handling of discrete recipe quantity types
+ */
 public enum QuantityType {
 	//Metric
 	//Mass
@@ -8,7 +11,7 @@ public enum QuantityType {
 	MILLILITRES("Millilitre", "Millilitres"), LITRES("Litre", "Litres"), 
 	
 	//Quantity
-	BOTTLES("Bottle", "Bottles"), CANS("Can", "Cans"), CARTONS("Carton", "Cartons"), HANDFULS("Handful", "Handfuls"), WHOLE("Whole", "Whole"), 
+	CANS("Can", "Cans"), HANDFULS("Handful", "Handfuls"), WHOLE("Whole", "Whole"), 
 	
 	//Imperial
 	//Mass
@@ -22,8 +25,8 @@ public enum QuantityType {
 	TEACUPS("Teacup", "Teacups"), GILLS("Gill", "Gills"), CUPS("Cup", "Cups"), QUARTS("Quart", "Quarts"), POTTLES("Pottle", "Pottles"),
 	
 	//Quantity (Less Frequent)
-	CLOVES("Clove", "Cloves"), BARRELS("Barrel", "Barrels"), BAGS("Bag", "Bags"), HINTS("Hint", "Hints"), SACHETS("Sachet", "Sachets"), 
-	VATS("Vat", "Vats"), OTHER("Other", "Other");
+	BOTTLES("Bottle", "Bottles"), CARTONS("Carton", "Cartons"), CLOVES("Clove", "Cloves"), BARRELS("Barrel", "Barrels"), 
+	BAGS("Bag", "Bags"), HINTS("Hint", "Hints"), SACHETS("Sachet", "Sachets"), VATS("Vat", "Vats"), OTHER("Other", "Other");
 	
 	private String singularName = "", multiName = "";
 	

@@ -12,10 +12,15 @@ import javax.swing.ScrollPaneConstants;
 
 import cook.CookSettings;
 
+/**
+ * Extends the functionality of the CookPanel to automatically construct a scrollable panel layout that suits the list form
+ * Pre-constructs checkboxes and is able to find/return the CookBoxes that have been checked
+ */
 @SuppressWarnings("serial")
 public abstract class CookPanelList extends CookPanel {
 
 	protected JPanel listPanel;
+	//NOTICE: Required SDD project structure - Use of an array of records
 	protected ArrayList<CookBox> checkboxes = new ArrayList<>();
 	
 	/**
@@ -53,10 +58,12 @@ public abstract class CookPanelList extends CookPanel {
 	 * @return An array of the selected checkboxes
 	 */
 	public ArrayList<CookBox> getSelectedCheckboxes(boolean shouldUncheck) {
+		//NOTICE: Required SDD project structure - Use of an array of records
 		ArrayList<CookBox> selectedBoxes = new ArrayList<>();
 		
 		for (CookBox box : checkboxes) {
 			if (box.isSelected()) {
+				//Automatically unchecks checkboxes if instructed
 				if (shouldUncheck) {
 					box.setSelected(false);
 				}

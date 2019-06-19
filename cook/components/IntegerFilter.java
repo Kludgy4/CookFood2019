@@ -8,11 +8,11 @@ import javax.swing.text.DocumentFilter;
 import cook.CookMain;
 
 /**
- * StackOverflow class that forces input into a JTextField to only be positive integers
+ * StackOverflow class that allows JTextField input to be forced into a positive integer form
  */
 public class IntegerFilter extends DocumentFilter {   
 	
-	String allowedText;
+	public String allowedText, boxText = "";
 	
 	public IntegerFilter(String allowedText) {
 		super();
@@ -27,10 +27,7 @@ public class IntegerFilter extends DocumentFilter {
 		sb.insert(offset, string);
 		
 		if (test(sb.toString())) {
-			setButtonEnabled(sb.toString());
 			super.insertString(fb, offset, string, attr);
-		} else {
-			CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
 		}
 	}
 
@@ -42,7 +39,7 @@ public class IntegerFilter extends DocumentFilter {
 		sb.replace(offset, offset + length, text);
 		
 		if (test(sb.toString())) {
-			setButtonEnabled(sb.toString());
+			CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(true);
 			super.replace(fb, offset, length, text, attrs);
 		} else {
 			CookMain.recipe.pnlRecipeInterface.pnlRecipeIngredient.addButton.setEnabled(false);
@@ -69,8 +66,10 @@ public class IntegerFilter extends DocumentFilter {
 			return true;
 		}
 		try {
-			Integer.parseInt(text);
-			return true;
+			if (Integer.parseInt(text) >= 0) {
+				return true;
+			}
+			return false;
 		} catch (NumberFormatException e) {
 			return false;
 		}

@@ -41,12 +41,15 @@ public class PnlRecipeSubmit extends CookPanel {
 	public void addComponents() {
 		submitButton = CookIcon.SUBMIT.getCookButton("Submit Recipe");
 		
+		//Adds a listener to the button that checks if input recipe information is sufficient, and if it is, submits it to the main interface for saving
+		//It then closes the recipe creation screen
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FrRecipe recipeFrame = ((PnlRecipeInterface)getParent()).recipeFrame;
 				
 				PnlRecipeTitle recipeInformation = recipeFrame.pnlRecipeInterface.pnlTitle;
 				
+				//Finalises input recipe information and checks for sufficiency
 				if (!recipeInformation.titleField.isEmpty() && !recipeInformation.cookbookField.isEmpty()) {
 					saveRecipe(new Recipe(recipeInformation.titleField.getText(), recipeInformation.cookbookField.getText(), recipeFrame.pnlIngredientsList.ingredients));
 					recipeFrame.mainFrame.pnlRecipeList.refreshRecipes();
@@ -55,6 +58,7 @@ public class PnlRecipeSubmit extends CookPanel {
 					//Add recipe to the other window and dispose of this one
 					recipeFrame.dispose();
 				} else {
+					//Makes the text boxes with insuffficient data in them red for user feedback
 					for (CookTextField textField : recipeInformation.textFields) {
 						if (textField.isEmpty()) {
 							textField.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, CookSettings.colourError));
@@ -66,6 +70,7 @@ public class PnlRecipeSubmit extends CookPanel {
 			}
 		});
 		
+		//Adds the submit button to the panel
 		layoutConstraints.insets = new Insets(0, 30, 0, 30);
 		layoutConstraints.weightx = 0.5;
 		layoutConstraints.ipady = 10;
@@ -76,6 +81,7 @@ public class PnlRecipeSubmit extends CookPanel {
 
 	/**
 	 * Saves a given Recipe object permanently into system memory in an internal program folder
+	 * NOTICE: Required SDD project method - Use of sequential file to store information
 	 * @param recipe The Recipe object to be saved
 	 */
 	public void saveRecipe(Recipe recipe) {

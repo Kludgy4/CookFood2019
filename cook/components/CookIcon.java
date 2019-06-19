@@ -6,6 +6,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 
+/**
+ * Holds all images that are used by the system and their respective file pathing
+ */
 public enum CookIcon {
 	ADD("add"),
 	DELETE("delete"),
@@ -16,13 +19,17 @@ public enum CookIcon {
 
 	private final String location;
 
+	/**
+	 * Sets the image name for each enum type
+	 * @param location
+	 */
 	private CookIcon(String location) {
 		this.location = location;
 	}
 	
 	/**
-	 * The method tries to open an buttonIcon, and if it can't, it defaults to a 404
-	 *  @return The relevant buttonIcon to the selected enum
+	 * The method tries to open an buttonIcon, and if it can't, it defaults to a 404 image
+	 *  @return The relevant buttonIcon for the enum to hold
 	 */
 	public BufferedImage getImage() {
 		try {
@@ -48,6 +55,7 @@ public enum CookIcon {
 		//Creates and sets basic CookButton properties
 		CookButton button = new CookButton(this);
 		button.setText(buttonText);
+		button.setToolTipText(button.getText());
 		button.setIcon(new ImageIcon(this.getImage()));
 		
 		//Sets the properties of each CookButton

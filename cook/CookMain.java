@@ -11,6 +11,7 @@ import cook.recipe.frames.FrRecipe;
  * Creates the application object
  */
 public class CookMain {
+	//NOTICE: Required SDD project structure - Modular, with use of a large array of objects and parameters used
 	public static FrMain app;
 	public static FrRecipe recipe;
 

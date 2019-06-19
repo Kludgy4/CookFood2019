@@ -16,18 +16,25 @@ import cook.recipe.frames.FrRecipe;
 @SuppressWarnings("serial")
 public class PnlIngredientsList extends CookPanelList {
 
+	//NOTICE: Required SDD project structure - Use of an array of records
 	ArrayList<CookTextField> names = new ArrayList<>();
 	ArrayList<CookTextField> quantities = new ArrayList<>();
 	public ArrayList<Ingredient> ingredients = new ArrayList<>();
 	
 	FrRecipe recipeFrame;
 	
+	/**
+	 * Constructs the main Ingredients-List Panel
+	 */
 	public PnlIngredientsList(FrRecipe recipeFrame) {
 		this.recipeFrame = recipeFrame;
 		createScrollableLayout();
 		addComponents();
 	}
 	
+	/**
+	 * Creates and adds specified components to the panel
+	 */
 	public void addComponents() {
 		removeAll();
 		createScrollableLayout();

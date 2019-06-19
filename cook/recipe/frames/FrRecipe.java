@@ -55,14 +55,11 @@ public class FrRecipe extends CookFrame {
 		requestFocusInWindow();
 	}
 	
-	/**
-	 * Updates the positioning and sizing of all on-screen components
-	 */
 	public void redraw() {
 		//Calculates the new adjusted size of the usable frame. Removes error introduced by 'automatic Window shading'
 		refreshFrameSize();
         
-        //Adjusts scaling on the cook, and the list, panes
+        //Adjusts scaling on the interface and list panes
         pnlRecipeInterface.setPreferredSize(new Dimension((int)(frameSize.getWidth()*0.55), (int)(frameSize.getHeight())));
         pnlRecipeInterface.resizeElements(frameSize, screenSize);
         pnlRecipeInterface.repaint();

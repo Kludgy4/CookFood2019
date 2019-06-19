@@ -28,12 +28,14 @@ import cook.main.frames.FrMain;
 @SuppressWarnings("serial")
 public class PnlRecipeList extends CookPanelList {
 
+	//NOTICE: Required SDD project structure - Use of an array of records
 	ArrayList<CookTextField> titles = new ArrayList<>();
+	//NOTICE: Required SDD project structure - Use of an array of records
 	public ArrayList<Recipe> recipes;
 	FrMain mainFrame;
 	
 	/**
-	 * Constructs the Main Recipe-List Panel
+	 * Constructs the main Recipe List Panel
 	 */
 	public PnlRecipeList(FrMain mainFrame) {
 		this.mainFrame = mainFrame;
@@ -108,11 +110,13 @@ public class PnlRecipeList extends CookPanelList {
 	
 	/**
 	 * Retrieves all ingredients previously saved on the system
+	 * NOTICE: Required SDD project method - Use of sequential file to retrieve information
 	 * @return An array of all previously saved ingredients as 'Recipe' objects
 	 */
 	public ArrayList<Recipe> retrieveRecipes() {
 		try {
-			ArrayList<File> recipeFiles = (new RecipeInterface()).getFolderFiles();
+			//NOTICE: Required SDD project structure - Use of an array of records
+			ArrayList<File> recipeFiles = RecipeInterface.getFolderFiles();
 			ArrayList<Recipe> recipes = new ArrayList<>();
 			
 			//Iterates over every retrieved recipe and turns them into recipe objects

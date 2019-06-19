@@ -34,6 +34,7 @@ import cook.recipe.frames.FrRecipe;
 @SuppressWarnings("serial")
 public class PnlInterface extends CookPanel {
 	
+	//NOTICE: Required SDD project structure - Use of an array of records
 	ArrayList<CookButton> buttons = new ArrayList<>();
 	
 	PnlInterfaceButtons pnlBtn = new PnlInterfaceButtons();
@@ -107,6 +108,7 @@ public class PnlInterface extends CookPanel {
 		generateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//Gets selectedRecipes and calls the method that generates the shopping list
+				//NOTICE: Required SDD project structure - Use of an array of records
 				ArrayList<Recipe> selectedRecipes = new ArrayList<>();
 				
 				for (CookBox c : mainFrame.pnlRecipeList.getSelectedCheckboxes(true)) {
@@ -129,11 +131,17 @@ public class PnlInterface extends CookPanel {
 		buttons.add(generateButton);
 		
 		//Adds the buttons to the panel (contained within another panel with whitespace (blank borders) around it)
-		for (CookButton button : buttons) pnlBtn.add(button);
+		for (CookButton button : buttons) {
+			pnlBtn.add(button);
+		}
 		add(pnlBtn, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Disables buttons depending on what boxes have been checked
+	 */
 	public void disableButtons() {
+		//NOTICE: Required SDD project structure - Use of an array of records
 		ArrayList<CookButton> buttons = mainFrame.pnlInterface.buttons;
 		switch (mainFrame.pnlRecipeList.getSelectedCheckboxes(false).size()) {
 			case 0:
@@ -165,11 +173,13 @@ public class PnlInterface extends CookPanel {
 	
 	/**
 	 * Deletes a recipe from the system given its pnlTitle
+	 * NOTICE: Required SDD project method - Implementation of a standard search algorithm (to delete a given file)
 	 * @param pnlTitle The pnlTitle of the recipe to be deleted
 	 * @return A boolean confirming whether the file was successfully deleted or not
 	 */
 	public boolean deleteRecipe(String title) {
-		ArrayList<File> files = (new RecipeInterface()).getFolderFiles();
+		//NOTICE: Required SDD project structure - Use of an array of records
+		ArrayList<File> files = RecipeInterface.getFolderFiles();
 		System.out.println("Deleting " + title + " from " + files.toString());
 		//Perform a linear search for the file to delete
 		int i = 0;
@@ -199,6 +209,7 @@ public class PnlInterface extends CookPanel {
 	 * @param recipeArray The ingredients whose ingredients should be used in the shopping list
 	 */
 	public void generateShoppingList(ArrayList<Recipe> recipeArray) {
+		//NOTICE: Required SDD project structure - Use of an array of records
 		ArrayList<Ingredient> arrangedIngredients  = arrangeIngredients(recipeArray);
 		File saveLocation = getSaveLocation("Text File", "txt");
 		if (!saveLocation.getPath().isEmpty()) {
@@ -216,14 +227,17 @@ public class PnlInterface extends CookPanel {
 	/**
 	 * This method extracts all of the ingredients from input ingredients and places them into an unsorted array.
 	 * It then sorts all of these ingredients into alphabetical order by name, and then returns the sorted pnlRecipeIngredient array
+	 * NOTICE: Required SDD project method - Implementation of a standard sort algorithm (to sort shopping list into alphabetical order)
 	 * @param recipeArray The array of ingredients whose ingredients need to be ordered
 	 * @return An array of input recipe ingredients, alphabetically arranged
 	 */
 	public ArrayList<Ingredient> arrangeIngredients(ArrayList<Recipe> recipeArray) {
+		//NOTICE: Required SDD project structure - Use of an array of records
 		ArrayList<Ingredient> ingredientArray = new ArrayList<>();
 		
 		//Loads all of the recipe ingredients into an unsorted array
 		for (int i = 0; i < recipeArray.size(); i++) {
+			//NOTICE: Required SDD project structure - Use of an array of records
 			ArrayList<Ingredient> ingredients = recipeArray.get(i).ingredients;
 			for (int j = 0; j < ingredients.size(); j++) {
 				ingredientArray.add(ingredients.get(j));

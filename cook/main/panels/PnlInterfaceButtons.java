@@ -11,6 +11,9 @@ import cook.components.CookPanel;
 @SuppressWarnings("serial")
 public class PnlInterfaceButtons extends CookPanel {
 
+	/**
+	 * A subpanel used to hold the buttons in a nice structure
+	 */
 	public PnlInterfaceButtons() {
 		createLayout();
 	}

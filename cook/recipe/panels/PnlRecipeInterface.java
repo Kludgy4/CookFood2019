@@ -17,6 +17,7 @@ public class PnlRecipeInterface extends CookPanel {
 	public PnlRecipeIngredient pnlRecipeIngredient;
 	public PnlRecipeSubmit pnlRecipeSubmit;
 	
+	//NOTICE: Required SDD project structure - Use of an array of records
 	ArrayList<CookPanel> panels = new ArrayList<>();
 	
 	FrRecipe recipeFrame;

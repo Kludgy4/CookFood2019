@@ -4,6 +4,9 @@ import javax.swing.JCheckBox;
 
 import cook.CookSettings;
 
+/**
+ * Extends the functionality of the default JCheckBox to hold a selectable, and thus deletable, array object reference, and the screen coordinates of the box
+ */
 @SuppressWarnings("serial")
 public class CookBox extends JCheckBox {
 	

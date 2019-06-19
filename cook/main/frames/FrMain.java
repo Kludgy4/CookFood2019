@@ -37,9 +37,6 @@ public class FrMain extends CookFrame {
 		setVisible(true);
 	}
 	
-	/**
-	 * Updates the positioning and sizing of all on-screen components
-	 */
 	public void redraw() {
 		//Calculates the new adjusted size of the usable frame. Removes error introduced by 'automatic Window shading'
 		refreshFrameSize();
