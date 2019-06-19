@@ -65,7 +65,11 @@ public abstract class CookFrame extends JFrame {
 				System.out.println("There was a problem getting the latest 'Online Help'. Make sure you are connected to the internet and try again");
 				System.out.println("Now attempting to open the locally stored Online Help file");
 				try {
-					Desktop.getDesktop().open(new File(CookSettings.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/README.md"));
+					Desktop.getDesktop().open(
+							new File(
+									new File(CookSettings.class.getProtectionDomain().getCodeSource().getLocation().getPath())
+									+ "/README.md")
+							);
 				} catch (IOException e1) {
 					System.out.println("No local 'Online Help' available either. Maybe you moved the downloaded 'README.md' file?");
 				}
