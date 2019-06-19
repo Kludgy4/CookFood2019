@@ -250,7 +250,7 @@ public class PnlInterface extends CookPanel {
 			//Find the lowest list element, or the first in the alphabet
 			int lowestIndex = i;
 			for (int j = i; j < ingredientArray.size(); j++) {
-				if (ingredientArray.get(j).name.compareTo(ingredientArray.get(lowestIndex).name) < 0) {
+				if (ingredientArray.get(j).name.toUpperCase().compareTo(ingredientArray.get(lowestIndex).name.toUpperCase()) < 0) {
 					lowestIndex = j;
 				}
 			}
